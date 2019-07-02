@@ -9,9 +9,9 @@ class LevelInterface {
 
     virtual UnplacedBlock getNextBlock() = 0;
 
-    void moveDown(Board&);
-    void moveLeft(Board&);
-    void moveRight(Board&);
+    virtual void moveDown(Board&);
+    virtual void moveLeft(Board&);
+    virtual void moveRight(Board&);
     void drop(Board&);
 };
 
