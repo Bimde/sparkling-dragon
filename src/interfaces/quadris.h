@@ -19,7 +19,8 @@ class Quadris {
 	std::unique_ptr<Game> game;
   public:
 	void sendCommand(std::string s);
-
+	...
+	~Quadris();
 };
 
 #endif

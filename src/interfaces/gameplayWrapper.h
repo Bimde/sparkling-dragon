@@ -12,6 +12,7 @@ class GameplayWrapper {
   public:
     GameplayWrapper(CommandInterpreter * ci, Quadris * q);
     void tryCommand(std::string cmd);
+    ~GameplayWrapper();
 };
 
 #endif

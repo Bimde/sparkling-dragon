@@ -14,7 +14,6 @@ class CommandInterpreter: public Subject {
     CommandInterpreter();
     std::string processCommand(std::string cmd);
     void modifyCommand(std::string original, std::string replacement);
-
     ~CommandInterpreter();
 };
 
