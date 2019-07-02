@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-class HintInterface;
+class HintGenerator;
 class UnplacedBlock;
 class PlacedBlock;
 
@@ -14,9 +14,9 @@ class Board {
 	  std::unique_ptr<UnplacedBlock> currentBlock;
 	  std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
 
-    std::shared_ptr<HintInterface> hinter;
+    std::shared_ptr<HintGenerator> hinter;
   public:
-  	Board(std::shared_ptr<HintInterface> hinter);
+  	Board(std::shared_ptr<HintGenerator> hinter);
 
   	void setCurrent(std::unique_ptr<UnplacedBlock>);
 

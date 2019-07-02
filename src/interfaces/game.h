@@ -11,15 +11,20 @@
 class Game {
 	int score;
 	int level;
+  bool showHint;
 
-	Board board;
+	std::unique_ptr<Board> board;
 
 	std::unique_ptr<UnplacedBlock> nextBlock;
 
 	std::unique_ptr<LevelFactory> levelFactory;
 	std::shared_ptr<LevelInterface> currentLevel;
+
+  std::shared_ptr<HintGenerator> hinter;
+  
   public:
-  	Game(std::unique_ptr<LevelFactory> levelFactory, int startingLevel);
+  	Game(std::unique_ptr<LevelFactory> levelFactory, 
+         std::shared_ptr<HintGenerator> hinter, int startingLevel);
 
   	bool moveCurrentBlockDown();
   	bool moveCurrentBlockLeft();
