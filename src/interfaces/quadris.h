@@ -11,12 +11,10 @@ class Quadris {
 	int highScore;
 	std::unique_ptr<Game> game;
   public:
-  	
-  	~Quadris();
+	Quadris(int seed, std::string scriptfile, int startLevel);
 	void sendCommand(std::string s);
-	...
-
 	QuadrisState getState();
+  	~Quadris();
 };
 
 #endif
