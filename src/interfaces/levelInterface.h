@@ -4,14 +4,22 @@
 #include "unplacedBlock.h"
 
 class LevelInterface {
+  private:
+  	virtual UnplacedBlock getNextBlockImpl() = 0;
+
+  	virtual void moveDownImpl(Board&);
+    virtual void moveLeftImpl(Board&);
+    virtual void moveRightImpl(Board&);
+    virtual void dropImpl(Board&);
+
   public:
   	virtual ~LevelInterface();
 
-    virtual UnplacedBlock getNextBlock() = 0;
+    UnplacedBlock getNextBlock() = 0;
 
-    virtual void moveDown(Board&);
-    virtual void moveLeft(Board&);
-    virtual void moveRight(Board&);
+    void moveDown(Board&);
+    void moveLeft(Board&);
+    void moveRight(Board&);
     void drop(Board&);
 };
 

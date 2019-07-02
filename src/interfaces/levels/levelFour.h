@@ -6,12 +6,13 @@
 class LevelFour : public LevelInterface {
   public:
   	LevelFour();
-  	UnplacedBlock getNextBlock() override;
+  	
+  	UnplacedBlock getNextBlockImpl() override;
 
-  	void moveDown(Board&) override;
-    void moveLeft(Board&) override;
-    void moveRight(Board&) override;
-    void drop(Board&) override;
+  	void moveDownImpl(Board&) override;
+    void moveLeftImpl(Board&) override;
+    void moveRightImpl(Board&) override;
+    void dropImpl(Board&) override;
 };
 
 #endif

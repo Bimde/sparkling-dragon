@@ -6,7 +6,8 @@
 class LevelZero : public LevelInterface {
   public:
   	LevelZero();
-  	UnplacedBlock getNextBlock() override;
+
+  	UnplacedBlock getNextBlockImpl() override;
 };
 
 #endif
