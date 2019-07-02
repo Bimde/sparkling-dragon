@@ -5,7 +5,7 @@
 
 class LevelZero : public LevelInterface {
   public:
-  	LevelZero();
+  	LevelZero(string filename);
 
   	UnplacedBlock getNextBlockImpl() override;
 };
