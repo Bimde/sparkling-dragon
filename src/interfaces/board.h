@@ -4,17 +4,13 @@
 #include <vector>
 #include <memory>
 
-class HintGenerator;
 class UnplacedBlock;
 class PlacedBlock;
 
 class Board {
-    bool showHint;
 
 	  std::unique_ptr<UnplacedBlock> currentBlock;
 	  std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
-
-    std::shared_ptr<HintGenerator> hinter;
   public:
   	Board(std::shared_ptr<HintGenerator> hinter);
 
@@ -36,8 +32,6 @@ class Board {
 
     void reset();
 
-    // Generates the state of the board with or without the hint (depending)
-    // on the hint flags value
     std::vector<std::vector<char>> getState();
 };
 
