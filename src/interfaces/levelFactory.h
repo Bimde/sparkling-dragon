@@ -15,8 +15,8 @@ class LevelFour;
 class LevelConfig {
 	int seed;
 	std::string filename;
-  public:
 
+  public:
 	LevelConfig();
 	
 	int seed();
