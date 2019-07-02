@@ -2,8 +2,8 @@
 #define INTERFACES_BOARD_H
 
 class Board {
-	UnplacedBlock currentBlock;
-	std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
+	  UnplacedBlock currentBlock;
+	  std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
   public:
   	Board();
 
