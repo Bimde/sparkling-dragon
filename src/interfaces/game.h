@@ -18,7 +18,7 @@ class Game {
 	std::shared_ptr<LevelInterface> currentLevel;
 	std::shared_ptr<LevelInterface> nextLevel;
   public:
-  	Game(std::unique_ptr<LevelFactory> levelFactory);
+  	Game(std::unique_ptr<LevelFactory> levelFactory, int startingLevel);
 
   	bool moveCurrentBlockDown();
   	bool moveCurrentBlockLeft();
