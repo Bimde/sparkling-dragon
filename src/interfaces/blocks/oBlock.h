@@ -4,7 +4,10 @@
 #include "unplacedBlock.h"
 
 class OBlock : public UnplacedBlock {
+  public:
+  	OBlock(int score, std::pair<int, int> bottomLeft);
 
+  	static OBlock create(int score, std::pair<int, int> bottomLeft);
 };
 
 #endif

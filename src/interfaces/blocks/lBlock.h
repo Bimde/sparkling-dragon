@@ -4,7 +4,10 @@
 #include "unplacedBlock.h"
 
 class LBlock : public UnplacedBlock {
+  public:
+  	LBlock(int score, std::pair<int, int> bottomLeft);
 
+  	static LBlock create(int score, std::pair<int, int> bottomLeft);
 };
 
 #endif

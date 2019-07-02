@@ -5,9 +5,9 @@
 
 class LevelInterface {
   public:
-  	virtual ~LevelInterface() = 0;
+  	virtual ~LevelInterface();
 
-    UnplacedBlock getNextBlock();
+    virtual UnplacedBlock getNextBlock() = 0;
 
     void moveDown(Board&);
     void moveLeft(Board&);

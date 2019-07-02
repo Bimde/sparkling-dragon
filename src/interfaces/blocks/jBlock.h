@@ -4,7 +4,10 @@
 #include "unplacedBlock.h"
 
 class JBlock : public UnplacedBlock {
+  public:
+  	JBlock(int score, std::pair<int, int> bottomLeft);
 
+  	static JBlock create(int score, std::pair<int, int> bottomLeft);
 };
 
 #endif
