@@ -1,17 +1,17 @@
 #ifndef INTERFACES_PLACED_BLOCK_H
 #define INTERFACES_PLACED_BLOCK_H
 
-#include "enums.h"
+#include "block.h"
 
-class PlacedBlock {
-    int count;
-    int score;
-    BlockType type;
+class PlacedBlock : public Block {
+	int count;
   public:
-    PlacedBlock(int, int, BlockType);
-    int getScore() const;
-    int getCount() const;
-    void decrementCount();
-    BlockType getType() const;
+	PlacedBlock(int score, int type, int count);
+	~PlacedBlock();
+
+	void decrementCount();
+	// Checks if the block is fully destroyed
+	bool isDestroyed();
 };
-#endif // INTERFACES_PLACED_BLOCK_H
+
+#endif

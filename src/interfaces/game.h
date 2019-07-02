@@ -1,16 +1,36 @@
 #ifndef INTERFACES_GAME_H
 #define INTERFACES_GAME_H
 
-#include <vector>
+#include "levelInterface.h"
+#include "levelFactory.h"
 
-#include "placedBlock.h"
-#include "unplacedBlock.h"
-#include "level.h"
-#include "enums.h"
+// Maybe can improve this using pImpl tbh LOL
+struct GameState {
+	const int score;
+	const std::vector<std::vector<char>> board;
+
+	// Other fields
+};
 
 class Game {
-    std::vector<std::vector<PlacedBlock*>> board;
-    UnplacedBlock currentBlock;
-    Level level;
+	int score;
+
+	Board board;
+	UnplacedBlock nextBlock;
+
+	std::unique_ptr<LevelFactory> levelFactory;
+
+	std::shared_ptr<LevelInterface> currentLevel;
+	std::shared_ptr<LevelInterface> nextLevel;
+  public:
+  	Game(std::unique_ptr<LevelFactory> levelFactory);
+
+  	GameState getState();
+
+  	void setNextLevel(int level);
+  	void reset();
+
+  	// All moves
 };
-#endif // INTERFACES_GAME_H
+
+#endif
