@@ -15,8 +15,11 @@ class LevelInterface {
   public:
   	virtual ~LevelInterface();
 
+    // Gets the next block to be played based on the current state.
+    // Assumes that it called at most once per turn.
     UnplacedBlock getNextBlock() = 0;
 
+    // Moves the current block on the board.
     void moveDown(Board&);
     void moveLeft(Board&);
     void moveRight(Board&);

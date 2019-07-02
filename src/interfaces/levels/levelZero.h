@@ -4,10 +4,10 @@
 #include "levelInterface.h"
 
 class LevelZero : public LevelInterface {
+  	UnplacedBlock getNextBlockImpl() override;
+  	
   public:
   	LevelZero(string filename);
-
-  	UnplacedBlock getNextBlockImpl() override;
 };
 
 #endif

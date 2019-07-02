@@ -4,15 +4,15 @@
 #include "levelInterface.h"
 
 class LevelFour : public LevelInterface {
-  public:
-  	LevelFour();
-  	
-  	UnplacedBlock getNextBlockImpl() override;
+	UnplacedBlock getNextBlockImpl() override;
 
   	void moveDownImpl(Board&) override;
     void moveLeftImpl(Board&) override;
     void moveRightImpl(Board&) override;
     void dropImpl(Board&) override;
+    
+  public:
+  	LevelFour();
 };
 
 #endif

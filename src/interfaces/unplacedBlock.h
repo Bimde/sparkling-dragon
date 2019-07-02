@@ -6,9 +6,11 @@
 class UnplacedBlock : public Block {
     std::pair<int, int> bottomLeft;
     std::vector<std::pair<int, int>> offsets;
+
   protected:
     UnplacedBlock(int score, char type, std::pair<int, int> bottomLeft, 
                   std::vector<std::pair<int, int>> offsets);
+
   public:
   	virtual ~UnplacedBlock() = 0;
 
@@ -17,11 +19,5 @@ class UnplacedBlock : public Block {
   	void moveRight();
   	void moveLeft();
 };
-
-// We might want to either use factory fns for generating the different
-// block types or individual base classes.
-
-// We can discuss what is better tmrw. Might be easier to do factory fns
-// (e.g. static UnplacedBlock [createS() / createT(), etc..])
 
 #endif

@@ -14,12 +14,12 @@ class Board {
   	bool moveCurrentRight();
   	bool dropCurrent();
 
-  	void placeCurrent();
+    void numberOfFullRows();
 
   	// Checks if the current block overlaps other already placed blocks
   	bool isCurrentOverlapping();
   	
-  	void numberOfFullRows();
+    // TODO break this up (or make it cleaner)
   	std::vector<std::shared_ptr<PlacedBlock>> 
   		destroyFullRowsAndGetDestroyedPlacedBlocks();
 };
