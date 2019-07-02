@@ -4,11 +4,12 @@
 #include "block.h"
 
 class UnplacedBlock : public Block {
-	std::pair<int, int> bottomLeft;
-	std::vector<std::pair<int, int>> offsets;
+    std::pair<int, int> bottomLeft;
+    std::vector<std::pair<int, int>> offsets;
+  protected:
+    UnplacedBlock(int score, char type, std::pair<int, int> bottomLeft, 
+                  std::vector<std::pair<int, int>> offsets);
   public:
-  	UnplacedBlock(int score, char type, std::pair<int, int> bottomLeft, 
-  		            std::vector<std::pair<int, int>> offsets);
   	~UnplacedBlock();
 
   	void rotateLeft();
