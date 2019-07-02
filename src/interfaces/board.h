@@ -1,14 +1,22 @@
 #ifndef INTERFACES_BOARD_H
 #define INTERFACES_BOARD_H
 
-#include <utility>
+#include <vector>
+#include <memory>
 
+class HintInterface;
+class UnplacedBlock;
+class PlacedBlock;
 
 class Board {
+    bool showHint;
+
 	  std::unique_ptr<UnplacedBlock> currentBlock;
 	  std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
+
+    std::shared_ptr<HintInterface> hinter;
   public:
-  	Board();
+  	Board(std::shared_ptr<HintInterface> hinter);
 
   	void setCurrent(std::unique_ptr<UnplacedBlock>);
 
@@ -27,6 +35,10 @@ class Board {
   		destroyFullRowsAndGetDestroyedPlacedBlocks();
 
     void reset();
+
+    // Generates the state of the board with or without the hint (depending)
+    // on the hint flags value
+    std::vector<std::vector<char>> getState();
 };
 
 #endif
