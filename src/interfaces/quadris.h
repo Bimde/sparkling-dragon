@@ -2,6 +2,8 @@
 #define QUADRIS_H
 
 #include <utility>
+#include <memory>
+#include <string>
 
 #include "game.h"
 
@@ -16,6 +18,7 @@ class Quadris {
 	int highScore;
 	std::unique_ptr<Game> game;
   public:
+	void sendCommand(std::string s);
 
 };
 

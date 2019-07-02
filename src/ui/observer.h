@@ -1,5 +1,5 @@
-#ifndef UI_OBSERVER_H
-#define UI_OBSERVER_H
+#ifndef OBSERVER_H
+#define OBSERVER_H
 
 class Observer {
   public:
