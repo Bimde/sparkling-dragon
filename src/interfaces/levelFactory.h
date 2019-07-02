@@ -23,7 +23,7 @@ class LevelConfig {
 	void setSeed(int seed);
 
 	std::string filename();
-	void setFileName(std::string filename);
+	void setFilename(std::string filename);
 };
 
 class LevelFactory {
@@ -37,6 +37,14 @@ class LevelFactory {
   	LevelFactory(LevelConfig cfg);
 
   	std::shared_ptr<LevelInterface> getLevel(int level);
+
+  	// Sets the input as a file for certain levels
+  	void useFileForOther(std::string filename);
+  	// Makes certain levels random.
+  	void random();
+
+  	int increaseLevel(int level);
+  	int decreaseLevel(int level);
 };
 
 #endif

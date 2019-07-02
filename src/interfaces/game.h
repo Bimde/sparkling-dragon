@@ -18,7 +18,6 @@ class Game {
 
 	std::unique_ptr<LevelFactory> levelFactory;
 	std::shared_ptr<LevelInterface> currentLevel;
-	std::shared_ptr<LevelInterface> nextLevel;
   public:
   	Game(std::unique_ptr<LevelFactory> levelFactory, int startingLevel);
 
@@ -29,6 +28,10 @@ class Game {
 
   	void increaseLevel();
   	void decreaseLevel();
+    // Sets the input as a file for certain levels
+    void useFileForLevel(std::string filename);
+    // Makes certain levels random.
+    void randomizeLevels();
 
   	void enableHint();
   	void disableHint();

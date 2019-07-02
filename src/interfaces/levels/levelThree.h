@@ -14,6 +14,7 @@ class LevelThree : public LevelInterface {
     
   public:
   	LevelThree();
+  	virtual ~LevelThree();
 };
 
 #endif
