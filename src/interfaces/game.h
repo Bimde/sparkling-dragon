@@ -10,6 +10,8 @@
 
 class Game {
 	int score;
+	int level;
+
 	Board board;
 
 	std::unique_ptr<UnplacedBlock> nextBlock;
@@ -25,7 +27,11 @@ class Game {
   	bool moveCurrentBlockRight();
   	bool dropCurrentBlock();
 
-  	void setNextLevel(int level);
+  	void increaseLevel();
+  	void decreaseLevel();
+
+  	void enableHint();
+  	void disableHint();
 
   	void reset();
 
