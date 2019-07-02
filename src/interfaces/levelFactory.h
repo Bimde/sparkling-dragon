@@ -12,11 +12,18 @@ class LevelTwo;
 class LevelThree;
 class LevelFour;
 
-struct LevelConfig {
-	const std::string filename;
+class LevelConfig {
+	int seed;
+	std::string filename;
+  public:
 
 	LevelConfig();
-	LevelConfig(std::string filename);
+	
+	int seed();
+	void setSeed(int seed);
+
+	std::string filename();
+	void setFileName(std::string filename);
 };
 
 class LevelFactory {
