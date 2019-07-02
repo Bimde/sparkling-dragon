@@ -1,16 +1,9 @@
 #ifndef QUADRIS_H
 #define QUADRIS_H
 
-#include <utility>
+#include <memory>
 
 #include "game.h"
-
-struct QuadrisState {
-	const int highScore;
-	const GameState gameState;
-	
-	QuadrisState(int highScore, GameState gameState);
-};
 
 class Quadris {
 	int highScore;

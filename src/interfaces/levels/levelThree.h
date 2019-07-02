@@ -1,10 +1,12 @@
 #ifndef INTERFACES_LEVELS_LEVELTHREE_H
 #define INTERFACES_LEVELS_LEVELTHREE_H
 
+#include <memory>
+
 #include "levelInterface.h"
 
 class LevelThree : public LevelInterface {
-  	UnplacedBlock getNextBlockImpl() override;
+  	std::unique_ptr<UnplacedBlock> getNextBlockImpl() override;
 
   	void moveDownImpl(Board&) override;
     void moveLeftImpl(Board&) override;

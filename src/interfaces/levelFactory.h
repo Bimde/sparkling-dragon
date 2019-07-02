@@ -2,6 +2,7 @@
 #define INTERFACES_LEVEL_FACTORY_H
 
 #include <string>
+#include <memory>
 
 #include "levelInterface.h"
 

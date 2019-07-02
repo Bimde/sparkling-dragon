@@ -8,7 +8,6 @@ class PlacedBlock : public Block {
 
   public:
 	PlacedBlock(int score, int type, int count);
-	~PlacedBlock();
 
 	void decrementCount();
 

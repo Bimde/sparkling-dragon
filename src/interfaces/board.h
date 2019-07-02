@@ -1,13 +1,16 @@
 #ifndef INTERFACES_BOARD_H
 #define INTERFACES_BOARD_H
 
+#include <utility>
+
+
 class Board {
-	  UnplacedBlock currentBlock;
+	  std::unique_ptr<UnplacedBlock> currentBlock;
 	  std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
   public:
   	Board();
 
-  	void setCurrent(UnplacedBlock);
+  	void setCurrent(std::unique_ptr<UnplacedBlock>);
 
   	bool moveCurrentDown();
   	bool moveCurrentLeft();
@@ -22,6 +25,8 @@ class Board {
     // TODO break this up (or make it cleaner)
   	std::vector<std::shared_ptr<PlacedBlock>> 
   		destroyFullRowsAndGetDestroyedPlacedBlocks();
+
+    void reset();
 };
 
 #endif
