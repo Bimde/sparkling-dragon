@@ -10,7 +10,7 @@ class UnplacedBlock : public Block {
     UnplacedBlock(int score, char type, std::pair<int, int> bottomLeft, 
                   std::vector<std::pair<int, int>> offsets);
   public:
-  	~UnplacedBlock();
+  	virtual ~UnplacedBlock() = 0;
 
   	void rotateLeft();
   	void moveDown();
