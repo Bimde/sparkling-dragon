@@ -8,11 +8,11 @@ class UnplacedBlock;
 class PlacedBlock;
 
 class Board {
-
 	  std::unique_ptr<UnplacedBlock> currentBlock;
 	  std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
+
   public:
-  	Board(std::shared_ptr<HintGenerator> hinter);
+  	Board();
 
   	void setCurrent(std::unique_ptr<UnplacedBlock>);
 
