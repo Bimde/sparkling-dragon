@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include "subject.h"
+#include "../ui/subject.h"
 
 class Trie;
 
