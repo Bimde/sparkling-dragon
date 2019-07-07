@@ -45,6 +45,20 @@ bool Board::moveCurrentRight() {
 	return setCurrentIfNotOverlapping(std::move(tempBlock));
 }
 
+bool Board::rotateCurrentLeft() {
+	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
+	tempBlock->rotateLeft();
+
+	return setCurrentIfNotOverlapping(std::move(tempBlock));
+}
+
+bool Board::rotateCurrentRight() {
+	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
+	tempBlock->rotateRight();
+
+	return setCurrentIfNotOverlapping(std::move(tempBlock));
+}
+
 // TODO
 bool Board::dropCurrent();
 int Board::numberOfFullRows();

@@ -22,6 +22,8 @@ class Board {
   	bool moveCurrentLeft();
   	bool moveCurrentRight();
   	bool dropCurrent();
+    bool rotateCurrentLeft();
+    bool rotateCurrentRight();
 
     int numberOfFullRows();
 

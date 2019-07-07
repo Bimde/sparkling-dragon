@@ -12,7 +12,12 @@ UnplacedBlock::UnplacedBlock(
 UnplacedBlock::~UnplacedBlock() {}
 
 // TODO
-void UnplacedBlock::rotateLeft();
 void UnplacedBlock::moveDown();
 void UnplacedBlock::moveRight();
 void UnplacedBlock::moveLeft();
+void UnplacedBlock::rotateLeft();
+void UnplacedBlock::rotateRight() {
+	rotateLeft();
+	rotateLeft();
+	rotateLeft();
+}

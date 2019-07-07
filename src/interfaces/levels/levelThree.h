@@ -8,8 +8,7 @@
 class LevelThree : public LevelInterface {
   	std::unique_ptr<UnplacedBlock> getNextBlockImpl() override;
 
-    void moveLeftImpl(Board&) override;
-    void moveRightImpl(Board&) override;
+    void actionAfterMoveImpl(Board&) override;
     
   public:
   	LevelThree();
