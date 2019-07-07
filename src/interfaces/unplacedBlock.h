@@ -16,10 +16,11 @@ class UnplacedBlock : public Block {
   public:
   	virtual ~UnplacedBlock() = 0;
 
-  	void rotateLeft();
   	void moveDown();
   	void moveRight();
   	void moveLeft();
+    void rotateLeft();
+    void rotateRight();
 };
 
 #endif

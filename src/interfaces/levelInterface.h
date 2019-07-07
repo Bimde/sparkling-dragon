@@ -1,19 +1,19 @@
 #ifndef INTERFACES_LEVEL_INTERFACE_H
 #define INTERFACES_LEVEL_INTERFACE_H
 
+#include <memory>
 #include <utility>
 
 #include "unplacedBlock.h"
+
+class Board;
 
 class LevelInterface {
     int level;
 
   	virtual std::unique_ptr<UnplacedBlock> getNextBlockImpl() = 0;
 
-  	virtual void moveDownImpl(Board&);
-    virtual void moveLeftImpl(Board&);
-    virtual void moveRightImpl(Board&);
-    virtual void dropImpl(Board&);
+  	virtual void actionAfterMoveImpl(Board&);
 
   public:
     LevelInterface(int level);
@@ -28,6 +28,10 @@ class LevelInterface {
     void moveLeft(Board&);
     void moveRight(Board&);
     void drop(Board&);
+    void rotateLeft(Board&);
+    void rotateRight(Board&);
+
+    void actionAfterMove(Board&);
 };
 
 #endif
