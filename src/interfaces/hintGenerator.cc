@@ -22,6 +22,6 @@ std::unique_ptr<UnplacedBlock> HintGenerator::generateHint(
 	generateHintImpl(board, currentBlock);
 }
 
-std::unique_ptr<HintGenerator> create() {
+std::unique_ptr<HintGenerator> HintGenerator::create() {
 	return new HintGeneratorImpl;
 }
