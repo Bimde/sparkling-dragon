@@ -8,9 +8,6 @@
 class JBlock : public UnplacedBlock {
   public:
   	JBlock(int score, std::pair<int, int> bottomLeft);
-
-  	static std::unique_ptr<JBlock> create(int score, 
-  										  std::pair<int, int> bottomLeft);
 };
 
 #endif

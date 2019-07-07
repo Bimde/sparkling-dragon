@@ -8,8 +8,6 @@
 class StarBlock : public UnplacedBlock {
   public:
   	StarBlock(std::pair<int, int> bottomLeft);
-
-  	static std::unique_ptr<StarBlock> create(std::pair<int, int> bottomLeft);
 };
 
 #endif

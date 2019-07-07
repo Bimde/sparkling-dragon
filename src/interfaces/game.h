@@ -31,6 +31,9 @@ class Game {
   	bool moveCurrentBlockRight();
   	bool dropCurrentBlock();
 
+    bool rotateCurrentBlockLeft();
+    bool rotateCurrentBlockRight();
+
   	void increaseLevel();
   	void decreaseLevel();
     // Sets the input as a file for certain levels

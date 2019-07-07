@@ -9,7 +9,8 @@ struct QuadrisState {
 	const std::string curCommand;
 	const GameState gameState;
 	
-	QuadrisState(int highScore, std::string curCommand, GameState gameState);
+	QuadrisState(int highScore, std::string curCommand, GameState gameState) : 
+		highScore{highScore}, curCommand{curCommand}, gameState{gameState} {}
 };
 
 #endif

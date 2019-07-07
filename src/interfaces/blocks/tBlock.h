@@ -8,9 +8,6 @@
 class TBlock : public UnplacedBlock {
   public:
   	TBlock(int score, std::pair<int, int> bottomLeft);
-
-  	static std::unique_ptr<TBlock> create(int score, 
-  										  std::pair<int, int> bottomLeft);
 };
 
 #endif

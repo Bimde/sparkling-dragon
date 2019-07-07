@@ -8,11 +8,13 @@ class UnplacedBlock;
 class PlacedBlock;
 
 class Board {
-
 	  std::unique_ptr<UnplacedBlock> currentBlock;
 	  std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
+
+    bool setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock>);
+    
   public:
-  	Board(std::shared_ptr<HintGenerator> hinter);
+  	Board();
 
   	void setCurrent(std::unique_ptr<UnplacedBlock>);
 
@@ -21,10 +23,10 @@ class Board {
   	bool moveCurrentRight();
   	bool dropCurrent();
 
-    void numberOfFullRows();
+    int numberOfFullRows();
 
-  	// Checks if the current block overlaps other already placed blocks
-  	bool isCurrentOverlapping();
+  	// Checks if a block overlaps other already placed blocks
+  	bool isOverlapping(const UnplacedBlock&);
   	
     // TODO break this up (or make it cleaner)
   	std::vector<std::shared_ptr<PlacedBlock>> 

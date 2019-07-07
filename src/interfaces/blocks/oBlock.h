@@ -8,9 +8,6 @@
 class OBlock : public UnplacedBlock {
   public:
   	OBlock(int score, std::pair<int, int> bottomLeft);
-
-  	static std::unique_ptr<OBlock> create(int score, 
-  										  std::pair<int, int> bottomLeft);
 };
 
 #endif

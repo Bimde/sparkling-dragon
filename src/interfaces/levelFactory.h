@@ -13,17 +13,27 @@ class LevelThree;
 class LevelFour;
 
 class LevelConfig {
-	int seed;
-	std::string filename;
+	int seed_;
+	std::string filename_;
 
   public:
-	LevelConfig();
+	LevelConfig() {}
 	
-	int seed();
-	void setSeed(int seed);
+	int seed() {
+		return seed_;
+	}
 
-	std::string filename();
-	void setFilename(std::string filename);
+	void setSeed(int seed) {
+		seed_ = seed;
+	}
+
+	std::string filename() {
+		return filename_;
+	}
+
+	void setFilename(std::string filename) {
+		filename_ = filename;
+	}
 };
 
 class LevelFactory {
@@ -34,7 +44,7 @@ class LevelFactory {
 	std::shared_ptr<LevelFour> levelFour;
 
   public:
-  	LevelFactory(LevelConfig cfg);
+  	LevelFactory(const LevelConfig& cfg);
 
   	std::shared_ptr<LevelInterface> getLevel(int level);
 

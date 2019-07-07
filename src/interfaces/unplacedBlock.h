@@ -1,6 +1,8 @@
 #ifndef INTERFACES_UNPLACED_BLOCK_H
 #define INTERFACES_UNPLACED_BLOCK_H
 
+#include <vector>
+
 #include "block.h"
 
 class UnplacedBlock : public Block {
