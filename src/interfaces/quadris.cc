@@ -26,42 +26,54 @@ string Quadris::parseCommand(string command) {
     return command.substr(idx, command.length()-idx);
 }
 
-void Quadris::runCommands() {
-    while(!commands.empty()) {
-        enum CMD command = commands.pop;
-        
-        switch(command) {
-            case Left:
-                break;
-            case Right:
-                break;
-            case Down:
-                break;
-            case CW:
-                break;
-            case CCW:
-                break;
-            case Drop:
-                break;
-            case LevelUp:
-                break;
-            case LevelDown:
-                break;
-            case NoRandom:
-                break;
-            case Random:
-                break;
-            case Restart:
-                break;
-            case Hint: 
-                break;
-            case RemoveHint:
-                break;
-            case InvalidCommand:
-                break;
-            case AfterMoveTurn:
-                break;
-        }
+void Quadris::runCommand(CMD command) {
+    switch(command) {
+        case Left:
+            game->moveCurrentBlockLeft();
+            break;
+        case Right:
+            game->moveCurrentBlockRight();
+            break;
+        case Down:
+            game->moveCurrentBlockDown();
+            break;
+        case RotateLeft:
+            game->rotateCurrentBlockLeft();
+            break;
+        case RotateRight:
+            game->rotateCurrentBlockRight();
+            break;
+        case Drop:
+            game->dropCurrentBlock();
+            break;
+        case LevelUp:
+            game->increaseLevel();
+            break;
+        case LevelDown:
+            game->decreaseLevel();
+            break;
+        case NoRandom:
+            game->useFileForLevel(levelFile);
+            break;
+        case Random:
+            break;
+        case Restart:
+            game->reset();
+            break;
+        case Hint: 
+            game->enableHint();
+            displayingHint = true;
+            break;
+        case RemoveHint:
+            game->disableHint();
+            displayingHint = false;
+            break;
+        case AfterMoveTurn:
+            game->doLevelActionAfterMove();
+            break;
+        case InvalidCommand:
+            notifyObservers();
+            break;
     }
 }
 
@@ -82,22 +94,30 @@ void Quadris::runGame(istream & in) {
         command = commandInterpreter->processCommand(parseCommand(input));
 
         if (displayingHint) {
-            displayingHint = false;
-            commands.push(CMD::RemoveHint);
+            runCommand(CMD::RemoveHint);
         }
 
-        if (CMD::InvalidCommand != command) {
-            displayingHint = (CMD::Hint == command);
+        // not valid to apply a multiplier to the restart, hint, norandom, or random
+        if (CMD::InvalidCommand == command) {
+            runCommand(CMD::InvalidCommand);
+        } else if (CMD::Restart == command) {
+            runCommand(CMD::Restart);
+        } else if (CMD::Hint == command) {
+            runCommand(CMD::Hint);
+        } else if (CMD::Random == command) {
+            runCommand(CMD::Random);
+        } else if (CMD::NoRandom == command) {
+            in >> levelFile;
+            runCommand(CMD::NoRandom);
+        } else {
             for( ;multiplier > 0; --multiplier) {
-                commands.push(command);
+                runCommand(command);
             }
             if (command == CMD::Left || command == CMD::Right || command == CMD::Down ||
-                command == CMD::CW || command == CMD::CCW || command == CMD::Drop ||
+                command == CMD::RotateLeft || command == CMD::RotateRight || command == CMD::Drop ||
                 command == CMD::LevelUp || command == CMD::LevelDown) {
-                    commands.push(CMD::AfterMoveTurn);
+                    runCommand(CMD::AfterMoveTurn);
             }
-        } else {
-            notifyObservers();
         }
     }
 }
