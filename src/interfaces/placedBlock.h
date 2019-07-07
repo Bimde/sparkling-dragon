@@ -7,12 +7,13 @@ class PlacedBlock : public Block {
 	int count;
 
   public:
-	PlacedBlock(int score, int type, int count);
+	PlacedBlock(int score, int type, int count) : 
+		Block{score, type}, count{count} {}
 
-	void decrementCount();
+	void decrementCount() { --count; }
 
 	// Checks if the block is fully destroyed
-	bool isDestroyed();
+	bool isDestroyed() { return count <= 0 };
 };
 
 #endif

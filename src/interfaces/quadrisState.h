@@ -7,7 +7,8 @@ struct QuadrisState {
 	const int highScore;
 	const GameState gameState;
 	
-	QuadrisState(int highScore, GameState gameState);
+	QuadrisState(int highScore, GameState gameState) : 
+		highScore{highScore}, gameState{gameState} {}
 };
 
 #endif
