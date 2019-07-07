@@ -25,7 +25,6 @@ class Quadris: public Subject {
 	void runCommand(CMD);
   public:
 	Quadris(int seed, std::string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter);
-	void sendCommand(std::string s);
 	void runGame(std::istream &);
 	QuadrisState getState();
   	~Quadris();

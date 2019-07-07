@@ -80,8 +80,6 @@ void Quadris::runCommand(CMD command) {
 // Public functions
 Quadris::Quadris(int seed, string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter) {}
 
-void Quadris::sendCommand(string s) {}
-
 void Quadris::runGame(istream & in) {
     string input;
     int multiplier;
