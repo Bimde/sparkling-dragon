@@ -9,18 +9,16 @@
 #include "gameState.h"
 
 class Game {
+  std::unique_ptr<LevelFactory> levelFactory;
+  std::shared_ptr<HintGenerator> hinter;
+
 	int score;
-	int level;
+	int nextLevel;
   bool showHint;
 
 	std::unique_ptr<Board> board;
-
 	std::unique_ptr<UnplacedBlock> nextBlock;
-
-	std::unique_ptr<LevelFactory> levelFactory;
-	std::shared_ptr<LevelInterface> currentLevel;
-
-  std::shared_ptr<HintGenerator> hinter;
+  std::shared_ptr<LevelInterface> currentLevel;
   
   public:
   	Game(std::unique_ptr<LevelFactory> levelFactory, 
@@ -30,7 +28,6 @@ class Game {
   	bool moveCurrentBlockLeft();
   	bool moveCurrentBlockRight();
   	bool dropCurrentBlock();
-
     bool rotateCurrentBlockLeft();
     bool rotateCurrentBlockRight();
 
@@ -44,10 +41,12 @@ class Game {
   	void enableHint();
   	void disableHint();
 
-  	void reset();
+    void doLevelActionAfterMove();
 
+  	void reset();
   	GameState getState();
-  	int score();
+
+  	int score() { return score };
 };
 
 #endif

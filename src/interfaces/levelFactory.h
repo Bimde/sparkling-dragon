@@ -53,6 +53,7 @@ class LevelFactory {
   	// Makes certain levels random.
   	void random();
 
+  	int getClosestLevel(int level);
   	int increaseLevel(int level);
   	int decreaseLevel(int level);
 };

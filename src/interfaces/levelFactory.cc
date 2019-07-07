@@ -2,12 +2,12 @@
 
 #include "levelFactory.h"
 
-// TODO MIL
 namespace {
 	const int minLevel = 0;
 	const int maxLevel = 4;
 }
 
+// TODO MIL
 LevelFactory::LevelFactory(const LevelConfig& cfg) :
 
 std::shared_ptr<LevelInterface> LevelFactory::getLevel(int level) {
@@ -26,12 +26,23 @@ std::shared_ptr<LevelInterface> LevelFactory::getLevel(int level) {
 void LevelFactory::useFileForOther(std::string filename);
 void LevelFactory::random();
 
+int LevelFactory::getClosestLevel(int level) {
+	if (level < minLevel) {
+		return minLevel;
+	}
+	if (level > maxLevel) {
+		return maxLevel;
+	}
+	return level;
+}
+
 int LevelFactory::increaseLevel(int level) {
 	if (level < maxLevel) {
 		return level+1;
 	}
 	return level;
 }
+
 int LevelFactory::decreaseLevel(int level) {
 	if (level > minLevel) {
 		return level-1;
