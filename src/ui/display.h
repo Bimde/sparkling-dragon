@@ -3,15 +3,25 @@
 
 #include <memory>
 
-#include "game.h"
+// #include "../interfaces/game.h"
+#include "../interfaces/gameState.h"
+#include "window.h"
 #include "observer.h"
 
-class Display : Observer {
+// class Game;
+
+class XDisplay : Observer {
   public:
-    Display(std::weak_ptr<Game> game);
+    // XDisplay(std::weak_ptr<Game> game);
+    XDisplay();
+    virtual ~XDisplay();
     virtual void notify();
   private:
-    void updateDisplay(GameState);
+    int y = 15;
+    Xwindow window;
+    // std::weak_ptr<Game> game;
+    // void updateDisplay(GameState);
+    void updateDisplay();
 };
 
 #endif
