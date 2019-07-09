@@ -12,7 +12,7 @@ class CommandInterpreter {
     std::unique_ptr<Trie> trie;
   public:
     CommandInterpreter();
-    enum cmd processCommand(std::string cmd);
+    enum CMD processCommand(std::string cmd);
     void modifyCommand(std::string original, std::string replacement);
     ~CommandInterpreter();
 };
