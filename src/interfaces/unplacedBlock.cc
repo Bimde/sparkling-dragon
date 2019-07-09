@@ -4,6 +4,7 @@
 
 #include "unplacedBlock.h"
 #include "block.h"
+#include "point.h"
 
 UnplacedBlock::UnplacedBlock(
 	int score, char type, Point bottomLeft, std::vector<Point> offsets) :
@@ -12,14 +13,15 @@ UnplacedBlock::UnplacedBlock(
 UnplacedBlock::~UnplacedBlock() {}
 
 void UnplacedBlock::moveDown() {
-	--bottomLeft.second;
+	--bottomLeft.y;
 }
+
 void UnplacedBlock::moveRight() {
-	++bottomLeft.first;
+	++bottomLeft.x;
 }
 
 void UnplacedBlock::moveLeft() {
-	--bottomLeft.first;
+	--bottomLeft.x;
 }
 
 void UnplacedBlock::rotateLeft() {
