@@ -4,10 +4,11 @@
 #include <memory>
 
 #include "unplacedBlock.h"
+#include "point.h"
 
 class LBlock : public UnplacedBlock {
   public:
-  	LBlock(int score, std::pair<int, int> bottomLeft);
+  	LBlock(int score, Point bottomLeft);
 };
 
 #endif

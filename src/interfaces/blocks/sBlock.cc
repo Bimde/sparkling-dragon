@@ -2,12 +2,13 @@
 
 #include "sBlock.h"
 #include "interfaces/unplacedBlock.h"
+#include "interfaces/point.h"
 
 namespace {
 	const char sBlockType = 's';
-	const std::vector<std::pair<int, int>> sBlockOffsets = 
+	const std::vector<Point> sBlockOffsets = 
 		{{0,0}, {1,0}, {1,1}, {2,1}};
 }
 
-SBlock::SBlock(int score, std::pair<int, int> bottomLeft) : 
+SBlock::SBlock(int score, Point bottomLeft) : 
 	UnplacedBlock{score, sBlockType, bottomLeft, sBlockOffsets} {};

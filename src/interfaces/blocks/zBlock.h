@@ -4,10 +4,11 @@
 #include <memory>
 
 #include "unplacedBlock.h"
+#include "point.h"
 
 class ZBlock : public UnplacedBlock {
   public:
-  	ZBlock(int score, std::pair<int, int> bottomLeft);
+  	ZBlock(int score, Point bottomLeft);
 };
 
 #endif

@@ -6,9 +6,8 @@
 namespace {
 	const int starBlockPoints = 0;
 	const char starBlockType = '*';
-	const std::vector<std::pair<int, int>> starBlockOffsets = 
-		{{0,0}};
+	const std::vector<Point> starBlockOffsets = {{0,0}};
 }
 
-StarBlock::StarBlock(std::pair<int, int> bottomLeft) : 
+StarBlock::StarBlock(Point bottomLeft) : 
 	UnplacedBlock{starBlockPoints, starBlockType, bottomLeft, starBlockOffsets} {};

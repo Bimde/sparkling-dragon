@@ -20,7 +20,7 @@ bool Board::setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock> block) {
 		return false;
 	}
 
-	std::unique_ptr::swap(currentBlock, block);
+	currentBlock.swap(block);
 	return true;
 }
 

@@ -4,14 +4,16 @@
 #include <vector>
 
 #include "block.h"
+#include "point.h"
 
 class UnplacedBlock : public Block {
-    std::pair<int, int> bottomLeft;
-    std::vector<std::pair<int, int>> offsets;
+    // (x,y) coordinates of the blocks bottom left corner 
+    Point bottomLeft;
+    std::vector<Point> offsets;
 
   protected:
-    UnplacedBlock(int score, char type, std::pair<int, int> bottomLeft, 
-                  std::vector<std::pair<int, int>> offsets);
+    UnplacedBlock(int score, char type, Point bottomLeft, 
+                  std::vector<Point> offsets);
 
   public:
   	virtual ~UnplacedBlock() = 0;
