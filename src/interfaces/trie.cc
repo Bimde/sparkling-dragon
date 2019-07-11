@@ -28,7 +28,7 @@ CMD Trie::search(string s) {
 
 // Insert unable to insert a new function for the same string :-) kek.
 void Trie::insert(string s, CMD c) {
-    if(search(s) == c) return;
+    if(search(s) == InvalidCommand) return;
 
     TrieNode * tempNode = root;
 

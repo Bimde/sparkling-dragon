@@ -27,6 +27,10 @@ bool Game::moveCurrentBlockRight() {
 	return board->moveCurrentRight();
 }
 
+int Game::getScore() {
+	return score;
+}
+
 // TODO full impl
 bool Game::dropCurrentBlock() {
 	// Also update score
@@ -69,9 +73,6 @@ void Game::doLevelActionAfterMove() {
 	currentLevel->actionAfterMove(*board);
 }
 
-int getScore() {
-	return score;
-}
 // TODO
 void Game::reset();
 GameState Game::getState();

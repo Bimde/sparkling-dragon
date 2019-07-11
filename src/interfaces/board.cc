@@ -59,9 +59,20 @@ bool Board::rotateCurrentRight() {
 	return setCurrentIfNotOverlapping(std::move(tempBlock));
 }
 
+int Board::numberOfFullRows() {
+	int fullRows = 0;
+	for(int i = 0; i < board.size(); i++) {
+		int rowCnt = 0;
+		for(int j = 0; j < board.at(i).size(); j++) {
+			if(board.at(i).at(j) != nullptr) rowCnt++;
+		}
+		if (boardWidth == rowCnt) fullRows++;
+	}
+	return fullRows;
+}
+
 // TODO
 bool Board::dropCurrent();
-int Board::numberOfFullRows();
 bool Board::isOverlapping(const UnplacedBlock& block);
 std::vector<std::shared_ptr<PlacedBlock>> 
   		Board::destroyFullRowsAndGetDestroyedPlacedBlocks();
