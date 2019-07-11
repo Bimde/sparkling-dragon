@@ -4,29 +4,26 @@
 #include <map>
 #include <string>
 #include <memory>
-#include "quadris.h"
+#include "trieNode.h"
+// #include "quadris.h"
 
+// TODO Remove this after importing quadris.h
+// enum CMD{ 
+// 			Left, Right, Down, RotateLeft, RotateRight, Drop, 
+// 		  	LevelUp, LevelDown, NoRandom, Random, Restart, 
+// 		  	Hint, RemoveHint, InvalidCommand, AfterMoveTurn
+// 		};
 
 class Trie {
-    class Node {
-      public:
-        std::string curStr;
-        bool isCommand;
-        enum CMD command;
-        std::map<char, std::unique_ptr<Node>> children;
-        
-        Node(std::string str, bool isCommand, CMD command = CMD::InvalidCommand): curStr{str}, isCommand{isCommand}, command{command} {};
-    };
-    std::unique_ptr<Node> root;
+    TrieNode *root;
   public:
-    Trie(): root{std::make_unique<Node>("", false)} {}
-
-    std::string search(std::string);
+    Trie(): root{new TrieNode("", false)} {}
+    CMD search(std::string);
     void insert(std::string, CMD);
-    void update(std::string, std::string);
-    void remove(std::string);
+    // void update(std::string, std::string);
+    // void remove(std::string);
 
-    ~Trie();
+    // ~Trie();
 };
 
 #endif

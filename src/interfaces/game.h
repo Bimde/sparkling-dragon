@@ -14,11 +14,11 @@ class Game {
 
 	int score;
 	int nextLevel;
-  bool showHint;
+	bool showHint;
 
 	std::unique_ptr<Board> board;
 	std::unique_ptr<UnplacedBlock> nextBlock;
-  std::shared_ptr<LevelInterface> currentLevel;
+  	std::shared_ptr<LevelInterface> currentLevel;
   
   public:
   	Game(std::unique_ptr<LevelFactory> levelFactory, 
