@@ -2,6 +2,7 @@
 #include <string>
 #include <istream>
 #include <queue>
+#include <iostream>
 
 #include "game.h"
 #include "quadris.h"
@@ -79,12 +80,13 @@ void Quadris::runCommand(CMD command) {
 
 // Public functions
 // Quadris::Quadris(int seed, string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter) {}
+Quadris::Quadris(): highScore{0}, displayingHint{false}, curCommand{""}, levelFile{""}, commandInterpreter{make_unique<CommandInterpreter>()} {}
 
 void Quadris::runGame(istream & in) {
     string input;
     int multiplier;
     enum CMD command;
-    while (!in.eof) {
+    while (!in.eof()) {
         in >> input;
         curCommand = input;
 

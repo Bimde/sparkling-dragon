@@ -6,17 +6,12 @@
 #include <istream>
 #include <queue>
 
-#include "game.h"
+// #include "game.h"
 #include "quadrisState.h"
 #include "../ui/subject.h"
 #include "commandInterpreter.h"
 
-enum CMD{ 
-			Left, Right, Down, RotateLeft, RotateRight, Drop, 
-		  	LevelUp, LevelDown, NoRandom, Random, Restart, 
-		  	Hint, RemoveHint, InvalidCommand, AfterMoveTurn
-		};
-
+// TODO: need to create ctor with `game` 
 class Quadris: public Subject {
 	int highScore;
 	bool displayingHint;
@@ -30,7 +25,8 @@ class Quadris: public Subject {
 	std::string parseCommand(std::string);
 	void runCommand(CMD);
 
-  public:
+  public:	
+  	Quadris();
 	// Quadris(int seed, std::string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter);
 	void runGame(std::istream &);
 	QuadrisState getState();

@@ -9,8 +9,8 @@ class Block {
   	Block(int score, char type);
   	virtual ~Block() = 0;
   	
-  	int score() { return score; }
-  	char type() { return type; }
+  	int getScore() { return score; }
+  	char getType() { return type; }
 };
 
 #endif

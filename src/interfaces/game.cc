@@ -69,6 +69,9 @@ void Game::doLevelActionAfterMove() {
 	currentLevel->actionAfterMove(*board);
 }
 
+int getScore() {
+	return score;
+}
 // TODO
 void Game::reset();
 GameState Game::getState();

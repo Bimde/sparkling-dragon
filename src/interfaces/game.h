@@ -46,7 +46,7 @@ class Game {
   	void reset();
   	GameState getState();
 
-  	int score() { return score };
+  	int getScore();
 };
 
 #endif

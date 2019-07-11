@@ -17,6 +17,8 @@ class TrieNode {
     std::string curStr;
     bool isCommand;
     enum CMD command;
+    
+    // TODO: Make children TireNodes unique_ptr's
     std::map<char, TrieNode *> children;
     
     TrieNode(std::string, bool, enum CMD = CMD::InvalidCommand);
