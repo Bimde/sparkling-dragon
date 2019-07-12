@@ -8,11 +8,13 @@ class UnplacedBlock;
 class PlacedBlock;
 
 class Board {
-	  std::unique_ptr<UnplacedBlock> currentBlock;
-	  std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
+	std::unique_ptr<UnplacedBlock> currentBlock;
+	std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
 
     bool setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock>);
-    
+    bool rowIsFull(int y);
+	bool rowIsEmpty(int y);
+	void moveRow(int fromRow, int toRow);
   public:
   	Board();
 
@@ -27,8 +29,10 @@ class Board {
 
     int numberOfFullRows();
 
-  	// Checks if a block overlaps other already placed blocks
+  	// Checks if a block overlaps other already placed blocks or is out of bounds
   	bool isOverlapping(const UnplacedBlock&);
+	bool isOverlapping(const std::vector<Point>);
+	bool isNotOnBoard(const std::vector<Point>);
   	
     // TODO break this up (or make it cleaner)
   	std::vector<std::shared_ptr<PlacedBlock>> 

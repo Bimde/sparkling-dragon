@@ -7,7 +7,7 @@
 #include "point.h"
 
 class UnplacedBlock : public Block {
-    // (x,y) coordinates of the blocks bottom left corner 
+    // (y,x) coordinates of the blocks bottom left corner 
     Point bottomLeft;
     std::vector<Point> offsets;
 
@@ -23,6 +23,9 @@ class UnplacedBlock : public Block {
   	void moveLeft();
     void rotateLeft();
     void rotateRight();
+    Point getBottomLeft();
+    std::vector<Point> pointsOnBoard() const;
+    std::vector<Point> getPointsWithOneShiftDown() const; 
 };
 
 #endif
