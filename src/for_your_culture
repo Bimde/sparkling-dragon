@@ -1,0 +1,34 @@
+We should use the full path starting at src/ for our include directories
+
+I dont like looking at .. lmao
+
+Lets say our file looks like the following:
+	(x.cc)
+	#include "src/x/x.h"
+	#include "src/y/y.h"
+
+To compile this thing, make sure to use the -I flag for gcc (since x.h is not "local")
+
+So if my file structure looks like:
+rootsroot
++ root
+- + src
+-- + x
+--- + x.h
+--- + x.cc
+-- + y
+--- + y.h
+
+To compile x.cc, if my current directory is rootsroot:
+$ g++ -Iroot -c root/src/x/x.cc
+should work
+
+To compile x.cc, if my current directory is rootsroot/root:
+$ g++ -I$(pwd) -c root/src/x/x.cc
+should work
+
+To compile x.cc, if my current directory is rootsroot/root/x:
+$ g++ -I$../ -c root/src/x/x.cc
+should work
+
+you get the idea
