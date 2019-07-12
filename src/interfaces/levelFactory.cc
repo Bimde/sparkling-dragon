@@ -1,15 +1,15 @@
 #include <memory>
 #include <fstream>
 
-#include "levelFactory.h"
+#include "src/interfaces/levelFactory.h"
 
-#include "levelInterface.h"
-#include "levels/levelOne.h"
-#include "levels/levelTwo.h"
-#include "levels/levelThree.h"
-#include "levels/levelThreeFile.h"
-#include "levels/levelFour.h"
-#include "levels/levelFourFile.h"
+#include "src/interfaces/levelInterface.h"
+#include "src/interfaces/levels/levelOne.h"
+#include "src/interfaces/levels/levelTwo.h"
+#include "src/interfaces/levels/levelThree.h"
+#include "src/interfaces/levels/levelThreeFile.h"
+#include "src/interfaces/levels/levelFour.h"
+#include "src/interfaces/levels/levelFourFile.h"
 
 namespace {
 	const int minLevel = 0;

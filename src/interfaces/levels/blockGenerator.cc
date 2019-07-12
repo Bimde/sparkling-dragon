@@ -1,14 +1,14 @@
 #include <memory>
 
-#include "blockGenerator.h"
+#include "src/interfaces/levels/blockGenerator.h"
 
-#include "iBlock.h"
-#include "jBlock.h"
-#include "lBlock.h"
-#include "oBlock.h"
-#include "sBlock.h"
-#include "zBlock.h"
-#include "tBlock.h"
+#include "src/interfaces/blocks/iBlock.h"
+#include "src/interfaces/blocks/jBlock.h"
+#include "src/interfaces/blocks/lBlock.h"
+#include "src/interfaces/blocks/oBlock.h"
+#include "src/interfaces/blocks/sBlock.h"
+#include "src/interfaces/blocks/zBlock.h"
+#include "src/interfaces/blocks/tBlock.h"
 
 std::unique_ptr<UnplacedBlock> createLetterBlock(
 	char type, int score, Point bottomLeft) {

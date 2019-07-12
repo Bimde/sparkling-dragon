@@ -2,9 +2,9 @@
 #include <utility>
 #include <climits>
 
-#include "unplacedBlock.h"
-#include "block.h"
-#include "point.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/block.h"
+#include "src/interfaces/point.h"
 
 UnplacedBlock::UnplacedBlock(
 	int score, char type, Point bottomLeft, std::vector<Point> offsets) :

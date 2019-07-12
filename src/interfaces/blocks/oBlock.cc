@@ -1,8 +1,8 @@
 #include <vector>
 
-#include "oBlock.h"
-#include "interfaces/unplacedBlock.h"
-#include "interfaces/point.h"
+#include "src/interfaces/blocks/oBlock.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
 
 namespace {
 	const char oBlockType = 'o';

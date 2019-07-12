@@ -1,7 +1,7 @@
 #include <vector>
 
-#include "starBlock.h"
-#include "interfaces/unplacedBlock.h"
+#include "src/interfaces/blocks/starBlock.h"
+#include "src/interfaces/unplacedBlock.h"
 
 namespace {
 	const int starBlockPoints = 0;

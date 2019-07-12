@@ -2,12 +2,11 @@
 #include <memory>
 #include <string>
 
-#include "levelZero.h"
+#include "src/interfaces/levels/levelZero.h"
 
-#include "blockGenerator.h"
-#include "interfaces/levelInterface.h"
-#include "interfaces/unplacedBlock.h"
-
+#include "src/interfaces/blockGenerator.h"
+#include "src/interfaces/levelInterface.h"
+#include "src/interfaces/unplacedBlock.h"
 
 namespace {
 	const int kLevel = 0;

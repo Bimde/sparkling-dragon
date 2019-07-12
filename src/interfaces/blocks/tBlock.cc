@@ -1,8 +1,8 @@
 #include <vector>
 
-#include "tBlock.h"
-#include "interfaces/unplacedBlock.h"
-#include "interfaces/point.h"
+#include "src/interfaces/blocks/tBlock.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
 
 namespace {
 	const char tBlockType = 't';

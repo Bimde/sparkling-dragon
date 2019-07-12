@@ -4,9 +4,9 @@
 #include <fstream>
 #include <memory>
 
-#include "levelThree.h"
+#include "src/interfaces/levels/levelThree.h"
 
-#include "interfaces/point.h"
+#include "src/interfaces/point.h"
 
 class LevelThreeFile : public LevelThree {
 	std::shared_ptr<fstream> in;

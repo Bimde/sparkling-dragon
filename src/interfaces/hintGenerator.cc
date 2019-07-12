@@ -1,8 +1,8 @@
 #include <memory>
 
-#include "hintGenerator.h"
-#include "board.h"
-#include "unplacedBlock.h"
+#include "src/interfaces/hintGenerator.h"
+#include "src/interfaces/board.h"
+#include "src/interfaces/unplacedBlock.h"
 
 namespace {
 class HintGeneratorImpl : public HintGenerator {

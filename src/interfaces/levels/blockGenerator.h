@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include "interfaces/point.h"
-#include "interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
+#include "src/interfaces/unplacedBlock.h"
 
 std::unique_ptr<UnplacedBlock> createLetterBlock(
 	char type, int score, Point bottomLeft);

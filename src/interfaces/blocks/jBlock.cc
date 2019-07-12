@@ -1,8 +1,8 @@
 #include <vector>
 
-#include "jBlock.h"
-#include "interfaces/unplacedBlock.h"
-#include "interfaces/point.h"
+#include "src/interfaces/blocks/jBlock.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
 
 namespace {
 	const char jBlockType = 'j';

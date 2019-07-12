@@ -1,11 +1,11 @@
 #include <memory>
 #include <utility>
 
-#include "levelInterface.h"
+#include "src/interfaces/levelInterface.h"
 
-#include "board.h"
-#include "unplacedBlock.h"
-#include "point.h"
+#include "src/interfaces/board.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
 
 LevelInterface::LevelInterface(int level) : level{level} {}
 LevelInterface::~LevelInterface() {}

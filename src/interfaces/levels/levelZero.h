@@ -5,8 +5,8 @@
 #include <memory>
 #include <string>
 
-#include "interfaces/levelInterface.h"
-#include "interfaces/point.h"
+#include "src/interfaces/levelInterface.h"
+#include "src/interfaces/point.h"
 
 const std::string defaultFilename = "sequence.txt";
 

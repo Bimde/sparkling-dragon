@@ -1,8 +1,9 @@
 #include <vector>
 
-#include "zBlock.h"
-#include "interfaces/unplacedBlock.h"
-#include "interfaces/point.h"
+#include "src/interfaces/blocks/zBlock.h"
+
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
 
 namespace {
 	const char zBlockType = 'z';

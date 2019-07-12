@@ -3,9 +3,9 @@
 
 #include <memory>
 
-#include "interfaces/levelInterface.h"
-#include "interfaces/unplacedBlock.h"
-#include "interfaces/point.h"
+#include "src/interfaces/levelInterface.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
 
 class LevelTwo : public LevelInterface {
   	std::unique_ptr<UnplacedBlock> getNextBlockImpl(

@@ -3,10 +3,10 @@
 #include <string>
 #include <cstdlib>
 
-#include "levelOne.h"
+#include "src/interfaces/levels/levelOne.h"
 
-#include "blockGenerator.h"
-#include "interfaces/unplacedBlock.h"
+#include "src/interfaces/blockGenerator.h"
+#include "src/interfaces/unplacedBlock.h"
 
 namespace {
 	const int kLevel = 1;

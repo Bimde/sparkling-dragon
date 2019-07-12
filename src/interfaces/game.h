@@ -3,10 +3,10 @@
 
 #include <utility>
 
-#include "board.h"
-#include "levelInterface.h"
-#include "levelFactory.h"
-#include "gameState.h"
+#include "src/interfaces/board.h"
+#include "src/interfaces/levelInterface.h"
+#include "src/interfaces/levelFactory.h"
+#include "src/interfaces/gameState.h"
 
 class Game {
   std::unique_ptr<LevelFactory> levelFactory;

@@ -1,6 +1,6 @@
 #include <memory>
 
-#include "levelFourFile.h"
+#include "src/interfaces/levels/levelFourFile.h"
 
 LevelFourFile::LevelFourFile(std::shared_ptr<istream> in) : 
 	in{in} {};

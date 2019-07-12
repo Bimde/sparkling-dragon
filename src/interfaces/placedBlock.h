@@ -1,7 +1,7 @@
 #ifndef INTERFACES_PLACED_BLOCK_H
 #define INTERFACES_PLACED_BLOCK_H
 
-#include "block.h"
+#include "src/interfaces/block.h"
 
 class PlacedBlock : public Block {
 	int count;

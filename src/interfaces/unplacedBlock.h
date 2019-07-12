@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "block.h"
-#include "point.h"
+#include "src/interfaces/block.h"
+#include "src/interfaces/point.h"
 
 class UnplacedBlock : public Block {
     // (y,x) coordinates of the blocks bottom left corner 

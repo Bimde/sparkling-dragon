@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 
-#include "levelInterface.h"
+#include "src/interfaces/levelInterface.h"
 
 class LevelZero;
 class LevelOne;

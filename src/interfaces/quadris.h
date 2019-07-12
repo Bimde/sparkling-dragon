@@ -7,9 +7,9 @@
 #include <queue>
 
 // #include "game.h"
-#include "quadrisState.h"
+#include "src/interfaces/quadrisState.h"
 #include "../ui/subject.h"
-#include "commandInterpreter.h"
+#include "src/interfaces/commandInterpreter.h"
 
 // TODO: need to create ctor with `game` 
 class Quadris: public Subject {

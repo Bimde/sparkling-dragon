@@ -1,11 +1,11 @@
 #include <memory>
 #include <utility>
 
-#include "game.h"
-#include "board.h"
-#include "levelInterface.h"
-#include "levelFactory.h"
-#include "gameState.h"
+#include "src/interfaces/game.h"
+#include "src/interfaces/board.h"
+#include "src/interfaces/levelInterface.h"
+#include "src/interfaces/levelFactory.h"
+#include "src/interfaces/gameState.h"
 
 Game::Game(std::unique_ptr<LevelFactory> levelFactory, 
            std::shared_ptr<HintGenerator> hinter, int startingLevel) :

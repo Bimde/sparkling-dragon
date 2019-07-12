@@ -4,8 +4,8 @@
 #include <memory>
 #include <utility>
 
-#include "unplacedBlock.h"
-#include "point.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
 
 class Board;
 

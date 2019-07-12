@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include "unplacedBlock.h"
-#include "point.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
 
 class SBlock : public UnplacedBlock {
   public:

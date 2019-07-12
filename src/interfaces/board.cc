@@ -1,9 +1,9 @@
 #include <memory>
 #include <vector>
 
-#include "board.h"
-#include "unplacedBlock.h"
-#include "placedBlock.h"
+#include "src/interfaces/board.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/placedBlock.h"
 
 namespace {
 	// 15 rows + 3 extra

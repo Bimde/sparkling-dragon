@@ -4,10 +4,10 @@
 #include <queue>
 #include <iostream>
 
-#include "game.h"
-#include "quadris.h"
-#include "quadrisState.h"
-#include "commandInterpreter.h"
+#include "src/interfaces/game.h"
+#include "src/interfaces/quadris.h"
+#include "src/interfaces/quadrisState.h"
+#include "src/interfaces/commandInterpreter.h"
 
 using namespace std;
 

@@ -4,7 +4,7 @@
 #include <fstream>
 #include <memory>
 
-#include "levelFour.h"
+#include "src/interfaces/levels/levelFour.h"
 
 class LevelFourFile : public LevelFour {
 	std::shared_ptr<ifstream> in;

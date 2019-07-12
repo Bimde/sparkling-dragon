@@ -1,10 +1,10 @@
 #include <memory>
 #include <cstdlib>
 
-#include "levelFour.h"
+#include "src/interfaces/levels/levelFour.h"
 
-#include "blockGenerator.h"
-#include "point.h"
+#include "src/interfaces/levels/blockGenerator.h"
+#include "src/interfaces/point.h"
 
 namespace {
 	const int kLevel = 4;
@@ -12,7 +12,7 @@ namespace {
 	const int totalProbability = 9;
 }  // namespace
 
-LevelFour::LevelFour() : LevelInterface{kLevel}  {};
+LevelFour::LevelFour() : LevelInterface{kLevel} {};
 LevelFour::~LevelFour() {};
 
 std::unique_ptr<UnplacedBlock> getNextBlockImpl(

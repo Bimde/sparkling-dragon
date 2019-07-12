@@ -3,11 +3,11 @@
 #include <string>
 #include <cstdlib>
 
-#include "levelThree.h"
+#include "src/interfaces/levels/levelThree.h"
 
-#include "blockGenerator.h"
-#include "interfaces/unplacedBlock.h"
-#include "interfaces/point.h"
+#include "src/interfaces/blockGenerator.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
 
 namespace {
 	int kPoints = 3;

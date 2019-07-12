@@ -1,8 +1,8 @@
 #include <vector>
 
-#include "lBlock.h"
-#include "interfaces/unplacedBlock.h"
-#inclide "interfaces/point.h"
+#include "src/interfaces/blocks/lBlock.h"
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/point.h"
 
 namespace {
 	const char lBlockType = 'l';
