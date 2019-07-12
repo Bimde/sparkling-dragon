@@ -3,10 +3,13 @@
 
 #include <memory>
 
-#include "levelInterface.h"
+#include "interfaces/levelInterface.h"
+#include "interfaces/unplacedBlock.h"
+#include "interfaces/point.h"
 
 class LevelTwo : public LevelInterface {
-  	std::unique_ptr<UnplacedBlock> getNextBlockImpl() override;
+  	std::unique_ptr<UnplacedBlock> getNextBlockImpl(
+  		Point bottomLeft) override;
 
   public:
   	LevelTwo();

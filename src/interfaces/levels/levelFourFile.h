@@ -1,18 +1,19 @@
 #ifndef INTERFACES_LEVELS_LEVELFOUR_H
 #define INTERFACES_LEVELS_LEVELFOUR_H
 
-#include <iostream>
+#include <fstream>
 #include <memory>
 
 #include "levelFour.h"
 
 class LevelFourFile : public LevelFour {
-	std::shared_ptr<istream> in;
+	std::shared_ptr<ifstream> in;
 	
-	std::unique_ptr<UnplacedBlock> getNextBlockImpl() override;
+	std::unique_ptr<UnplacedBlock> getNextBlockImpl(
+		Point bottomLeft) override;
     
   public:
-  	LevelFourFile(std::shared_ptr<istream> in);
+  	LevelFourFile(std::shared_ptr<ifstream> in);
 };
 
 #endif

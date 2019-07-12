@@ -6,7 +6,8 @@
 #include "levelInterface.h"
 
 class LevelOne : public LevelInterface {
-  	std::unique_ptr<UnplacedBlock> getNextBlockImpl() override;
+  	std::unique_ptr<UnplacedBlock> getNextBlockImpl(
+  		Point bottomLeft) override;
   	
   public:
   	LevelOne();

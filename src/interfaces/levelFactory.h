@@ -14,17 +14,25 @@ class LevelFour;
 
 class LevelConfig {
 	int seed_;
+	bool hasSeed_;
+
 	std::string filename_;
+	bool hasFilename_;
 
   public:
-	LevelConfig() {}
+	LevelConfig() : hasSeed_{false}, hasFilename_{false} {};
 	
 	int seed() {
 		return seed_;
 	}
 
 	void setSeed(int seed) {
+		hasSeed = true;
 		seed_ = seed;
+	}
+
+	bool hasSeed() {
+		return hasSeed_;
 	}
 
 	std::string filename() {
@@ -32,6 +40,7 @@ class LevelConfig {
 	}
 
 	void setFilename(std::string filename) {
+		hasFilename_ = true;
 		filename_ = filename;
 	}
 };

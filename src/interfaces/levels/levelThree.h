@@ -4,9 +4,11 @@
 #include <memory>
 
 #include "levelInterface.h"
+#include "point.h"
 
 class LevelThree : public LevelInterface {
-  	std::unique_ptr<UnplacedBlock> getNextBlockImpl() override;
+  	std::unique_ptr<UnplacedBlock> getNextBlockImpl(
+  		Point bottomLeft) override;
 
     void actionAfterMoveImpl(Board&) override;
     

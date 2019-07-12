@@ -1,21 +1,23 @@
+#include <fstream>
 #include <memory>
+#include <string>
 #include <cstdlib>
 
-#include "levelFour.h"
+#include "levelThree.h"
 
 #include "blockGenerator.h"
-#include "point.h"
+#include "interfaces/unplacedBlock.h"
+#include "interfaces/point.h"
 
 namespace {
-	const int kLevel = 4;
-	const int kPoints = 4;
-	const int totalProbability = 9;
+	int kPoints = 3;
+	int totalProbability = 9;
 }  // namespace
 
-LevelFour::LevelFour() : LevelInterface{kLevel}  {};
-LevelFour::~LevelFour() {};
+LevelThree::LevelThree() {}
+LevelThree::~LevelThree() {}
 
-std::unique_ptr<UnplacedBlock> getNextBlockImpl(
+std::unique_ptr<UnplacedBlock> LevelThree::getNextBlockImpl(
 	Point bottomLeft) {
 	int randomNumber = rand() % totalProbability;
 
@@ -41,10 +43,6 @@ std::unique_ptr<UnplacedBlock> getNextBlockImpl(
 	return nullptr;
 }
 
-void LevelFour::dropImpl(Board& board) {
-	// TODO drop block AND insert valid star block
-}
-
-void LevelFour::actionAfterMoveImpl(Board& board) {
+void LevelThree::actionAfterMoveImpl(Board& board) {
 	LevelInterface::moveDown(board);
 }

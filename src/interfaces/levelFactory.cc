@@ -1,6 +1,15 @@
 #include <memory>
+#include <fstream>
 
 #include "levelFactory.h"
+
+#include "levelInterface.h"
+#include "levels/levelOne.h"
+#include "levels/levelTwo.h"
+#include "levels/levelThree.h"
+#include "levels/levelThreeFile.h"
+#include "levels/levelFour.h"
+#include "levels/levelFourFile.h"
 
 namespace {
 	const int minLevel = 0;
@@ -8,7 +17,23 @@ namespace {
 }
 
 // TODO MIL
-LevelFactory::LevelFactory(const LevelConfig& cfg) :
+LevelFactory::LevelFactory(const LevelConfig& cfg) : 
+	levelZero{nullptr}, 
+	levelOne{std::make_shared<LevelOne>()}, 
+	levelTwo{std::make_shared<LevelTwo>()}, 
+	levelThree{std::make_shared<LevelThree>()}, 
+	levelFour{std::make_shared<LevelFour>()}, {
+	if (cfg.hasSeed()) {
+		srand(cfg.seed());
+	}
+
+	if (cfg.hasFilename()) {
+		levelZero = std::make_shared<LevelZero>(cfg.filename());
+	} else {
+		levelZero = std::make_shared<LevelZero>();
+	}
+}
+
 
 std::shared_ptr<LevelInterface> LevelFactory::getLevel(int level) {
 	switch (level) {
@@ -22,9 +47,17 @@ std::shared_ptr<LevelInterface> LevelFactory::getLevel(int level) {
 	return nullptr;
 }
 
-// TODO
-void LevelFactory::useFileForOther(std::string filename);
-void LevelFactory::random();
+void LevelFactory::useFileForOther(std::string filename) {
+	auto filestream = make_shared<ifstream>(filename);
+
+	levelThree = std::make_shared<LevelThreeFile>(filestream);
+	levelFour = std::make_shared<LevelFourFile>(filestream);
+}
+
+void LevelFactory::random() {
+	levelThree = std::make_shared<LevelThree>();
+	levelFour = std::make_shared<LevelFour>();
+}
 
 int LevelFactory::getClosestLevel(int level) {
 	if (level < minLevel) {

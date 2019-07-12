@@ -1,41 +1,70 @@
 #include <memory>
 #include <utility>
 
-#include "board.h"
 #include "levelInterface.h"
+
+#include "board.h"
 #include "unplacedBlock.h"
+#include "point.h"
 
 LevelInterface::LevelInterface(int level) : level{level} {}
 LevelInterface::~LevelInterface() {}
 
-std::unique_ptr<UnplacedBlock> LevelInterface::getNextBlock() {
-	return getNextBlockImpl();
+std::unique_ptr<UnplacedBlock> LevelInterface::getNextBlock(
+	Point bottomLeft) {
+	return getNextBlockImpl(bottomLeft);
 }
 
-void LevelInterface::actionAfterMoveImpl(Board&) {}
+void LevelInterface::actionAfterMoveImpl(Board& board) {}
 
-void LevelInterface::moveDown(Board& board) {
+void LevelInterface::moveDownImpl(Board& board) {
 	board.moveCurrentDown();
 }
 
-void LevelInterface::moveLeft(Board& board) {
+void LevelInterface::moveLeftImpl(Board& board) {
 	board.moveCurrentLeft();
 }
 
-void LevelInterface::moveRight(Board& board) {
+void LevelInterface::moveRightImpl(Board& board) {
 	board.moveCurrentRight();
 }
 
-void LevelInterface::drop(Board& board) {
+void LevelInterface::dropImpl(Board& board) {
 	board.dropCurrent();
 }
 
-void LevelInterface::rotateLeft(Board& board) {
+void LevelInterface::rotateLeftImpl(Board& board) {
 	board.rotateCurrentLeft();
 }
 
+void LevelInterface::rotateRightImpl(Board& board) {
+	rotateRightImpl(board);
+}
+
+// public methods
+
+void LevelInterface::moveDown(Board& board) {
+	moveDownImpl(board);
+}
+
+void LevelInterface::moveLeft(Board& board) {
+	moveLeftImpl(board);
+}
+
+void LevelInterface::moveRight(Board& board) {
+	moveRightImpl(board);
+}
+
+void LevelInterface::drop(Board& board) {
+	dropImpl(board);
+}
+
+void LevelInterface::rotateLeft(Board& board) {
+	rotateLeftImpl(board);
+}
+
 void LevelInterface::rotateRight(Board& board) {
-	board.rotateCurrentRight();
+	rotateRightImpl(board);
 }
 
 void LevelInterface::actionAfterMove(Board& board) {
