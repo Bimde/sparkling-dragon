@@ -2,6 +2,7 @@
 #define UI_DISPLAY_H
 
 #include <memory>
+#include <unordered_map>
 
 // #include "../interfaces/game.h"
 #include "../interfaces/gameState.h"
@@ -19,6 +20,8 @@ class XDisplay : Observer {
   private:
     int y = 15;
     Xwindow window;
+    std::unordered_map<char, int> tileToColour;
+    
     // std::weak_ptr<Game> game;
     // void updateDisplay(GameState);
     void updateDisplay();
