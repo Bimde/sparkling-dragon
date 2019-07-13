@@ -145,6 +145,27 @@ std::vector<std::shared_ptr<PlacedBlock>>
 	return destroyedBlocks;
 }
 
+int Board::destroyFullRowsAndGetPoints() {
+	int points = 0;
+	std::vector<std::shared_ptr<PlacedBlock>> dBlocks = 
+		destroyFullRowsAndGetDestroyedPlacedBlocks();
+	for(auto b: dBlocks) {
+		b->decrementCount;
+		if (b->isDestroyed) {
+			points += (b->getScore + 1)*(b->getScore + 1);
+		}
+	}
+	return points;
+}
+
+void Board::reset() {
+	currentBlock = nullptr;
+	for(auto boardRow: board) {
+		for(std::shared_ptr<PlacedBlock> block: boardRow) {
+			block = nullptr;
+		}
+	}
+}
+
 // TODO: Implement these
-void Board::reset();
 std::vector<std::vector<char>> Board::getState();

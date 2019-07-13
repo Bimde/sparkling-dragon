@@ -31,10 +31,14 @@ int Game::getScore() {
 	return score;
 }
 
-// TODO full impl
 bool Game::dropCurrentBlock() {
-	// Also update score
-	return board->dropCurrent();
+	if (!board->dropCurrent()) return false;
+
+	int numFullRows = board->numberOfFullRows();
+	score += (numFullRows + 1)*(numFullRows + 1);
+	score += board->destroyFullRowsAndGetPoints();
+
+	return true;
 }
 
 bool Game::rotateCurrentBlockLeft() {
@@ -53,11 +57,11 @@ void Game::decreaseLevel() {
 	nextLevel = levelFactory->decreaseLevel(nextLevel);
 }
 
-void Game::useFileForLevel() {
-	levelFactory->useFileForOther();
+void Game::useFileForLevel(std::string filename) {
+	levelFactory->useFileForOther(filename);
 }
 
-void Game::useFileForLevel() {
+void Game::randomizeLevels() {
 	levelFactory->random();
 }
 
@@ -73,6 +77,11 @@ void Game::doLevelActionAfterMove() {
 	currentLevel->actionAfterMove(*board);
 }
 
+void Game::reset() {
+	score = 0;
+	board->reset();
+	// TODO: Rest level & block gen
+}
+
 // TODO
-void Game::reset();
 GameState Game::getState();

@@ -13,7 +13,7 @@ class PlacedBlock : public Block {
 	void decrementCount() { --count; }
 
 	// Checks if the block is fully destroyed
-	bool isDestroyed() { return count <= 0 };
+	bool isDestroyed() { return count <= 0; };
 };
 
 #endif

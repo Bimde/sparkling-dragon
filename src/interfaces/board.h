@@ -15,6 +15,9 @@ class Board {
     bool rowIsFull(int y);
 	bool rowIsEmpty(int y);
 	void moveRow(int fromRow, int toRow);
+
+  	std::vector<std::shared_ptr<PlacedBlock>> 
+  		destroyFullRowsAndGetDestroyedPlacedBlocks();
   public:
   	Board();
 
@@ -35,8 +38,8 @@ class Board {
 	bool isNotOnBoard(const std::vector<Point>);
   	
     // TODO break this up (or make it cleaner)
-  	std::vector<std::shared_ptr<PlacedBlock>> 
-  		destroyFullRowsAndGetDestroyedPlacedBlocks();
+
+	int destroyFullRowsAndGetPoints();
 
     void reset();
 
