@@ -1,7 +1,8 @@
-#include "trieNode.h"
 #include <string>
 #include <memory>
 #include <map>
+#include "trieNode.h"
+#include "commands.h"
 
 using namespace std;
 

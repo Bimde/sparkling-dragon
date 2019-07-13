@@ -7,8 +7,6 @@
 
 using namespace std;
 
-// Node Classes
-
 CMD Trie::search(string s) {
     // unique_ptr<TrieNode> tempNode = make_unique<TrieNode>(root);
     TrieNode * tempNode = root;
@@ -26,7 +24,7 @@ CMD Trie::search(string s) {
     return CMD::InvalidCommand;
 }
 
-// Insert unable to insert a new function for the same string :-) kek.
+// Insert unable to insert a new function for the same string :-).
 void Trie::insert(string s, CMD c) {
     if(search(s) == InvalidCommand) return;
 
@@ -47,30 +45,6 @@ void Trie::insert(string s, CMD c) {
     }   
 }
 
-// int main() {
-//     Trie t;
-//     t.insert("left", CMD::Left);
-//     t.insert("right", CMD::Right);
-//     t.insert("down", CMD::Down);
-//     t.insert("counterclockwise", CMD::RotateLeft);
-//     t.insert("clockwise", CMD::RotateRight);
-//     t.insert("drop", CMD::Drop);
-//     t.insert("levelup", CMD::LevelUp);
-//     t.insert("leveldown", CMD::LevelDown);
-//     t.insert("norandom", CMD::NoRandom);
-//     t.insert("random", CMD::Random);
-//     t.insert("restart", CMD::Restart);
-//     t.insert("hint", CMD::Hint);
-//     // t.insert("removehint", CMD::RemoveHint);
-//     // t.insert("invalidcommand", CMD::InvalidCommand);
-//     // t.insert("aftermoveturn", CMD::AfterMoveTurn);
-
-//     cout << t.search("leveld") << endl;
-//     cout << t.search("r") << endl;
-//     cout << t.search("hin") << endl;
-//     cout << t.search("hints") << endl;
-
-//     cout << t.search("leveld") << endl;
-
-//     return 0;
-// }
+Trie::~Trie() {
+    delete root;
+}

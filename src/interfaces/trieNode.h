@@ -4,12 +4,7 @@
 #include <string>
 #include <memory>
 #include <map>
-
-enum CMD{ 
-			  Left, Right, Down, RotateLeft, RotateRight, Drop, 
-		  	LevelUp, LevelDown, NoRandom, Random, Restart, 
-		  	Hint, RemoveHint, InvalidCommand, AfterMoveTurn
-		};
+#include "commands.h"
 
 class TrieNode {
     void swap(TrieNode &other);

@@ -5,14 +5,7 @@
 #include <string>
 #include <memory>
 #include "trieNode.h"
-// #include "quadris.h"
-
-// TODO Remove this after importing quadris.h
-// enum CMD{ 
-// 			Left, Right, Down, RotateLeft, RotateRight, Drop, 
-// 		  	LevelUp, LevelDown, NoRandom, Random, Restart, 
-// 		  	Hint, RemoveHint, InvalidCommand, AfterMoveTurn
-// 		};
+#include "commands.h"
 
 class Trie {
     TrieNode *root;
@@ -23,7 +16,7 @@ class Trie {
     // void update(std::string, std::string);
     // void remove(std::string);
 
-    // ~Trie();
+    ~Trie();
 };
 
 #endif

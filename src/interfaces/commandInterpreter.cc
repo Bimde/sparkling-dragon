@@ -1,5 +1,6 @@
 #include <iostream>
 #include "commandInterpreter.h"
+#include "commands.h"
 
 using namespace std;
 
