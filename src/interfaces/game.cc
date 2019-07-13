@@ -80,8 +80,10 @@ void Game::doLevelActionAfterMove() {
 void Game::reset() {
 	score = 0;
 	board->reset();
-	// TODO: Rest level & block gen
+	nextLevel = 0;
+	// TODO: Reset block gen
 }
 
-// TODO
-GameState Game::getState();
+GameState Game::getState() {
+	return GameState(currentLevel->getLevelNumber(), score, board->getState());
+}

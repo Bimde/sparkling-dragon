@@ -16,6 +16,8 @@ class Board {
 	bool rowIsEmpty(int y);
 	void moveRow(int fromRow, int toRow);
 
+  	bool isOverlapping(const UnplacedBlock&);
+
   	std::vector<std::shared_ptr<PlacedBlock>> 
   		destroyFullRowsAndGetDestroyedPlacedBlocks();
   public:
@@ -31,10 +33,6 @@ class Board {
     bool rotateCurrentRight();
 
     int numberOfFullRows();
-
-  	// Checks if a block overlaps other already placed blocks or is out of bounds
-  	bool isOverlapping(const UnplacedBlock&);
-	bool isNotOnBoard(const std::vector<Point>);
   	
 	int destroyFullRowsAndGetPoints();
 

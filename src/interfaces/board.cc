@@ -95,13 +95,6 @@ bool Board::isOverlapping(const UnplacedBlock& block) {
 	return true;
 }
 
-bool Board::isNotOnBoard(const std::vector<Point> points) {
-	for(Point p: points) {
-		if(p.y < 0 || p.y > boardHeight - 1 || p.x < 0 || p.x > boardWidth - 1) return true;
-	}
-	return false;
-}
-
 bool Board::dropCurrent() {
 	if (!moveCurrentDown()) return false;
 	while(moveCurrentDown){};
@@ -114,7 +107,7 @@ std::vector<std::shared_ptr<PlacedBlock>>
 	std::vector<std::shared_ptr<PlacedBlock>> destroyedBlocks;
 	for (int y = boardHeight - 1; y >= 0; --y) {
 		if(rowIsFull(y)) {
-			for(int x = 0; x < boardWidth; x++) {
+			for(int x = 0; x < boardWidth; ++x) {
 				destroyedBlocks.emplace_back(board.at(y).at(x));
 				board.at(y).at(x) = nullptr;
 			}
@@ -140,7 +133,7 @@ int Board::destroyFullRowsAndGetPoints() {
 	for(auto dBlock: destroyedBlocks) {
 		dBlock->decrementCount;
 		if (dBlock->isDestroyed) {
-			points += (dBlock->getScore + 1)*(dBlock->getScore + 1);
+			points += dBlock->getScore();
 		}
 	}
 	return points;

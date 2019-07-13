@@ -15,6 +15,9 @@ std::unique_ptr<UnplacedBlock> LevelInterface::getNextBlock(
 	return getNextBlockImpl(bottomLeft);
 }
 
+int LevelInterface::getLevelNumber() {
+	return level;
+}
 void LevelInterface::actionAfterMoveImpl(Board& board) {}
 
 void LevelInterface::moveDownImpl(Board& board) {

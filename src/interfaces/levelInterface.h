@@ -28,6 +28,7 @@ class LevelInterface {
     LevelInterface(int level);
   	virtual ~LevelInterface();
 
+    int getLevelNumber();
     // Gets the next block to be played based on the current state.
     // Assumes that it called at most once per turn.
     std::unique_ptr<UnplacedBlock> getNextBlock(Point bottomLeft);
