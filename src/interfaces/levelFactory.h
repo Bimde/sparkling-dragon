@@ -22,21 +22,25 @@ class LevelConfig {
   public:
 	LevelConfig() : hasSeed_{false}, hasFilename_{false} {};
 	
-	int seed() {
+	int seed() const {
 		return seed_;
 	}
 
 	void setSeed(int seed) {
-		hasSeed = true;
+		hasSeed_ = true;
 		seed_ = seed;
 	}
 
-	bool hasSeed() {
+	bool hasSeed() const {
 		return hasSeed_;
 	}
 
-	std::string filename() {
+	std::string filename() const {
 		return filename_;
+	}
+
+	bool hasFilename() const {
+		return hasFilename_;
 	}
 
 	void setFilename(std::string filename) {

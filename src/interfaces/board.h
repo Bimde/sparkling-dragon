@@ -34,11 +34,8 @@ class Board {
 
   	// Checks if a block overlaps other already placed blocks or is out of bounds
   	bool isOverlapping(const UnplacedBlock&);
-	bool isOverlapping(const std::vector<Point>);
 	bool isNotOnBoard(const std::vector<Point>);
   	
-    // TODO break this up (or make it cleaner)
-
 	int destroyFullRowsAndGetPoints();
 
     void reset();

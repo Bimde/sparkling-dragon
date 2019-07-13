@@ -22,7 +22,8 @@ LevelFactory::LevelFactory(const LevelConfig& cfg) :
 	levelOne{std::make_shared<LevelOne>()}, 
 	levelTwo{std::make_shared<LevelTwo>()}, 
 	levelThree{std::make_shared<LevelThree>()}, 
-	levelFour{std::make_shared<LevelFour>()}, {
+	levelFour{std::make_shared<LevelFour>()} {
+
 	if (cfg.hasSeed()) {
 		srand(cfg.seed());
 	}
@@ -48,7 +49,7 @@ std::shared_ptr<LevelInterface> LevelFactory::getLevel(int level) {
 }
 
 void LevelFactory::useFileForOther(std::string filename) {
-	auto filestream = make_shared<ifstream>(filename);
+	auto filestream = std::make_shared<std::ifstream>(filename);
 
 	levelThree = std::make_shared<LevelThreeFile>(filestream);
 	levelFour = std::make_shared<LevelFourFile>(filestream);

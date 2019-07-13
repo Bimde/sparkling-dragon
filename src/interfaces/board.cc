@@ -95,13 +95,6 @@ bool Board::isOverlapping(const UnplacedBlock& block) {
 	return true;
 }
 
-bool Board::isOverlapping(const std::vector<Point> points) {
-	for(Point p: points) {
-		if(board.at(p.y).at(p.x) != nullptr) return false;
-	}
-	return true;
-}
-
 bool Board::isNotOnBoard(const std::vector<Point> points) {
 	for(Point p: points) {
 		if(p.y < 0 || p.y > boardHeight - 1 || p.x < 0 || p.x > boardWidth - 1) return true;
@@ -110,11 +103,8 @@ bool Board::isNotOnBoard(const std::vector<Point> points) {
 }
 
 bool Board::dropCurrent() {
-	if (isOverlapping(*currentBlock)) return false;
-	const std::vector<Point> pointsWithShiftDown = currentBlock->getPointsWithOneShiftDown();
-	while(!isNotOnBoard(pointsWithShiftDown) && !isOverlapping(pointsWithShiftDown)) {
-		currentBlock->moveDown();
-	}
+	if (!moveCurrentDown()) return false;
+	while(moveCurrentDown){};
 	return true;
 }
 
@@ -125,21 +115,19 @@ std::vector<std::shared_ptr<PlacedBlock>>
 	for (int y = boardHeight - 1; y >= 0; --y) {
 		if(rowIsFull(y)) {
 			for(int x = 0; x < boardWidth; x++) {
-				destroyedBlocks.emplace_back(board.at(x));
+				destroyedBlocks.emplace_back(board.at(y).at(x));
 				board.at(y).at(x) = nullptr;
 			}
 		}
 	}
 
-	int emptyRow = boardHeight-1;
-	while(!rowIsEmpty(emptyRow)) emptyRow--;
-	int shiftRow = emptyRow;
-	while(rowIsEmpty(shiftRow)) shiftRow--;
+	int emptyRow = boardHeight-1, shiftRow = 0;
 
 	while(shiftRow >= 0 && emptyRow >= 0 && shiftRow < emptyRow) {
-		moveRow(shiftRow, emptyRow);
 		while(!rowIsEmpty(emptyRow)) emptyRow--;
-		while(rowIsEmpty(shiftRow)) shiftRow--;
+		shiftRow = emptyRow;
+		while(rowIsEmpty(shiftRow)) shiftRow--;		
+		moveRow(shiftRow, emptyRow);
 	}
 
 	return destroyedBlocks;
@@ -147,12 +135,12 @@ std::vector<std::shared_ptr<PlacedBlock>>
 
 int Board::destroyFullRowsAndGetPoints() {
 	int points = 0;
-	std::vector<std::shared_ptr<PlacedBlock>> dBlocks = 
+	std::vector<std::shared_ptr<PlacedBlock>> destroyedBlocks = 
 		destroyFullRowsAndGetDestroyedPlacedBlocks();
-	for(auto b: dBlocks) {
-		b->decrementCount;
-		if (b->isDestroyed) {
-			points += (b->getScore + 1)*(b->getScore + 1);
+	for(auto dBlock: destroyedBlocks) {
+		dBlock->decrementCount;
+		if (dBlock->isDestroyed) {
+			points += (dBlock->getScore + 1)*(dBlock->getScore + 1);
 		}
 	}
 	return points;
@@ -167,5 +155,14 @@ void Board::reset() {
 	}
 }
 
-// TODO: Implement these
-std::vector<std::vector<char>> Board::getState();
+std::vector<std::vector<char>> Board::getState() {
+	std::vector<std::vector<char>> charBoard(boardHeight, std::vector<char>(boardWidth, ' '));
+	for(int y = 0; y < boardHeight; ++y) {
+		for(int x = 0; x < boardWidth; ++x) {
+			if(board.at(y).at(x) != nullptr) {
+				charBoard.at(y).at(x) = board.at(y).at(x)->getType();
+			}
+		}
+	}
+	return charBoard;
+}
