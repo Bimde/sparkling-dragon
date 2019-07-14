@@ -5,12 +5,13 @@
 
 #include "src/interfaces/levels/levelTwo.h"
 
+#include "src/interfaces/levelInterface.h"
 #include "src/interfaces/blockGenerator.h"
 #include "src/intefaces/unplacedBlock.h"
 
 namespace {
 	const int kLevel = 2;
-	const int kPoints = 2;
+	const int kPoints = 9;
 	const int numberOfBlocks = 7;
 }  // namespace
 

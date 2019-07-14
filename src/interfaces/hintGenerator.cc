@@ -6,22 +6,24 @@
 
 namespace {
 class HintGeneratorImpl : public HintGenerator {
-	std::unique_ptr<UnplacedBlock> generateHintImpl(
-		std::weak_ptr<Board> board, std::weak_ptr<UnplacedBlock> currentBlock)
+	UnplacedBlock generateHintImpl(
+		const Board& board, const UnplacedBlock& currentBlock)
 		override;
 };
 
-std::unique_ptr<UnplacedBlock> HintGeneratorImpl::generateHintImpl(
-	std::weak_ptr<Board> board, std::weak_ptr<UnplacedBlock> currentBlock) {
-	// TODO
+UnplacedBlock HintGeneratorImpl::generateHintImpl(
+	const Board& board, const UnplacedBlock& currentBlock) {
+	// TODO 
+	UnplacedBlock b = currentBlock
+	return b.moveDown();
 }
 }  // namespace
 
-std::unique_ptr<UnplacedBlock> HintGenerator::generateHint(
-	std::weak_ptr<Board> board, std::weak_ptr<UnplacedBlock> currentBlock) {
+UnplacedBlock HintGenerator::generateHint(
+	const Board& board, const UnplacedBlock& currentBlock) {
 	generateHintImpl(board, currentBlock);
 }
 
 std::unique_ptr<HintGenerator> HintGenerator::create() {
-	return new HintGeneratorImpl;
+	return std::make_unique<HintGeneratorImpl>();
 }

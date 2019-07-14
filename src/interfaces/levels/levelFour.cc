@@ -3,12 +3,13 @@
 
 #include "src/interfaces/levels/levelFour.h"
 
+#include "src/interfaces/levelInterface.h"
 #include "src/interfaces/levels/blockGenerator.h"
 #include "src/interfaces/point.h"
 
 namespace {
 	const int kLevel = 4;
-	const int kPoints = 4;
+	const int kPoints = 25;
 	const int totalProbability = 9;
 }  // namespace
 

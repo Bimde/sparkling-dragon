@@ -1,12 +1,29 @@
 #ifndef INTERFACES_GAME_H
 #define INTERFACES_GAME_H
 
+#include <memory>
 #include <utility>
 
 #include "src/interfaces/board.h"
 #include "src/interfaces/levelInterface.h"
 #include "src/interfaces/levelFactory.h"
 #include "src/interfaces/gameState.h"
+
+const int defaultStartLevel = 0;
+
+class GameConfig {
+    int startLevel;
+    LevelConfig lvlcfg;
+  public:
+    GameConfig() : startLevel{defaultStartLevel};
+
+    int startLevel() { return startLevel; }
+    void setStartLevel(int level) { startLevel = level; }
+
+    LevelConfig getLevelConfig() { return lvlcfg; } 
+    void setSeed(int seed) { lvlcfg.setSeed(seed); }
+    void setFilename(std::string filename) { lvlcfg.setFilename(filename); }
+};
 
 class Game {
   std::unique_ptr<LevelFactory> levelFactory;
@@ -47,6 +64,8 @@ class Game {
   	GameState getState();
 
   	int getScore();
+
+    static std::unique_ptr<Game> create(GameConfig cfg);
 };
 
 #endif

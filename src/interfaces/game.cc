@@ -4,6 +4,7 @@
 #include "src/interfaces/game.h"
 #include "src/interfaces/board.h"
 #include "src/interfaces/levelInterface.h"
+#include "src/interfaces/hintGenerator.h"
 #include "src/interfaces/levelFactory.h"
 #include "src/interfaces/gameState.h"
 
@@ -85,5 +86,18 @@ void Game::reset() {
 }
 
 GameState Game::getState() {
+	// TODO check hint (and return with hint if true)
 	return GameState(currentLevel->getLevelNumber(), score, board->getState());
+}
+
+std::unique_ptr<Game> create(GameConfig cfg) {
+	auto levelFactory = std::make_unique<LevelFactory>(cfg.lvlcfg);
+	auto hintGenerator = HintGenerator::create();
+
+	if (levelFactory == nullptr || hintGenerator == nullptr) {
+		return nullptr;
+	}
+
+	return std::make_unique<Game>(std::move(levelFactory), std::move(hintGenerator), 
+								  cfg.startLevel());
 }

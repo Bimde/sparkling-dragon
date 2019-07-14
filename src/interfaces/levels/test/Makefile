@@ -6,6 +6,8 @@ EXEC = test
 OBJECTS = levelZero.o list.o iter.o node.o
 DEPENDS = ${OBJECTS:.o=.d}
 
+deps: 
+
 ${EXEC}: ${OBJECTS}
 	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
 

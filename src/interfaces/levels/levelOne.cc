@@ -5,12 +5,13 @@
 
 #include "src/interfaces/levels/levelOne.h"
 
+#include "src/interfaces/levelInterface.h"
 #include "src/interfaces/blockGenerator.h"
 #include "src/interfaces/unplacedBlock.h"
 
 namespace {
 	const int kLevel = 1;
-	const int kPoints = 1;
+	const int kPoints = 4;
 	const int totalProbability = 12;
 }  // namespace
 

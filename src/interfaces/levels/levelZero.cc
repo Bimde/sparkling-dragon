@@ -10,7 +10,7 @@
 
 namespace {
 	const int kLevel = 0;
-	const int kPoints = 0;
+	const int kPoints = 1;
 }  // namespace
 
 LevelZero::LevelZero(std::string filename) : LevelInterface{kLevel} {
