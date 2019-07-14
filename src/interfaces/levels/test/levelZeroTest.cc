@@ -5,7 +5,7 @@
 #include "src/interfaces/point.h"
 #include "src/interfaces/unplacedBlock.h"
 #include "src/interfaces/levels/levelZero.h"
-#include "testing/testMacros.h"
+#include "src/testing/testMacros.h"
 
 namespace LevelZeroTest {
 bool runTest() {
@@ -23,8 +23,8 @@ bool runTest() {
 	for (const char expectedBlockType : expectedBlocks) {
 		auto block = lvl->getNextBlock(point);
 
-		CHECK_NOT_NULLPTR_SETFLAG_OR(block, continue;)
-		EXPECT_EQ_SETFLAG(block->getType(), expectedBlockType)
+		CHECK_NOT_NULLPTR_SETFLAG_OR(block, passedAll, continue;)
+		EXPECT_EQ_SETFLAG(block->getType(), expectedBlockType, passedAll)
 	}
 
 	std::cout << "End Testing LevelZero! (COMPLETE)" << std::endl;

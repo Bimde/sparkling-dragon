@@ -36,14 +36,14 @@
 #define CHECK_NOT_NULLPTR_OR(ptr, ...) \
 	if (ptr == nullptr) { \
 		std::cout << "Check not Nullptr failed." << std::endl; \
-		#__VA_ARGS__ \
+		__VA_ARGS__ \
 	}
 
 #define CHECK_NOT_NULLPTR_SETFLAG_OR(ptr, flag, ...) \
 	if (ptr == nullptr) { \
 		flag = false; \
 		std::cout << "Check not Nullptr failed." << std::endl; \
-		#__VA_ARGS__ \
+		__VA_ARGS__ \
 	}
 
 #endif
