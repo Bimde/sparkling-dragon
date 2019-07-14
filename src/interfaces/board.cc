@@ -11,6 +11,10 @@ namespace {
 	const int boardWidth = 11;
 }
 
+void Board::setCurrent(std::unique_ptr<UnplacedBlock> next) {
+	currentBlock = std::move(next);
+}
+
 bool Board::rowIsFull(int y) {
 	for(int i = 0; i < boardWidth; i++) {
 		if (board.at(y).at(i) == nullptr) return false;
@@ -32,7 +36,7 @@ void Board::moveRow(int fromRow, int toRow) {
 	}
 }
 
-Board::Board(): currentBlock{nullptr}, board{
+Board::Board() : currentBlock{nullptr}, board{
 	std::vector<std::vector<std::shared_ptr<PlacedBlock>>>(
 		boardHeight, std::vector<std::shared_ptr<PlacedBlock>>(
 			boardWidth, nullptr))} {}

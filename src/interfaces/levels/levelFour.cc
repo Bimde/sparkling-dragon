@@ -12,10 +12,10 @@ namespace {
 	const int totalProbability = 9;
 }  // namespace
 
-LevelFour::LevelFour() : LevelInterface{kLevel} {};
-LevelFour::~LevelFour() {};
+LevelFour::LevelFour() : LevelInterface{kLevel} {}
+LevelFour::~LevelFour() {}
 
-std::unique_ptr<UnplacedBlock> getNextBlockImpl(
+std::unique_ptr<UnplacedBlock> LevelFour::getNextBlockImpl(
 	Point bottomLeft) {
 	int randomNumber = rand() % totalProbability;
 

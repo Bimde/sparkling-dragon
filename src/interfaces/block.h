@@ -13,6 +13,4 @@ class Block {
   	char getType() { return type; }
 };
 
-Block::~Block() {}
-
 #endif

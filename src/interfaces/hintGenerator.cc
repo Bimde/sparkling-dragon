@@ -20,6 +20,8 @@ UnplacedBlock HintGeneratorImpl::generateHintImpl(
 }
 }  // namespace
 
+HintGenerator::~HintGenerator() {}
+
 UnplacedBlock HintGenerator::generateHint(
 	const Board& board, const UnplacedBlock& currentBlock) {
 	return generateHintImpl(board, currentBlock);

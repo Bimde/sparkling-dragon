@@ -4,8 +4,8 @@
 #include <vector>
 #include <memory>
 
-class UnplacedBlock;
-class PlacedBlock;
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/placedBlock.h"
 
 class Board {
 	std::unique_ptr<UnplacedBlock> currentBlock;
