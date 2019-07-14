@@ -22,7 +22,7 @@ UnplacedBlock HintGeneratorImpl::generateHintImpl(
 
 UnplacedBlock HintGenerator::generateHint(
 	const Board& board, const UnplacedBlock& currentBlock) {
-	generateHintImpl(board, currentBlock);
+	return generateHintImpl(board, currentBlock);
 }
 
 std::unique_ptr<HintGenerator> HintGenerator::create() {
