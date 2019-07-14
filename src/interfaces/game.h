@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <utility>
+#include <iostream>
 
 #include "src/interfaces/board.h"
 #include "src/interfaces/levelInterface.h"
@@ -21,7 +22,10 @@ class GameConfig {
     int startLevel() { return startLevel_; }
     void setStartLevel(int level) { startLevel_ = level; }
 
-    LevelConfig getLevelConfig() { return lvlcfg_; } 
+    LevelConfig getLevelConfig() { 
+      std::cout << "get Levelconfig doing shit" << std::endl;
+      return lvlcfg_; 
+    } 
     void setSeed(int seed) { lvlcfg_.setSeed(seed); }
     void setFilename(std::string filename) { lvlcfg_.setFilename(filename); }
 };

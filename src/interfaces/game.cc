@@ -109,15 +109,15 @@ GameState Game::getState() {
 }
 
 std::unique_ptr<Game> Game::create(GameConfig cfg) {
-	std::cout << "running game::create factory fn" << std::endl;
+	std::cout << "Game running" << std::endl;
 	auto levelFactory = std::make_unique<LevelFactory>(cfg.getLevelConfig());
 	auto hintGenerator = HintGenerator::create();
-
+	
 	if (levelFactory == nullptr || hintGenerator == nullptr) {
 		std::cout << "ERROR: levelfactory ptr or hintgen ptr null" << std::endl;
 		return nullptr;
 	}
-
+	std::cout << "Game finished init crazy shit" << std::endl;
 	return std::make_unique<Game>(std::move(levelFactory), std::move(hintGenerator), 
 								  cfg.startLevel());
 }

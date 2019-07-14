@@ -1,5 +1,6 @@
 #include "src/interfaces/commandInterpreter.h"
 #include "src/interfaces/commands.h"
+#include <iostream>
 
 using namespace std;
 
@@ -23,6 +24,7 @@ void CommandInterpreter::addCommandsToTrie() {
 }
 
 CommandInterpreter::CommandInterpreter(): trie{make_unique<Trie>()} {
+    cout << "Command Interpret Works" << endl;
     addCommandsToTrie();
 }
 

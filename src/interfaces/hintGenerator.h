@@ -11,6 +11,7 @@ class HintGenerator {
 		const Board& board, const UnplacedBlock& currentBlock) = 0;
   
   public:
+	HintGenerator();
   	virtual ~HintGenerator();
 
   	UnplacedBlock generateHint(

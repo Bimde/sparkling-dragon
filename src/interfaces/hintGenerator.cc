@@ -1,4 +1,5 @@
 #include <memory>
+#include <iostream>
 
 #include "src/interfaces/hintGenerator.h"
 #include "src/interfaces/board.h"
@@ -20,6 +21,10 @@ UnplacedBlock HintGeneratorImpl::generateHintImpl(
 }
 }  // namespace
 
+HintGenerator::HintGenerator() {
+	std::cout << "Hint gen ctor" << std::endl;
+}
+
 HintGenerator::~HintGenerator() {}
 
 UnplacedBlock HintGenerator::generateHint(
@@ -28,5 +33,6 @@ UnplacedBlock HintGenerator::generateHint(
 }
 
 std::unique_ptr<HintGenerator> HintGenerator::create() {
+	std::cout << "Hint generator create" << std::endl;
 	return std::make_unique<HintGeneratorImpl>();
 }

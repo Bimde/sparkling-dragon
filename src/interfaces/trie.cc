@@ -1,13 +1,16 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <iostream>
 #include <utility>
 #include "src/interfaces/trie.h"
 #include "src/interfaces/trieNode.h"
 
 using namespace std;
 
-Trie::Trie() : root{make_shared<TrieNode>("", false)} {}
+Trie::Trie() : root{make_shared<TrieNode>("", false)} {
+    std::cout << "Create trie" << std::endl;
+}
 
 CMD Trie::search(string s) {
     shared_ptr<TrieNode> tempNode = root;
