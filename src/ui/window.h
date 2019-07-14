@@ -10,6 +10,8 @@ class Xwindow {
 		Window w;
 		int s;
 		GC gc;
+		int width;
+		int height;
 		unsigned long colours[10];
 
 	public:
@@ -22,6 +24,8 @@ class Xwindow {
 
 		void fillRectangle(int x, int y, int width, int height, int colour=Black);
 		void drawString(int x, int y, std::string msg);
+		int getWidth();
+		int getHeight();
 };
 
 #endif

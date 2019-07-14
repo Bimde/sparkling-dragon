@@ -5,16 +5,18 @@
 
 #include "src/interfaces/levels/levelThree.h"
 
+#include "src/interfaces/levelInterface.h"
 #include "src/interfaces/blockGenerator.h"
 #include "src/interfaces/unplacedBlock.h"
 #include "src/interfaces/point.h"
 
 namespace {
-	int kPoints = 3;
-	int totalProbability = 9;
+	const int kLevel = 3;
+	const int kPoints = 16;
+	const int totalProbability = 9;
 }  // namespace
 
-LevelThree::LevelThree() {}
+LevelThree::LevelThree() : LevelInterface{kLevel} {}
 LevelThree::~LevelThree() {}
 
 std::unique_ptr<UnplacedBlock> LevelThree::getNextBlockImpl(

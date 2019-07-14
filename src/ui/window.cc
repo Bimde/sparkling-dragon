@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Xwindow::Xwindow(int width, int height) {
+Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 	d = XOpenDisplay(NULL);
 	if (d == NULL) {
 		cerr << "Cannot open display" << endl;
@@ -24,34 +24,35 @@ Xwindow::Xwindow(int width, int height) {
 		1, BlackPixel(d, s), WhitePixel(d, s)
 	);
 
-	// XSelectInput(d, w, ExposureMask | KeyPressMask);
+	XSelectInput(d, w, ExposureMask | KeyPressMask);
 
-	// Pixmap pix = XCreatePixmap(
-	// 	d, w, width, height, 
-	// 	DefaultDepth(d, DefaultScreen(d))
-	// );
+	Pixmap pix = XCreatePixmap(
+		d, w, width, height, 
+		DefaultDepth(d, DefaultScreen(d))
+	);
 
-	// gc = XCreateGC(d, pix, 0, 0);
+	gc = XCreateGC(d, pix, 0, 0);
 
-	// // Set up colours.
-	// XColor xcolour;
-	// Colormap cmap;
+	// Set up colours.
+	XColor xcolour;
+	Colormap cmap;
 
-	// const size_t numColours = 5;
-	// char color_vals[numColours][10] = {
-	// 	"white", "black", "red", 
-	// 	"green", "blue"
-	// };
+	const size_t numColours = 5;
 
-	// cmap = DefaultColormap(d, DefaultScreen(d));
+	char color_vals[numColours][10] = {
+		"white", "black", "red", 
+		"green", "blue"
+	};
+
+	cmap = DefaultColormap(d, DefaultScreen(d));
 	
-	// for(unsigned int i = 0; i < numColours; ++i) {
-	// 	XParseColor(d, cmap, color_vals[i], &xcolour);
-	// 	XAllocColor(d, cmap, &xcolour);
-	// 	colours[i] = xcolour.pixel;
-	// }
+	for(unsigned int i = 0; i < numColours; ++i) {
+		XParseColor(d, cmap, color_vals[i], &xcolour);
+		XAllocColor(d, cmap, &xcolour);
+		colours[i] = xcolour.pixel;
+	}
 
-	// XSetForeground(d, gc, colours[Black]);
+	XSetForeground(d, gc, colours[Black]);
 
 	 // Make window non-resizeable.
 	XSizeHints hints;
@@ -82,4 +83,12 @@ void Xwindow::fillRectangle(int x, int y, int width, int height, int colour) {
 void Xwindow::drawString(int x, int y, std::string msg) {
 	XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
 	XFlush(d);
+}
+
+int Xwindow::getWidth() {
+	return width;
+}
+
+int Xwindow::getHeight() {
+	return height;
 }

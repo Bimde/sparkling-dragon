@@ -6,14 +6,14 @@
 class UnplacedBlock;
 
 class HintGenerator {
-	virtual std::unique_ptr<UnplacedBlock> generateHintImpl(
-		std::weak_ptr<Board> board, std::weak_ptr<UnplacedBlock> currentBlock) = 0;
+	virtual UnplacedBlock generateHintImpl(
+		const Board& board, const UnplacedBlock& currentBlock) = 0;
   
   public:
   	virtual ~HintGenerator();
 
-  	std::unique_ptr<UnplacedBlock> generateHint(
-		std::weak_ptr<Board> board, std::weak_ptr<UnplacedBlock> currentBlock);
+  	UnplacedBlock generateHint(
+		const Board& board, const UnplacedBlock& currentBlock);
 
   	static std::unique_ptr<HintGenerator> create();
 };
