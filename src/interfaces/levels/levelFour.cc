@@ -2,9 +2,8 @@
 #include <cstdlib>
 
 #include "src/interfaces/levels/levelFour.h"
-
-#include "src/interfaces/levelInterface.h"
 #include "src/interfaces/levels/blockGenerator.h"
+#include "src/interfaces/levelInterface.h"
 #include "src/interfaces/point.h"
 
 namespace {

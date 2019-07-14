@@ -4,10 +4,9 @@
 #include <cstdlib>
 
 #include "src/interfaces/levels/levelTwo.h"
-
+#include "src/interfaces/levels/blockGenerator.h"
 #include "src/interfaces/levelInterface.h"
-#include "src/interfaces/blockGenerator.h"
-#include "src/intefaces/unplacedBlock.h"
+#include "src/interfaces/unplacedBlock.h"
 
 namespace {
 	const int kLevel = 2;

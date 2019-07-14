@@ -13,13 +13,13 @@
 std::unique_ptr<UnplacedBlock> createLetterBlock(
 	char type, int score, Point bottomLeft) {
 	switch (type) {
-		case 'I' : return make_unique(IBlock(score, bottomLeft));
-		case 'J' : return make_unique(JBlock(score, bottomLeft));
-		case 'L' : return make_unique(LBlock(score, bottomLeft));
-		case 'O' : return make_unique(OBlock(score, bottomLeft));
-		case 'S' : return make_unique(SBlock(score, bottomLeft));
-		case 'Z' : return make_unique(ZBlock(score, bottomLeft));
-		case 'T' : return make_unique(TBlock(score, bottomLeft));
+		case 'I' : return std::make_unique<IBlock>(score, bottomLeft);
+		case 'J' : return std::make_unique<JBlock>(score, bottomLeft);
+		case 'L' : return std::make_unique<LBlock>(score, bottomLeft);
+		case 'O' : return std::make_unique<OBlock>(score, bottomLeft);
+		case 'S' : return std::make_unique<SBlock>(score, bottomLeft);
+		case 'Z' : return std::make_unique<ZBlock>(score, bottomLeft);
+		case 'T' : return std::make_unique<TBlock>(score, bottomLeft);
 	}
 	return nullptr;
 }

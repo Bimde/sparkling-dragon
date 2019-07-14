@@ -14,8 +14,9 @@ class HintGeneratorImpl : public HintGenerator {
 UnplacedBlock HintGeneratorImpl::generateHintImpl(
 	const Board& board, const UnplacedBlock& currentBlock) {
 	// TODO 
-	UnplacedBlock b = currentBlock
-	return b.moveDown();
+	UnplacedBlock b = currentBlock;
+	b.moveDown();
+	return b;
 }
 }  // namespace
 

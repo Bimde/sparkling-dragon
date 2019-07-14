@@ -4,6 +4,7 @@
 #include "src/interfaces/levelFactory.h"
 
 #include "src/interfaces/levelInterface.h"
+#include "src/interfaces/levels/levelZero.h"
 #include "src/interfaces/levels/levelOne.h"
 #include "src/interfaces/levels/levelTwo.h"
 #include "src/interfaces/levels/levelThree.h"

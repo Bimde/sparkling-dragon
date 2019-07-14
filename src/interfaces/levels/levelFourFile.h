@@ -1,5 +1,5 @@
-#ifndef INTERFACES_LEVELS_LEVELFOUR_H
-#define INTERFACES_LEVELS_LEVELFOUR_H
+#ifndef INTERFACES_LEVELS_LEVELFOURFILE_H
+#define INTERFACES_LEVELS_LEVELFOURFILE_H
 
 #include <fstream>
 #include <memory>
@@ -7,13 +7,13 @@
 #include "src/interfaces/levels/levelFour.h"
 
 class LevelFourFile : public LevelFour {
-	std::shared_ptr<ifstream> in;
+	std::shared_ptr<std::ifstream> in;
 	
 	std::unique_ptr<UnplacedBlock> getNextBlockImpl(
 		Point bottomLeft) override;
     
   public:
-  	LevelFourFile(std::shared_ptr<ifstream> in);
+  	LevelFourFile(std::shared_ptr<std::ifstream> in);
 };
 
 #endif
