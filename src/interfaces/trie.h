@@ -4,8 +4,8 @@
 #include <map>
 #include <string>
 #include <memory>
-#include "trieNode.h"
-#include "commands.h"
+#include "src/interfaces/trieNode.h"
+#include "src/interfaces/commands.h"
 
 class Trie {
     TrieNode *root;

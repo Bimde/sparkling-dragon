@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 #include <map>
-#include "commands.h"
+#include "src/interfaces/commands.h"
 
 class TrieNode {
     void swap(TrieNode &other);

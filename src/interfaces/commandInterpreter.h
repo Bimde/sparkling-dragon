@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include "trie.h"
+#include "src/interfaces/trie.h"
 
 // Make UI & CMD line into observers to listen for errors
 class CommandInterpreter {

@@ -3,7 +3,7 @@
 #include <memory>
 #include <utility>
 #include <iostream>
-#include "trie.h"
+#include "src/interfaces/trie.h"
 
 using namespace std;
 

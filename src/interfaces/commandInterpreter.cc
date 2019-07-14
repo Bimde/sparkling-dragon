@@ -1,6 +1,6 @@
 #include <iostream>
-#include "commandInterpreter.h"
-#include "commands.h"
+#include "src/interfaces/commandInterpreter.h"
+#include "src/interfaces/commands.h"
 
 using namespace std;
 

@@ -1,8 +1,8 @@
 #include <string>
 #include <memory>
 #include <map>
-#include "trieNode.h"
-#include "commands.h"
+#include "src/interfaces/trieNode.h"
+#include "src/interfaces/commands.h"
 
 using namespace std;
 
