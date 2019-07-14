@@ -9,7 +9,7 @@
 #include "src/interfaces/quadrisState.h"
 #include "src/interfaces/game.h"
 #include "src/interfaces/commandInterpreter.h"
-#include "src/ui/subject.h"
+#include "src/interfaces/subject.h"
 
 // TODO: need to create ctor with `game` 
 class Quadris: public Subject {

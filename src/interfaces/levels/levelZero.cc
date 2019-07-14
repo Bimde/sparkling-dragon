@@ -27,6 +27,13 @@ std::unique_ptr<UnplacedBlock> LevelZero::getNextBlockImpl(
 
 	char type = in->get();
 
+	// Attempt rereading from beginning of file
+	if (!in->good()) {
+		in->clear();
+		in->seekg(0, std::ios::beg);
+		type = in->get();
+	}
+
 	if (!in->good()) {
 		return nullptr;
 	}

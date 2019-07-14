@@ -8,7 +8,7 @@
 #include "src/interfaces/quadris.h"
 #include "src/interfaces/quadrisState.h"
 #include "src/interfaces/commandInterpreter.h"
-#include "src/ui/subject.h"
+#include "src/interfaces/subject.h"
 
 using namespace std;
 

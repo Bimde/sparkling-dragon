@@ -1,5 +1,5 @@
 MAIN_EXEC = quadris_main
-TEST_EXEC = final
+TEST_EXEC = test_main
 TO_TEST_EXEC = g++ -o ${TEST_EXEC} bin/*.o -lX11
 TO_MAIN_EXEC = g++ -o ${MAIN_EXEC} bin/*.o -lX11
 
