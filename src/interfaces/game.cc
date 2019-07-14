@@ -10,8 +10,8 @@
 #include "src/interfaces/gameState.h"
 
 namespace {
-	const Point defaultSpawnPoint{0,14}; 
-	const Point centerSpawnPoint{5,14}; 
+	const Point defaultSpawnPoint{0,3}; 
+	const Point centerSpawnPoint{5,3}; 
 }  // namespace
 
 Game::Game(std::unique_ptr<LevelFactory> levelFactory, 
@@ -58,7 +58,9 @@ int Game::getScore() {
 }
 
 bool Game::dropCurrentBlock() {
+	std::cout << "trying to drop" << std::endl;
 	if (!board->dropCurrent()) return false;
+	std::cout << "finished drop" << std::endl;
 
 	int numFullRows = board->numberOfFullRows();
 	score += (numFullRows + 1)*(numFullRows + 1);

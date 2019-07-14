@@ -24,7 +24,7 @@ void Board::setCurrent(std::unique_ptr<UnplacedBlock> next) {
 }
 
 bool Board::rowIsFull(int y) {
-	for(int i = 0; i < boardWidth; i++) {
+	for(int i = 0; i < boardWidth; ++i) {
 		if (board.at(y).at(i) == nullptr) return false;
 	}
 	return true;
@@ -48,19 +48,19 @@ bool Board::setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock> block) {
 	if (isOverlapping(*block)) {
 		return false;
 	}
-
 	currentBlock.swap(block);
 	return true;
 }
 
 bool Board::moveCurrentDown() {
 	if (currentBlock == nullptr) {
+		std::cout << "Current block does not exist" << std::endl;
 		return false;
 	}
 
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
 	tempBlock->moveDown();
-
+	std::cout << "Move current down called on tempBlock" << std::endl;
 	return setCurrentIfNotOverlapping(std::move(tempBlock));
 }
 
@@ -110,7 +110,7 @@ bool Board::rotateCurrentRight() {
 
 int Board::numberOfFullRows() {
 	int fullRows = 0;
-	for(int y = 0; y < board.size(); ++y) {
+	for(int y = 0; y < boardHeight; ++y) {
 		if (rowIsFull(y)) fullRows++;
 	}
 	return fullRows;
@@ -118,17 +118,33 @@ int Board::numberOfFullRows() {
 
 bool Board::isOverlapping(const UnplacedBlock& block) {
 	const std::vector<Point> points = block.pointsOnBoard();
+	std::cout << "Check if block is overlapping" << std::endl;
 	for(Point p: points) {
-		if(p.y < 0 || p.y >= boardHeight || p.x < 0 || p.x >= boardWidth) return false;
-		if(board.at(p.y).at(p.x) != nullptr) return false;
+		
+		if(p.y < 0 || p.y >= boardHeight || p.x < 0 || p.x >= boardWidth) {
+			std::cout << p.y << ", " << p.x << " are out of bounds" << std::endl;
+			return true;
+		}
+		if(board.at(p.y).at(p.x) != nullptr) {
+			std::cout << board.at(p.y).at(p.x)->getType() << std::endl;
+			return true;
+		}
 	}
-	return true;
+	std::cout << "Block is not overlapping" << std::endl;
+	return false;
 }
 
-// TODO place the block onto the board
 bool Board::dropCurrent() {
-	if (!moveCurrentDown()) return false;
+	if(isOverlapping(*currentBlock)) return false;
 	while(moveCurrentDown()) {}
+
+	auto pb = std::make_shared<PlacedBlock>(currentBlock->getScore(), currentBlock->getType(), currentBlock->getNumberOfBlocks()); 
+
+	for(Point p: currentBlock->pointsOnBoard()) {
+		std::cout << "Drop block at " << p.y << " and " << p.x << std::endl;
+		board.at(p.y).at(p.x) = pb;
+	}
+
 	return true;
 }
 
@@ -148,10 +164,10 @@ std::vector<std::shared_ptr<PlacedBlock>>
 	int emptyRow = boardHeight-1, shiftRow = 0;
 
 	while(shiftRow >= 0 && emptyRow >= 0 && shiftRow < emptyRow) {
-		while(!rowIsEmpty(emptyRow)) emptyRow--;
+		while(emptyRow >= 0 && !rowIsEmpty(emptyRow)) emptyRow--;
 		shiftRow = emptyRow;
-		while(rowIsEmpty(shiftRow)) shiftRow--;		
-		moveRow(shiftRow, emptyRow);
+		while(shiftRow >= 0 && rowIsEmpty(shiftRow)) shiftRow--;		
+		if(emptyRow >= 0 && shiftRow >= 0) moveRow(shiftRow, emptyRow);
 	}
 
 	return destroyedBlocks;

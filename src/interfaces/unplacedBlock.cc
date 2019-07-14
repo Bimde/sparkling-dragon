@@ -61,6 +61,9 @@ void UnplacedBlock::rotateRight() {
 	rotateLeft();
 }
 
+int UnplacedBlock::getNumberOfBlocks() {
+	return offsets.size();
+}
 Point UnplacedBlock::getBottomLeft() {
 	return bottomLeft;
 }
