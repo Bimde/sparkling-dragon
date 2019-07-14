@@ -23,6 +23,7 @@ class UnplacedBlock : public Block {
   	void moveLeft();
     void rotateLeft();
     void rotateRight();
+    int getNumberOfBlocks();
     Point getBottomLeft();
     std::vector<Point> pointsOnBoard() const;
     std::vector<Point> getPointsWithOneShiftDown() const; 

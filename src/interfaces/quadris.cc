@@ -85,6 +85,7 @@ void Quadris::runCommand(CMD command) {
             notifyObservers();
             break;
     }
+    cout << "Command: " << command << endl;
     notifyObservers();
 }
 
