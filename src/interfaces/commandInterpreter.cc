@@ -1,4 +1,3 @@
-#include <iostream>
 #include "src/interfaces/commandInterpreter.h"
 #include "src/interfaces/commands.h"
 
@@ -17,6 +16,7 @@ void CommandInterpreter::addCommandsToTrie() {
     trie->insert("random", CMD::Random);
     trie->insert("restart", CMD::Restart);
     trie->insert("hint", CMD::Hint);
+
     // t.insert("removehint", CMD::RemoveHint);
     // t.insert("invalidcommand", CMD::InvalidCommand);
     // t.insert("aftermoveturn", CMD::AfterMoveTurn);
@@ -34,8 +34,11 @@ CommandInterpreter::~CommandInterpreter() {}
 
 // int main() {
 //     CommandInterpreter ci;
+//     cout << ci.processCommand("left") << endl;
 //     cout << ci.processCommand("rand") << endl;
 //     cout << ci.processCommand("hint") << endl;
 //     cout << ci.processCommand("r") << endl;
+//     cout << ci.processCommand("lef") << endl;
+//     cout << ci.processCommand("l") << endl;
 //     return 0;
 // }

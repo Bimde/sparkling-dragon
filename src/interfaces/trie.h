@@ -8,9 +8,9 @@
 #include "src/interfaces/commands.h"
 
 class Trie {
-    TrieNode *root;
+    std::shared_ptr<TrieNode> root;
   public:
-    Trie(): root{new TrieNode("", false)} {}
+    Trie();
     CMD search(std::string);
     void insert(std::string, CMD);
     // void update(std::string, std::string);

@@ -2,17 +2,17 @@
 #include <string>
 #include <memory>
 #include <utility>
-#include <iostream>
 #include "src/interfaces/trie.h"
+#include "src/interfaces/trieNode.h"
 
 using namespace std;
 
+Trie::Trie() : root{make_shared<TrieNode>("", false)} {}
+
 CMD Trie::search(string s) {
-    // unique_ptr<TrieNode> tempNode = make_unique<TrieNode>(root);
-    TrieNode * tempNode = root;
+    shared_ptr<TrieNode> tempNode = root;
     for(int i = 0; i < s.length(); i++) {
         if (tempNode->children.find(s.at(i)) != tempNode->children.end()) {
-            // tempNode = make_unique<TrieNode>(tempNode->children.at(s.at(i)));
             tempNode = tempNode->children.at(s.at(i));
             if (s.length()-1 == i) {
                 return tempNode->command;   
@@ -26,9 +26,8 @@ CMD Trie::search(string s) {
 
 // Insert unable to insert a new function for the same string :-).
 void Trie::insert(string s, CMD c) {
-    if(search(s) == InvalidCommand) return;
 
-    TrieNode * tempNode = root;
+    shared_ptr<TrieNode> tempNode = root;
 
     for(int i = 0; i < s.length(); i++) {
         if(tempNode->children.find(s.at(i)) == tempNode->children.end()) {
@@ -45,6 +44,4 @@ void Trie::insert(string s, CMD c) {
     }   
 }
 
-Trie::~Trie() {
-    delete root;
-}
+Trie::~Trie() {}
