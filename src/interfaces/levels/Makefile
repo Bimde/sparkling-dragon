@@ -5,7 +5,7 @@ OBJECTS = blockGenerator.o levelZero.o levelOne.o levelTwo.o levelThree.o levelF
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = levels.out
 
-all: ${EXEC} copy_to_bin
+all: ${EXEC} copy_to_bin rm_o_d
 
 ${EXEC}: ${OBJECTS}
 	${CXX} ${CXXFLAGS} -c ${OBJECTS}
@@ -16,6 +16,10 @@ copy_to_bin: SHELL := /bin/bash
 copy_to_bin:
 	cp *.o ../../../bin
 	# cp levels.out ../../../out
+
+rm_o_d: SHELL := /bin/bash
+rm_o_d:
+	rm *.o *.d
 
 .PHONY: clean
 
