@@ -19,7 +19,7 @@ copy_to_bin:
 
 rm_o_d: SHELL := /bin/bash
 rm_o_d:
-	rm *.o *.d
+	rm -f *.o *.d
 
 .PHONY: clean
 
