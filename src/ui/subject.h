@@ -6,14 +6,14 @@
 #include "observer.h"
 
 class Subject {
-    std::vector<std::unique_ptr<Observer>> observers;
-
-  public:
+    std::vector<std::shared_ptr<Observer>> observers;
+  protected:
     Subject();
-    void attach(Observer *o);
-    void detach(Observer *o);
+  public:
+    void attach(std::shared_ptr<Observer> o);
+    void detach(std::shared_ptr<Observer> o);
     void notifyObservers();
-    virtual ~Subject()=0;
+    virtual ~Subject() = 0;
 };
 
 #endif

@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -I../../../
 
-OBJECTS = blockGenerator.o levelZero.o levelOne.o levelTwo.o levelThree.o levelFour.o levelFourFile.o
+OBJECTS = blockGenerator.o levelZero.o levelOne.o levelTwo.o levelThree.o levelThreeFile.o levelFour.o levelFourFile.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = levels.out
 
