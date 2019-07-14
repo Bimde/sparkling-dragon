@@ -5,9 +5,9 @@
 #include "gameState.h"
 
 struct QuadrisState {
-	const int highScore;
-	const std::string curCommand;
-	const GameState gameState;
+	int highScore;
+	std::string curCommand;
+	GameState gameState;
 	
 	QuadrisState(int highScore, std::string curCommand, GameState gameState) : 
 		highScore{highScore}, curCommand{curCommand}, gameState{gameState} {}

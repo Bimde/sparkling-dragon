@@ -37,6 +37,7 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 
 	const size_t numColours = 5;
 
+	// Add colours from https://en.wikipedia.org/wiki/X11_color_names
 	char color_vals[numColours][10] = {
 		"white", "black", "red", 
 		"green", "blue"
