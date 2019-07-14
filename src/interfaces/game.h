@@ -7,6 +7,7 @@
 #include "src/interfaces/levelInterface.h"
 #include "src/interfaces/levelFactory.h"
 #include "src/interfaces/gameState.h"
+#include "src/interfaces/hintGenerator.h"
 
 class Game {
   std::unique_ptr<LevelFactory> levelFactory;

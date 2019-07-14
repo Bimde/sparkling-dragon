@@ -6,9 +6,9 @@
 #include <istream>
 #include <queue>
 
-// #include "game.h"
+#include "game.h"
 #include "src/interfaces/quadrisState.h"
-#include "../ui/subject.h"
+#include "src/ui/subject.h"
 #include "src/interfaces/commandInterpreter.h"
 
 // TODO: need to create ctor with `game` 
