@@ -1,5 +1,7 @@
-EXEC = final
-TO_EXEC = g++ -o ${EXEC} bin/*.o -lX11
+MAIN_EXEC = quadris_main
+TEST_EXEC = final
+TO_TEST_EXEC = g++ -o ${TEST_EXEC} bin/*.o -lX11
+TO_MAIN_EXEC = g++ -o ${MAIN_EXEC} bin/*.o -lX11
 
 all: mkdir_bin clean_bin
 	+$(MAKE) -C src/interfaces/blocks
@@ -16,9 +18,17 @@ clean_bin:
 test: all
 	+$(MAKE) -C src/interfaces/levels/test
 	+$(MAKE) -C src/testing
-	${TO_EXEC}
+	${TO_TEST_EXEC}
 
 test_only:
 	+$(MAKE) -C src/interfaces/levels/test
 	+$(MAKE) -C src/testing
-	${TO_EXEC}
+	${TO_TEST_EXEC}
+
+main: all
+	+$(MAKE) -C src
+	${TO_MAIN_EXEC}
+
+main_only:
+	+$(MAKE) -C src
+	${TO_MAIN_EXEC}

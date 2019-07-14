@@ -1,9 +1,9 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wall -MMD -I../../ -lX11
+CXXFLAGS = -std=c++14 -Wall -MMD -I../
 
-OBJECTS = observer.o subject.o window.o display.o
+OBJECTS = quadris_main.o
 DEPENDS = ${OBJECTS:.o=.d}
-EXEC = ui_s
+EXEC = test.out
 
 all: ${EXEC} copy_to_bin rm_o_d
 
@@ -14,10 +14,11 @@ ${EXEC}: ${OBJECTS}
 
 copy_to_bin: SHELL := /bin/bash
 copy_to_bin:
-	cp *.o ../../bin
+	cp *.o ../bin
+	# cp test.out ../../../../out
 
 rm_o_d: SHELL := /bin/bash
-rm_o_d:
+rm_o_d: 
 	rm -f *.o *.d
 
 .PHONY: clean

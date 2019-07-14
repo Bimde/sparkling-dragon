@@ -2,6 +2,8 @@
 #define INTERFACES_QUADRISSTATE_H
 
 #include <string>
+#include <iostream>
+
 #include "gameState.h"
 
 struct QuadrisState {
