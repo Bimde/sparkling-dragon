@@ -15,15 +15,13 @@ class Xwindow {
 		unsigned long colours[10];
 
 	public:
-		Xwindow(int width=500, int height=500);  // Constructor; displays the window.
-		~Xwindow();                              // Destructor; destroys the window.
+		enum {White=0, Black, Red, Green, Blue};
+		Xwindow(int, int);
+		~Xwindow();
 		Xwindow(const Xwindow&) = delete;
 		Xwindow &operator=(const Xwindow&) = delete;
-
-		enum {White=0, Black, Red, Green, Blue}; // Available colours.
-
-		void fillRectangle(int x, int y, int width, int height, int colour=Black);
-		void drawString(int x, int y, std::string msg);
+		void fillRectangle(int, int, int, int, int);
+		void drawString(int, int, std::string);
 		int getWidth();
 		int getHeight();
 };
