@@ -8,8 +8,6 @@
 #include "src/interfaces/levelInterface.h"
 #include "src/interfaces/point.h"
 
-const std::string defaultFilename = "sequence.txt";
-
 class LevelZero : public LevelInterface {
 	std::unique_ptr<std::fstream> in;
 
@@ -17,7 +15,7 @@ class LevelZero : public LevelInterface {
   		Point bottomLeft) override;
 
   public:
-  	LevelZero(std::string filename = defaultFilename);
+  	LevelZero(std::string filename = "sequence.txt");
 };
 
 #endif
