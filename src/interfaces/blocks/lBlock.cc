@@ -5,7 +5,7 @@
 #include "src/interfaces/point.h"
 
 namespace {
-	const char lBlockType = 'l';
+	const char lBlockType = 'L';
 	const std::vector<Point> lBlockOffsets = {{0,0}, {1,0}, {2,0}, {2,1}};
 }
 

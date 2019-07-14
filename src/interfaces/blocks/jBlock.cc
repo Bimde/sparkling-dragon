@@ -5,7 +5,7 @@
 #include "src/interfaces/point.h"
 
 namespace {
-	const char jBlockType = 'j';
+	const char jBlockType = 'J';
 	const std::vector<Point> jBlockOffsets = {{0,0}, {1,0}, {2,0}, {0,1}};
 }
 

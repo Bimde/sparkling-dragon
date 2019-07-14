@@ -5,9 +5,9 @@
 #include <utility>
 
 struct GameState {
-	const int currentLevel;
-	const int score;
-	const std::vector<std::vector<char>> board;
+	int currentLevel;
+	int score;
+	std::vector<std::vector<char>> board;
 
 	GameState(int currentLevel, int score, 
 			  std::vector<std::vector<char>> board) : 

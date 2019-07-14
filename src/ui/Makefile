@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wall -MMD -I../../
+CXXFLAGS = -std=c++14 -Wall -MMD -I../../ -lX11
 
 OBJECTS = display.o observer.o subject.o window.o
 DEPENDS = ${OBJECTS:.o=.d}

@@ -7,7 +7,7 @@
 
 int main() {
 	std::unique_ptr<LevelInterface> lvl = 
-		std::make_unique<LevelZero>("test/level_zero_test1.txt");
+		std::make_unique<LevelZero>("src/interfaces/levels/test/level_zero_test1.txt");
 
 	if (lvl->getLevelNumber() != 0) {
 		std::cout << "Expected level number: 0 --- Got level number: " 
