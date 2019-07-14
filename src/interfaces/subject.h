@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <memory>
-#include "observer.h"
+#include "src/interfaces/observer.h"
 
 class Subject {
     std::vector<std::shared_ptr<Observer>> observers;

@@ -26,6 +26,14 @@ bool runTest() {
 		CHECK_NOT_NULLPTR_SETFLAG_OR(block, passedAll, continue;)
 		EXPECT_EQ_SETFLAG(block->getType(), expectedBlockType, passedAll)
 	}
+	
+	// Make sure it loops again
+	for (const char expectedBlockType : expectedBlocks) {
+		auto block = lvl->getNextBlock(point);
+
+		CHECK_NOT_NULLPTR_SETFLAG_OR(block, passedAll, continue;)
+		EXPECT_EQ_SETFLAG(block->getType(), expectedBlockType, passedAll)
+	}
 
 	std::cout << "End Testing LevelZero! (COMPLETE)" << std::endl;
 	return passedAll;

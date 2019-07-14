@@ -1,9 +1,9 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wall -MMD -I../../
+CXXFLAGS = -std=c++14 -Wall -MMD -I../../../
 
-OBJECTS = block.o board.o commandInterpreter.o game.o hintGenerator.o levelFactory.o levelInterface.o quadris.o trie.o trieNode.o unplacedBlock.o observer.o subject.o
+OBJECTS = basic_ui_test.o mocks.o
 DEPENDS = ${OBJECTS:.o=.d}
-EXEC = quadris.out
+EXEC = ui_test.out
 
 all: ${EXEC} copy_to_bin rm_o_d
 
@@ -14,11 +14,11 @@ ${EXEC}: ${OBJECTS}
 
 copy_to_bin: SHELL := /bin/bash
 copy_to_bin:
-	cp *.o ../../bin
-	# cp quadris.out ../../../out
+	cp *.o ../../../bin
+	# cp test.out ../../../../out
 
 rm_o_d: SHELL := /bin/bash
-rm_o_d:
+rm_o_d: 
 	rm -f *.o *.d
 
 .PHONY: clean

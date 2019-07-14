@@ -8,7 +8,7 @@
 #include "src/interfaces/quadris.h"
 #include "src/interfaces/quadrisState.h"
 #include "window.h"
-#include "observer.h"
+#include "src/interfaces/observer.h"
 
 class XDisplay : Observer {
   public:

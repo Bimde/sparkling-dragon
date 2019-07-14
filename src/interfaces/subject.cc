@@ -1,7 +1,7 @@
 #include <memory>
 
-#include "subject.h"
-#include "observer.h"
+#include "src/interfaces/subject.h"
+#include "src/interfaces/observer.h"
 
 Subject::Subject() {}
 

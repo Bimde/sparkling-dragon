@@ -1,6 +1,6 @@
 #include "src/interfaces/game.h"
 #include "src/interfaces/quadris.h"
-#include "src/ui/observer.h"
+#include "src/interfaces/observer.h"
 
 class Out : public Observer {
 	std::shared_ptr<Quadris> q_;
