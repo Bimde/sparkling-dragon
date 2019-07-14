@@ -1,5 +1,6 @@
 #include <memory>
 #include <utility>
+#include <iostream>
 
 #include "src/interfaces/game.h"
 #include "src/interfaces/board.h"
@@ -16,12 +17,18 @@ namespace {
 Game::Game(std::unique_ptr<LevelFactory> levelFactory, 
            std::shared_ptr<HintGenerator> hinter, int startingLevel) :
 	levelFactory{std::move(levelFactory)}, hinter{std::move(hinter)},
-	score{0}, showHint{false}, 
-	nextLevel{levelFactory->getClosestLevel(startingLevel)},
-	currentLevel{levelFactory->getLevel(nextLevel)},
-	board{std::make_unique<Board>()}, 
-	nextBlock{std::move(currentLevel->getNextBlock(defaultSpawnPoint))} {
+	score{0}, showHint{false}, nextLevel{-1},
+	board{std::make_unique<Board>()} {
+
+	nextLevel = levelFactory->getClosestLevel(startingLevel);
+	currentLevel = levelFactory->getLevel(nextLevel),
+	nextBlock = currentLevel->getNextBlock(defaultSpawnPoint); 
+
+    std::cout << "game object ctor running" << std::endl;
+
 	completeTurn();
+
+	std::cout << "game object ctor completed" << std::endl;
 }
 
 // Sets next level and updates the next block
@@ -29,7 +36,7 @@ void Game::completeTurn() {
 	currentLevel = levelFactory->getLevel(nextLevel);
 
 	board->setCurrent(std::move(nextBlock));
-	nextBlock = std::move(currentLevel->getNextBlock(defaultSpawnPoint));
+	nextBlock = currentLevel->getNextBlock(defaultSpawnPoint);
 }
 
 bool Game::moveCurrentBlockDown() {
@@ -102,10 +109,12 @@ GameState Game::getState() {
 }
 
 std::unique_ptr<Game> Game::create(GameConfig cfg) {
+	std::cout << "running game::create factory fn" << std::endl;
 	auto levelFactory = std::make_unique<LevelFactory>(cfg.getLevelConfig());
 	auto hintGenerator = HintGenerator::create();
 
 	if (levelFactory == nullptr || hintGenerator == nullptr) {
+		std::cout << "ERROR: levelfactory ptr or hintgen ptr null" << std::endl;
 		return nullptr;
 	}
 

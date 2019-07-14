@@ -82,8 +82,10 @@ void Quadris::runCommand(CMD command) {
 // Public functions
 // Quadris::Quadris(int seed, string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter) {}
 Quadris::Quadris(GameConfig cfg) : highScore{0}, displayingHint{false}, 
-    curCommand{""}, gameCfg{cfg}, game{Game::create(cfg)},
-    commandInterpreter{make_unique<CommandInterpreter>()} {}
+    curCommand{""}, gameCfg{cfg}, game{Game::create(gameCfg)},
+    commandInterpreter{make_unique<CommandInterpreter>()} {
+    std::cout << "quadris object created" << std::endl;
+}
 
 void Quadris::runGame(istream & in) {
     string input;

@@ -44,8 +44,10 @@ int main(int argc, char *argv[]) {
 	cfg.setSeed(0);
 	cfg.setSeed(0);
 
+	std::cout << "objects not yet created" << std::endl;
 	auto quadris = std::make_shared<Quadris>(cfg);
 	auto out = std::make_shared<Out>(quadris);
+	std::cout << "objects created" << std::endl;
 
 	quadris->attach(out);
 	quadris->runGame(std::cin);
