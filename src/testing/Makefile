@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD -I../../../../
 
-OBJECTS = levelZeroTest.o
+OBJECTS = testing_main.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = test.out
 
