@@ -6,8 +6,8 @@ class Block {
 	char type;
 	
   public:
-  	Block(int score, char type);
-  	virtual ~Block() = 0;
+  	Block(int score, char type) : score{score}, type{type} {}
+  	virtual ~Block() {}
   	
   	int getScore() { return score; }
   	char getType() { return type; }

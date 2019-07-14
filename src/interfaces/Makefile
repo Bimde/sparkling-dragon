@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD -I../../
 
-OBJECTS = block.o board.o commandInterpreter.o game.o hintGenerator.o levelFactory.o levelInterface.o quadris.o trie.o trieNode.o unplacedBlock.o
+OBJECTS = board.o commandInterpreter.o game.o hintGenerator.o levelFactory.o levelInterface.o quadris.o trie.o trieNode.o unplacedBlock.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = quadris.out
 
