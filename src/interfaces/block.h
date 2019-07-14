@@ -7,10 +7,12 @@ class Block {
 	
   public:
   	Block(int score, char type) : score{score}, type{type} {}
-  	virtual ~Block() {}
+  	virtual ~Block() = 0;
   	
   	int getScore() { return score; }
   	char getType() { return type; }
 };
+
+Block::~Block() {}
 
 #endif
