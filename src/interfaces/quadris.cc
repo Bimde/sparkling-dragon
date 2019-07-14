@@ -12,6 +12,12 @@
 
 using namespace std;
 
+Quadris::Quadris(GameConfig cfg) : highScore{0}, displayingHint{false}, 
+    curCommand{""}, gameCfg{cfg}, game{Game::create(gameCfg)},
+    commandInterpreter{make_unique<CommandInterpreter>()} {
+    std::cout << "quadris object created" << std::endl;
+}
+
 // Private helper functions
 
 // Todo: throw exception for multipliers which are too large
@@ -58,6 +64,7 @@ void Quadris::runCommand(CMD command) {
             game->useFileForLevel(gameCfg.getLevelConfig().filename());
             break;
         case Random:
+            game->randomizeLevels();
             break;
         case Restart:
             game = Game::create(gameCfg);
@@ -74,18 +81,15 @@ void Quadris::runCommand(CMD command) {
             game->doLevelActionAfterMove();
             break;
         case InvalidCommand:
+            // TODO add new thing to relay error msgs
             notifyObservers();
             break;
     }
+    notifyObservers();
 }
 
 // Public functions
 // Quadris::Quadris(int seed, string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter) {}
-Quadris::Quadris(GameConfig cfg) : highScore{0}, displayingHint{false}, 
-    curCommand{""}, gameCfg{cfg}, game{Game::create(gameCfg)},
-    commandInterpreter{make_unique<CommandInterpreter>()} {
-    std::cout << "quadris object created" << std::endl;
-}
 
 void Quadris::runGame(istream & in) {
     string input;

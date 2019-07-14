@@ -9,6 +9,9 @@ all: mkdir_bin clean_bin
 	+$(MAKE) -C src/interfaces
 	+$(MAKE) -C src/ui
 
+inter_only:
+	+$(MAKE) -C src/interfaces
+
 mkdir_bin:
 	mkdir -p bin
 

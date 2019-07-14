@@ -27,8 +27,8 @@ class GameConfig {
 };
 
 class Game {
-  std::unique_ptr<LevelFactory> levelFactory;
-  std::shared_ptr<HintGenerator> hinter;
+  std::unique_ptr<LevelFactory> levelFactory_;
+  std::shared_ptr<HintGenerator> hinter_;
 
 	int score;
   bool showHint;

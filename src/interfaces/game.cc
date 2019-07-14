@@ -16,15 +16,17 @@ namespace {
 
 Game::Game(std::unique_ptr<LevelFactory> levelFactory, 
            std::shared_ptr<HintGenerator> hinter, int startingLevel) :
-	levelFactory{std::move(levelFactory)}, hinter{std::move(hinter)},
+	levelFactory_{std::move(levelFactory)}, hinter_{std::move(hinter)},
 	score{0}, showHint{false}, nextLevel{-1},
 	board{std::make_unique<Board>()} {
 
-	nextLevel = levelFactory->getClosestLevel(startingLevel);
-	currentLevel = levelFactory->getLevel(nextLevel),
+    std::cout << "game object ctor running" << std::endl;
+
+	nextLevel = levelFactory_->getClosestLevel(startingLevel);
+	currentLevel = levelFactory_->getLevel(nextLevel);
 	nextBlock = currentLevel->getNextBlock(defaultSpawnPoint); 
 
-    std::cout << "game object ctor running" << std::endl;
+    std::cout << "game args init" << std::endl;
 
 	completeTurn();
 
@@ -33,7 +35,7 @@ Game::Game(std::unique_ptr<LevelFactory> levelFactory,
 
 // Sets next level and updates the next block
 void Game::completeTurn() {
-	currentLevel = levelFactory->getLevel(nextLevel);
+	currentLevel = levelFactory_->getLevel(nextLevel);
 
 	board->setCurrent(std::move(nextBlock));
 	nextBlock = currentLevel->getNextBlock(defaultSpawnPoint);
@@ -76,19 +78,19 @@ bool Game::rotateCurrentBlockRight() {
 }
 
 void Game::increaseLevel() {
-	nextLevel = levelFactory->increaseLevel(nextLevel);
+	nextLevel = levelFactory_->increaseLevel(nextLevel);
 }
 
 void Game::decreaseLevel() {
-	nextLevel = levelFactory->decreaseLevel(nextLevel);
+	nextLevel = levelFactory_->decreaseLevel(nextLevel);
 }
 
 void Game::useFileForLevel(std::string filename) {
-	levelFactory->useFileForOther(filename);
+	levelFactory_->useFileForOther(filename);
 }
 
 void Game::randomizeLevels() {
-	levelFactory->random();
+	levelFactory_->random();
 }
 
 void Game::enableHint() {

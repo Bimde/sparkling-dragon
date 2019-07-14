@@ -1,5 +1,6 @@
 #include <memory>
 #include <vector>
+#include <iostream>
 
 #include "src/interfaces/board.h"
 #include "src/interfaces/unplacedBlock.h"
@@ -9,6 +10,13 @@ namespace {
 	// 15 rows + 3 extra
 	const int boardHeight = 18;
 	const int boardWidth = 11;
+}
+
+Board::Board() : currentBlock{nullptr}, board{
+	std::vector<std::vector<std::shared_ptr<PlacedBlock>>>(
+		boardHeight, std::vector<std::shared_ptr<PlacedBlock>>(
+			boardWidth, nullptr))} {
+	std::cout << "ran board ctor" << std::endl;
 }
 
 void Board::setCurrent(std::unique_ptr<UnplacedBlock> next) {
@@ -36,11 +44,6 @@ void Board::moveRow(int fromRow, int toRow) {
 	}
 }
 
-Board::Board() : currentBlock{nullptr}, board{
-	std::vector<std::vector<std::shared_ptr<PlacedBlock>>>(
-		boardHeight, std::vector<std::shared_ptr<PlacedBlock>>(
-			boardWidth, nullptr))} {}
-
 bool Board::setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock> block) {
 	if (isOverlapping(*block)) {
 		return false;
@@ -51,6 +54,10 @@ bool Board::setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock> block) {
 }
 
 bool Board::moveCurrentDown() {
+	if (currentBlock == nullptr) {
+		return false;
+	}
+
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
 	tempBlock->moveDown();
 
@@ -58,6 +65,10 @@ bool Board::moveCurrentDown() {
 }
 
 bool Board::moveCurrentLeft() {
+	if (currentBlock == nullptr) {
+		return false;
+	}
+
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
 	tempBlock->moveLeft();
 
@@ -65,6 +76,10 @@ bool Board::moveCurrentLeft() {
 }
 
 bool Board::moveCurrentRight() {
+	if (currentBlock == nullptr) {
+		return false;
+	}
+
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
 	tempBlock->moveRight();
 
@@ -72,6 +87,10 @@ bool Board::moveCurrentRight() {
 }
 
 bool Board::rotateCurrentLeft() {
+	if (currentBlock == nullptr) {
+		return false;
+	}
+
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
 	tempBlock->rotateLeft();
 
@@ -79,6 +98,10 @@ bool Board::rotateCurrentLeft() {
 }
 
 bool Board::rotateCurrentRight() {
+	if (currentBlock == nullptr) {
+		return false;
+	}
+
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
 	tempBlock->rotateRight();
 
@@ -147,14 +170,15 @@ int Board::destroyFullRowsAndGetPoints() {
 }
 
 void Board::reset() {
-	currentBlock = nullptr;
+	currentBlock.reset(nullptr);
 	for(auto boardRow: board) {
-		for(std::shared_ptr<PlacedBlock> block: boardRow) {
+		for(std::shared_ptr<PlacedBlock> block : boardRow) {
 			block = nullptr;
 		}
 	}
 }
 
+// TODO also add where the current block is on the board
 std::vector<std::vector<char>> Board::getState() {
 	std::vector<std::vector<char>> charBoard(boardHeight, std::vector<char>(boardWidth, ' '));
 	for(int y = 0; y < boardHeight; ++y) {
