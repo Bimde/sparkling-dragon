@@ -7,13 +7,13 @@
 
 class Subject {
     std::vector<std::unique_ptr<Observer>> observers;
-
-  public:
+  protected:
     Subject();
+  public:
     void attach(Observer *o);
     void detach(Observer *o);
     void notifyObservers();
-    virtual ~Subject()=0;
+    virtual ~Subject() = 0;
 };
 
 #endif
