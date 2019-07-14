@@ -33,7 +33,9 @@ void Board::moveRow(int fromRow, int toRow) {
 }
 
 Board::Board(): currentBlock{nullptr}, board{
-	std::vector(boardHeight, std::vector<std::shared_ptr<PlacedBlock>>(boardWidth, nullptr))} {}
+	std::vector<std::vector<std::shared_ptr<PlacedBlock>>>(
+		boardHeight, std::vector<std::shared_ptr<PlacedBlock>>(
+			boardWidth, nullptr))} {}
 
 bool Board::setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock> block) {
 	if (isOverlapping(*block)) {
@@ -95,9 +97,10 @@ bool Board::isOverlapping(const UnplacedBlock& block) {
 	return true;
 }
 
+// TODO place the block onto the board
 bool Board::dropCurrent() {
 	if (!moveCurrentDown()) return false;
-	while(moveCurrentDown){};
+	while(moveCurrentDown()) {}
 	return true;
 }
 
@@ -130,9 +133,9 @@ int Board::destroyFullRowsAndGetPoints() {
 	int points = 0;
 	std::vector<std::shared_ptr<PlacedBlock>> destroyedBlocks = 
 		destroyFullRowsAndGetDestroyedPlacedBlocks();
-	for(auto dBlock: destroyedBlocks) {
-		dBlock->decrementCount;
-		if (dBlock->isDestroyed) {
+	for(auto dBlock : destroyedBlocks) {
+		dBlock->decrementCount();
+		if (dBlock->isDestroyed()) {
 			points += dBlock->getScore();
 		}
 	}
