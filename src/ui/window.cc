@@ -14,8 +14,6 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 		cerr << "Cannot open display" << endl;
 		exit(1);
 	}
-
-	cout << "Hi" << endl;
 	
 	s = DefaultScreen(d);
 	// display, parent window, x, y, width, height, border-width, border-colour, background-colour
@@ -46,7 +44,7 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 
 	cmap = DefaultColormap(d, DefaultScreen(d));
 	
-	for(unsigned int i = 0; i < numColours; ++i) {
+	for (unsigned int i = 0; i < numColours; ++i) {
 		XParseColor(d, cmap, color_vals[i], &xcolour);
 		XAllocColor(d, cmap, &xcolour);
 		colours[i] = xcolour.pixel;
