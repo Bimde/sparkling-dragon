@@ -6,6 +6,10 @@ struct Point {
 	int y;
 
 	Point(int x = 0, int y = 0) : x{x}, y{y} {};
+
+	Point operator+(const Point& other) const { 
+		return Point{x + other.x, y + other.y};
+	}
 };
 
 #endif
