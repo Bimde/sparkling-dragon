@@ -8,12 +8,28 @@
 #include "src/interfaces/levelFactory.h"
 #include "src/interfaces/gameState.h"
 
+namespace {
+	const Point defaultSpawnPoint{0,14}; 
+	const Point centerSpawnPoint{5,14}; 
+}  // namespace
+
 Game::Game(std::unique_ptr<LevelFactory> levelFactory, 
            std::shared_ptr<HintGenerator> hinter, int startingLevel) :
 	levelFactory{std::move(levelFactory)}, hinter{std::move(hinter)},
-	score{0}, nextLevel{levelFactory->getClosestLevel(startingLevel)},
-	showHint{false}, currentLevel{levelFactory->getLevel(nextLevel)} {
-	// TODO Init board, next block, etc
+	score{0}, showHint{false}, 
+	nextLevel{levelFactory->getClosestLevel(startingLevel)},
+	currentLevel{levelFactory->getLevel(nextLevel)},
+	board{std::make_unique<Board>()}, 
+	nextBlock{std::move(currentLevel->getNextBlock(defaultSpawnPoint))} {
+	completeTurn();
+}
+
+// Sets next level and updates the next block
+void Game::completeTurn() {
+	currentLevel = levelFactory->getLevel(nextLevel);
+
+	board->setCurrent(std::move(nextBlock));
+	nextBlock = std::move(currentLevel->getNextBlock(defaultSpawnPoint));
 }
 
 bool Game::moveCurrentBlockDown() {
@@ -38,6 +54,8 @@ bool Game::dropCurrentBlock() {
 	int numFullRows = board->numberOfFullRows();
 	score += (numFullRows + 1)*(numFullRows + 1);
 	score += board->destroyFullRowsAndGetPoints();
+
+	completeTurn();
 
 	return true;
 }

@@ -16,7 +16,6 @@ namespace {
 	const int maxLevel = 4;
 }
 
-// TODO MIL
 LevelFactory::LevelFactory(const LevelConfig& cfg) : 
 	levelZero{nullptr}, 
 	levelOne{std::make_shared<LevelOne>()}, 

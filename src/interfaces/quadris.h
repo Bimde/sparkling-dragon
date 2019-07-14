@@ -18,6 +18,9 @@ class Quadris: public Subject {
 	std::string curCommand;
 	std::string levelFile;
 
+	// TODO remove this comment
+	// NOTE: to reset the game, we can just create a new one 
+	// (I removed Game::reset(), since its a pain to impl that).
 	std::unique_ptr<Game> game;
     std::unique_ptr<CommandInterpreter> commandInterpreter;
 

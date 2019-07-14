@@ -30,12 +30,16 @@ class Game {
   std::shared_ptr<HintGenerator> hinter;
 
 	int score;
+  bool showHint;
+
 	int nextLevel;
-	bool showHint;
+
+  std::shared_ptr<LevelInterface> currentLevel;
 
 	std::unique_ptr<Board> board;
 	std::unique_ptr<UnplacedBlock> nextBlock;
-  	std::shared_ptr<LevelInterface> currentLevel;
+
+  void completeTurn();
   
   public:
   	Game(std::unique_ptr<LevelFactory> levelFactory, 
@@ -60,7 +64,6 @@ class Game {
 
     void doLevelActionAfterMove();
 
-  	void reset();
   	GameState getState();
 
   	int getScore();
