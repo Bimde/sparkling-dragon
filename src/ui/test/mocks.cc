@@ -16,33 +16,31 @@ MockQuadris::MockQuadris(QuadrisState state) : Quadris{GameConfig{}}, state{stat
   std::cout << "Hi" << std::endl;
 }
 
-std::shared_ptr<MockQuadris> UIMocks::createMockQuadris() {
-  return std::make_shared<MockQuadris>(createQuadrisState());
-}
-
 QuadrisState MockQuadris::getState() {
   return state;
 }
 
-QuadrisState UIMocks::createQuadrisState() {
+namespace UIMocks {
+QuadrisState createQuadrisState() {
   return QuadrisState{highScore, curCommand, createGameState()};
 }
 
 
-QuadrisState UIMocks::createQuadrisState(GameState gameState) {
+QuadrisState createQuadrisState(GameState gameState) {
   std::cout << "createQuadState" << std::endl;
   return QuadrisState{highScore, curCommand, gameState};
 }
 
-GameState UIMocks::createGameState() {
+GameState createGameState() {
   return GameState{level, score, createBoard()};
 }
 
-GameState UIMocks::createGameState(std::vector<std::vector<char>> board) {
+GameState createGameState(std::vector<std::vector<char>> board) {
   std::cout << "createGameState" << std::endl;
   return GameState{level, score, board};
 }
 
-std::vector<std::vector<char>> UIMocks::createBoard() {
+std::vector<std::vector<char>> createBoard() {
   return std::vector<std::vector<char>>{};
 }
+}  // namespace UIMocks
