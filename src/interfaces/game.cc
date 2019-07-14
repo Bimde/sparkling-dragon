@@ -101,8 +101,8 @@ GameState Game::getState() {
 	return GameState(currentLevel->getLevelNumber(), score, board->getState());
 }
 
-std::unique_ptr<Game> create(GameConfig cfg) {
-	auto levelFactory = std::make_unique<LevelFactory>(cfg.lvlcfg);
+std::unique_ptr<Game> Game::create(GameConfig cfg) {
+	auto levelFactory = std::make_unique<LevelFactory>(cfg.getLevelConfig());
 	auto hintGenerator = HintGenerator::create();
 
 	if (levelFactory == nullptr || hintGenerator == nullptr) {

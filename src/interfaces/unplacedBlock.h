@@ -16,7 +16,7 @@ class UnplacedBlock : public Block {
                   std::vector<Point> offsets);
 
   public:
-  	virtual ~UnplacedBlock() = 0;
+  	virtual ~UnplacedBlock();
 
   	void moveDown();
   	void moveRight();

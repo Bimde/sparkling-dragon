@@ -7,7 +7,7 @@ class PlacedBlock : public Block {
 	int count;
 
   public:
-	PlacedBlock(int score, int type, int count) : 
+	PlacedBlock(int score, char type, int count) : 
 		Block{score, type}, count{count} {}
 
 	void decrementCount() { --count; }

@@ -13,17 +13,17 @@
 const int defaultStartLevel = 0;
 
 class GameConfig {
-    int startLevel;
-    LevelConfig lvlcfg;
+    int startLevel_;
+    LevelConfig lvlcfg_;
   public:
-    GameConfig() : startLevel{defaultStartLevel};
+    GameConfig() : startLevel_{defaultStartLevel} {}
 
-    int startLevel() { return startLevel; }
-    void setStartLevel(int level) { startLevel = level; }
+    int startLevel() { return startLevel_; }
+    void setStartLevel(int level) { startLevel_ = level; }
 
-    LevelConfig getLevelConfig() { return lvlcfg; } 
-    void setSeed(int seed) { lvlcfg.setSeed(seed); }
-    void setFilename(std::string filename) { lvlcfg.setFilename(filename); }
+    LevelConfig getLevelConfig() { return lvlcfg_; } 
+    void setSeed(int seed) { lvlcfg_.setSeed(seed); }
+    void setFilename(std::string filename) { lvlcfg_.setFilename(filename); }
 };
 
 class Game {

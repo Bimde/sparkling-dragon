@@ -11,7 +11,7 @@ struct GameState {
 
 	GameState(int currentLevel, int score, 
 			  std::vector<std::vector<char>> board) : 
-		currentLevel{currentLevel}, score{score}, board{std::move{board}} {}
+		currentLevel{currentLevel}, score{score}, board{std::move(board)} {}
 };
 
 #endif
