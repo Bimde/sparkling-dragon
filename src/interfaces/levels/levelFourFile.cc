@@ -6,7 +6,7 @@
 LevelFourFile::LevelFourFile(std::shared_ptr<std::ifstream> in) : 
 	in{in} {};
 
-std::unique_ptr<UnplacedBlock> getNextBlockImpl(
+std::unique_ptr<UnplacedBlock> LevelFourFile::getNextBlockImpl(
 	Point bottomLeft) {
 	// TODO
 }
