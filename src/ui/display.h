@@ -33,7 +33,7 @@ class XDisplay : Observer {
     void drawScore(int);
     void drawCurrentLevel(int);
 
-    void drawField(string, int);
+    void drawField(std::string, int);
 };
 
 #endif

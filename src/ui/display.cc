@@ -15,8 +15,7 @@
 using namespace std;
 
 XDisplay::XDisplay(std::weak_ptr<Quadris> game) : 
-  game{game},
-  window{512, 512 / 2 * 3}, 
+  window{512, 512 / 2 * 3},
   tileToColour{
     {'I', Xwindow::Black},
     {'J', Xwindow::Red},
@@ -25,7 +24,10 @@ XDisplay::XDisplay(std::weak_ptr<Quadris> game) :
     {'S', Xwindow::Black},
     {'Z', Xwindow::Red},
     {'T', Xwindow::Green}
-  } {
+  }, 
+  game{game},
+  lastState{game.lock()->getState()}
+  {
     updateDisplay(true);
   }
 
@@ -40,7 +42,7 @@ void XDisplay::updateDisplay(bool redraw) {
   //window.drawString(15, y++, "Update");
   //window.fillRectangle(y, y, 50, 50, y % 5);
 
-  if (game.expired) {
+  if (game.expired()) {
     cerr << "Quadris pointer expired" << endl;
     return;
   }
@@ -97,6 +99,6 @@ void XDisplay::drawField(string text, int row) {
   if (row >= NO_FIELDS) {
     cerr << "YOU FUCKED UP NO_FIELDS" << endl;
   }
-  window.fillRectangle(PADDING, 0, window.getWidth - 2 * PADDING, FIELD_HEIGHT, 0);
+  window.fillRectangle(PADDING, 0, window.getWidth() - 2 * PADDING, FIELD_HEIGHT, 0);
   window.drawString(PADDING, PADDING + PADDING * row + FIELD_HEIGHT * row, text);
 }
