@@ -4,9 +4,8 @@
 #include <cstdlib>
 
 #include "src/interfaces/levels/levelOne.h"
-
+#include "src/interfaces/levels/blockGenerator.h"
 #include "src/interfaces/levelInterface.h"
-#include "src/interfaces/blockGenerator.h"
 #include "src/interfaces/unplacedBlock.h"
 
 namespace {

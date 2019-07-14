@@ -5,12 +5,11 @@
 #include <memory>
 
 #include "src/interfaces/levelInterface.h"
-
-class LevelZero;
-class LevelOne;
-class LevelTwo;
-class LevelThree;
-class LevelFour;
+#include "src/interfaces/levels/levelZero.h"
+#include "src/interfaces/levels/levelOne.h"
+#include "src/interfaces/levels/levelTwo.h"
+#include "src/interfaces/levels/levelThree.h"
+#include "src/interfaces/levels/levelFour.h"
 
 class LevelConfig {
 	int seed_;
@@ -50,11 +49,11 @@ class LevelConfig {
 };
 
 class LevelFactory {
-	std::shared_ptr<LevelZero> levelZero;
-	std::shared_ptr<LevelOne> levelOne;
-	std::shared_ptr<LevelTwo> levelTwo;
-	std::shared_ptr<LevelThree> levelThree;
-	std::shared_ptr<LevelFour> levelFour;
+	std::shared_ptr<LevelInterface> levelZero;
+	std::shared_ptr<LevelInterface> levelOne;
+	std::shared_ptr<LevelInterface> levelTwo;
+	std::shared_ptr<LevelInterface> levelThree;
+	std::shared_ptr<LevelInterface> levelFour;
 
   public:
   	LevelFactory(const LevelConfig& cfg);

@@ -3,7 +3,8 @@
 
 #include <memory>
 
-class UnplacedBlock;
+#include "src/interfaces/board.h"
+#include "src/interfaces/unplacedBlock.h"
 
 class HintGenerator {
 	virtual UnplacedBlock generateHintImpl(
