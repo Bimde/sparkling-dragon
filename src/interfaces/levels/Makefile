@@ -18,7 +18,7 @@ copy_to_bin:
 	# cp levels.out ../../../out
 
 rm_o_d: SHELL := /bin/bash
-rm_o_d:
+rm_o_d: 
 	rm *.o *.d
 
 .PHONY: clean

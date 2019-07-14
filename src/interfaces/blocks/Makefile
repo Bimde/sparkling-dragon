@@ -5,7 +5,7 @@ BLOCKOBJECTS = iBlock.o jBlock.o lBlock.o oBlock.o sBlock.o starBlock.o tBlock.o
 DEPENDS = ${BLOCKOBJECTS:.o=.d}
 EXEC = blocks.out
 
-all: ${EXEC} copy_to_bin
+all: ${EXEC} copy_to_bin rm_o_d
 
 ${EXEC}: ${BLOCKOBJECTS}
 	${CXX} ${CXXFLAGS} -c ${BLOCKOBJECTS}
@@ -16,6 +16,10 @@ copy_to_bin: SHELL := /bin/bash
 copy_to_bin:
 	cp *.o ../../../bin
 	# cp blocks.out ../../../bin
+
+rm_o_d: SHELL := /bin/bash
+rm_o_d: 
+	rm *.o *.d
 
 .PHONY: clean
 
