@@ -1,0 +1,4 @@
+#!/bin/bash
+
+make
+g++ bin/*.o -o a.out
