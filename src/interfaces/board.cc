@@ -119,6 +119,7 @@ int Board::numberOfFullRows() {
 bool Board::isOverlapping(const UnplacedBlock& block) {
 	const std::vector<Point> points = block.pointsOnBoard();
 	for(Point p: points) {
+		if(p.y < 0 || p.y >= boardHeight || p.x < 0 || p.x >= boardWidth) return false;
 		if(board.at(p.y).at(p.x) != nullptr) return false;
 	}
 	return true;
