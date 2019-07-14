@@ -1,4 +1,4 @@
 all:
 	+$(MAKE) -C src/interfaces/blocks
 	+$(MAKE) -C src/interfaces
-	+$(MAKE) -C src/ui
+	+$(MAKE) -C src/interfaces/levels/test

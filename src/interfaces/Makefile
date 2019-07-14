@@ -1,16 +1,23 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD -I../../
 
-BLOCKOBJECTS = block.o board.o commandInterpreter.o commands.o game.o gameState.o hintGenerator.o levelFactory.o levelInterface.o placedBlock.o point.o quadris.o quadrisState.o trie.o trieNode.o unplacedBlock.o
-DEPENDS = ${BLOCKOBJECTS:.o=.d}
-EXEC = quadrisProgram
+OBJECTS = block.o board.o commandInterpreter.o game.o gameState.o hintGenerator.o levelFactory.o levelInterface.o placedBlock.o quadris.o quadrisState.o trie.o trieNode.o unplacedBlock.o
+DEPENDS = ${OBJECTS:.o=.d}
+EXEC = quadris.out
 
-${EXEC}: ${BLOCKOBJECTS}
-	${CXX} ${CXXFLAGS} -c ${BLOCKOBJECTS}
+all: ${EXEC} copy_to_bin
+
+${EXEC}: ${OBJECTS}
+	${CXX} ${CXXFLAGS} -c ${OBJECTS}
 
 -include ${DEPENDS}
+
+copy_to_bin: SHELL := /bin/bash
+copy_to_bin:
+	cp *.o ../../../bin
+	# cp quadris.out ../../../out
 
 .PHONY: clean
 
 clean:
-	rm ${BLOCKOBJECTS} ${DEPENDS} ${EXEC}
+	rm ${OBJECTS} ${DEPENDS} ${EXEC}
