@@ -54,12 +54,12 @@ void Quadris::runCommand(CMD command) {
             game->decreaseLevel();
             break;
         case NoRandom:
-            game->useFileForLevel(levelFile);
+            game->useFileForLevel(gameCfg.getLevelConfig().filename());
             break;
         case Random:
             break;
         case Restart:
-            game->reset();
+            game = Game::create(gameCfg);
             break;
         case Hint: 
             game->enableHint();
@@ -80,7 +80,9 @@ void Quadris::runCommand(CMD command) {
 
 // Public functions
 // Quadris::Quadris(int seed, string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter) {}
-Quadris::Quadris(): highScore{0}, displayingHint{false}, curCommand{""}, levelFile{""}, commandInterpreter{make_unique<CommandInterpreter>()} {}
+Quadris::Quadris(GameConfig cfg) : highScore{0}, displayingHint{false}, 
+    curCommand{""}, gameCfg{cfg}, game{Game::create(cfg)},
+    commandInterpreter{make_unique<CommandInterpreter>()} {}
 
 void Quadris::runGame(istream & in) {
     string input;
@@ -107,14 +109,17 @@ void Quadris::runGame(istream & in) {
         } else if (CMD::Random == command) {
             runCommand(CMD::Random);
         } else if (CMD::NoRandom == command) {
-            in >> levelFile;
+            string filename;
+            in >> filename;
+            gameCfg.setFilename(filename);
             runCommand(CMD::NoRandom);
         } else {
             for( ;multiplier > 0; --multiplier) {
                 runCommand(command);
             }
-            if (command == CMD::Left || command == CMD::Right || command == CMD::Down ||
-                command == CMD::RotateLeft || command == CMD::RotateRight || command == CMD::Drop ||
+            if (command == CMD::Left || command == CMD::Right || 
+                command == CMD::Down || command == CMD::RotateLeft || 
+                command == CMD::RotateRight || command == CMD::Drop ||
                 command == CMD::LevelUp || command == CMD::LevelDown) {
                     runCommand(CMD::AfterMoveTurn);
             }

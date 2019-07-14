@@ -96,13 +96,6 @@ void Game::doLevelActionAfterMove() {
 	currentLevel->actionAfterMove(*board);
 }
 
-void Game::reset() {
-	score = 0;
-	board->reset();
-	nextLevel = 0;
-	// TODO: Reset block gen
-}
-
 GameState Game::getState() {
 	// TODO check hint (and return with hint if true)
 	return GameState(currentLevel->getLevelNumber(), score, board->getState());

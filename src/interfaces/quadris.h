@@ -8,6 +8,7 @@
 
 // #include "game.h"
 #include "src/interfaces/quadrisState.h"
+#include "src/interfaces/game.h"
 #include "../ui/subject.h"
 #include "src/interfaces/commandInterpreter.h"
 
@@ -17,6 +18,8 @@ class Quadris: public Subject {
 	bool displayingHint;
 	std::string curCommand;
 	std::string levelFile;
+
+	GameConfig cfg;
 
 	// TODO remove this comment
 	// NOTE: to reset the game, we can just create a new one 
