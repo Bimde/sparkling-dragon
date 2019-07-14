@@ -25,6 +25,7 @@ test: all
 
 test_only:
 	+$(MAKE) -C src/interfaces/levels/test
+	+$(MAKE) -C src/ui/test
 	+$(MAKE) -C src/testing
 	${TO_TEST_EXEC}
 

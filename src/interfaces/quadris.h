@@ -34,8 +34,8 @@ class Quadris: public Subject {
   	Quadris(GameConfig cfg);
 	// Quadris(int seed, std::string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter);
 	void runGame(std::istream &);
-	QuadrisState getState();
-  	~Quadris();
+	virtual QuadrisState getState();
+  	virtual ~Quadris();
 };
 
 #endif

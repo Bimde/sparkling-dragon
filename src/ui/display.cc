@@ -23,7 +23,8 @@ XDisplay::XDisplay(std::weak_ptr<Quadris> game) :
     {'O', Xwindow::Blue},
     {'S', Xwindow::Black},
     {'Z', Xwindow::Red},
-    {'T', Xwindow::Green}
+    {'T', Xwindow::Green},
+    {' ', Xwindow::White}
   }, 
   game{game},
   lastState{game.lock()->getState()}
