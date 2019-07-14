@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "src/interfaces/board.h"
+#include "src/interfaces/point.h"
 #include "src/interfaces/unplacedBlock.h"
 #include "src/interfaces/placedBlock.h"
 
@@ -189,5 +190,13 @@ std::vector<std::vector<char>> Board::getState() {
 			}
 		}
 	}
+
+	if (currentBlock != nullptr) {
+		std::vector<Point> points = currentBlock->pointsOnBoard();
+		for (auto p : points) {
+			charBoard.at(p.y).at(p.x) = currentBlock->getType();
+		}
+	}
+
 	return charBoard;
 }

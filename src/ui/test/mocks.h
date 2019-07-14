@@ -13,7 +13,6 @@ class MockQuadris : public Quadris {
 };
 
 namespace UIMocks {
-  std::shared_ptr<MockQuadris> createMockQuadris();
   QuadrisState createQuadrisState();
   QuadrisState createQuadrisState(GameState);
   GameState createGameState();
