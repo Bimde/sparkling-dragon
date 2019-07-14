@@ -15,8 +15,10 @@ clean_bin:
 
 test: all
 	+$(MAKE) -C src/interfaces/levels/test
+	+$(MAKE) -C src/testing
 	${TO_EXEC}
 
 test_only:
 	+$(MAKE) -C src/interfaces/levels/test
+	+$(MAKE) -C src/testing
 	${TO_EXEC}

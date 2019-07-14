@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wall -MMD -I../../../../
+CXXFLAGS = -std=c++14 -Wall -MMD -I../../
 
 OBJECTS = testing_main.o
 DEPENDS = ${OBJECTS:.o=.d}
@@ -14,7 +14,7 @@ ${EXEC}: ${OBJECTS}
 
 copy_to_bin: SHELL := /bin/bash
 copy_to_bin:
-	cp *.o ../../../../bin
+	cp *.o ../../bin
 	# cp test.out ../../../../out
 
 rm_o_d: SHELL := /bin/bash
