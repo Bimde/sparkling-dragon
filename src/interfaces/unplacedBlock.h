@@ -26,7 +26,6 @@ class UnplacedBlock : public Block {
     int getNumberOfBlocks();
     Point getBottomLeft();
     std::vector<Point> pointsOnBoard() const;
-    std::vector<Point> getPointsWithOneShiftDown() const; 
 };
 
 #endif

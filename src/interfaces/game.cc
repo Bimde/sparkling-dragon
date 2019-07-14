@@ -10,8 +10,8 @@
 #include "src/interfaces/gameState.h"
 
 namespace {
-	const Point defaultSpawnPoint{0,3}; 
-	const Point centerSpawnPoint{5,3}; 
+	const Point defaultSpawnPoint{0,14}; 
+	const Point centerSpawnPoint{5,14}; 
 }  // namespace
 
 Game::Game(std::unique_ptr<LevelFactory> levelFactory, 

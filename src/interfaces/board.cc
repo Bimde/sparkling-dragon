@@ -153,7 +153,7 @@ std::vector<std::shared_ptr<PlacedBlock>>
   		Board::destroyFullRowsAndGetDestroyedPlacedBlocks() 
 {
 	std::vector<std::shared_ptr<PlacedBlock>> destroyedBlocks;
-	for (int y = boardHeight - 1; y >= 0; --y) {
+	for (int y = 0; y < boardHeight; ++y) {
 		if(rowIsFull(y)) {
 			for(int x = 0; x < boardWidth; ++x) {
 				destroyedBlocks.emplace_back(board.at(y).at(x));
@@ -162,13 +162,22 @@ std::vector<std::shared_ptr<PlacedBlock>>
 		}
 	}
 
-	int emptyRow = boardHeight-1, shiftRow = 0;
+	int emptyRow = 0, shiftRow = 0;
 
-	while(shiftRow >= 0 && emptyRow >= 0 && shiftRow < emptyRow) {
-		while(emptyRow >= 0 && !rowIsEmpty(emptyRow)) emptyRow--;
+	while (shiftRow < boardHeight && emptyRow < boardHeight && 
+		   shiftRow < emptyRow) {
+		while (emptyRow < boardHeight && !rowIsEmpty(emptyRow)) {
+			++emptyRow;
+		}
 		shiftRow = emptyRow;
-		while(shiftRow >= 0 && rowIsEmpty(shiftRow)) shiftRow--;		
-		if(emptyRow >= 0 && shiftRow >= 0) moveRow(shiftRow, emptyRow);
+
+		while (shiftRow < boardHeight && rowIsEmpty(shiftRow)) {
+			++shiftRow;
+		}
+
+		if (emptyRow < boardHeight && shiftRow < boardHeight) {
+			moveRow(shiftRow, emptyRow);
+		}
 	}
 
 	return destroyedBlocks;
@@ -202,7 +211,7 @@ std::vector<std::vector<char>> Board::getState() {
 	for(int y = 0; y < boardHeight; ++y) {
 		for(int x = 0; x < boardWidth; ++x) {
 			if(board.at(y).at(x) != nullptr) {
-				charBoard.at(y).at(x) = board.at(y).at(x)->getType();
+				charBoard.at(y).at(x) = board.at(boardHeight - y - 1).at(x)->getType();
 			}
 		}
 	}
@@ -210,7 +219,7 @@ std::vector<std::vector<char>> Board::getState() {
 	if (currentBlock != nullptr) {
 		std::vector<Point> points = currentBlock->pointsOnBoard();
 		for (auto p : points) {
-			charBoard.at(p.y).at(p.x) = currentBlock->getType();
+			charBoard.at(boardHeight - p.y - 1).at(p.x) = currentBlock->getType();
 		}
 	}
 
