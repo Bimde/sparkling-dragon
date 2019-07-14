@@ -15,10 +15,6 @@ UnplacedBlock::~UnplacedBlock() {}
 void UnplacedBlock::moveDown() {
 	++bottomLeft.y;
 }
-void UnplacedBlock::moveUp() {
-	--bottomLeft.y;
-}
-
 
 void UnplacedBlock::moveRight() {
 	++bottomLeft.x;
@@ -66,21 +62,21 @@ void UnplacedBlock::rotateRight() {
 }
 
 Point UnplacedBlock::getBottomLeft() {
-	return Point(bottomLeft.x, bottomLeft.y);
+	return bottomLeft;
 }
 
 std::vector<Point> UnplacedBlock::pointsOnBoard() const {
 	std::vector<Point> points;
-	for(auto offset: offsets) {
-		points.emplace_back(new Point(offset.x + bottomLeft.x, offset.y + bottomLeft.y));
+	for(auto offset : offsets) {
+		points.emplace_back(bottomLeft + offset);
 	}
 	return points;
 }
 
 std::vector<Point> UnplacedBlock::getPointsWithOneShiftDown() const {
 	std::vector<Point> points;
-	for(auto offset: offsets) {
-		points.emplace_back(new Point(offset.x + bottomLeft.x, offset.y + bottomLeft.y + 1));
+	for(auto offset : offsets) {
+		points.emplace_back(bottomLeft + offset + Point(0,1));
 	}
 	return points;
 }

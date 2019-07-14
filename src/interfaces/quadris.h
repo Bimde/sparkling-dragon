@@ -18,7 +18,7 @@ class Quadris: public Subject {
 	std::string curCommand;
 	std::string levelFile;
 
-	GameConfig cfg;
+	GameConfig gameCfg;
 
 	// TODO remove this comment
 	// NOTE: to reset the game, we can just create a new one 
@@ -31,7 +31,7 @@ class Quadris: public Subject {
 	void runCommand(CMD);
 
   public:	
-  	Quadris();
+  	Quadris(GameConfig cfg);
 	// Quadris(int seed, std::string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter);
 	void runGame(std::istream &);
 	QuadrisState getState();
