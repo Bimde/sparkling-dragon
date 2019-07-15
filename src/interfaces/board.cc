@@ -49,7 +49,7 @@ void Board::moveRow(int fromRow, int toRow) {
 }
 
 bool Board::setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock> block) {
-	if (currentBlock == nullptr) {
+	if (block == nullptr) {
 		currentBlock.swap(block);
 		return true;
 	}
@@ -168,6 +168,8 @@ bool Board::dropCurrent() {
 		board.at(p.y).at(p.x) = pb;
 	}
 
+	currentBlock = nullptr;
+
 	return true;
 }
 
@@ -176,7 +178,7 @@ std::vector<std::shared_ptr<PlacedBlock>>
 {
 	std::vector<std::shared_ptr<PlacedBlock>> destroyedBlocks;
 	for (int y = 0; y < boardHeight; ++y) {
-		if(rowIsFull(y)) {
+		if (rowIsFull(y)) {
 			for(int x = 0; x < boardWidth; ++x) {
 				destroyedBlocks.emplace_back(board.at(y).at(x));
 				board.at(y).at(x) = nullptr;
@@ -255,4 +257,16 @@ bool Board::isGameOver() {
 	}
 
 	return false;
+}
+
+int Board::getNumDropsWithoutClears() {
+	return numDropsWithoutClears;
+}
+
+void Board::increaseNumDropsWithoutClears() {
+	++numDropsWithoutClears;
+}
+
+void Board::resetNumDropsWithoutClears() {
+	numDropsWithoutClears = 0;
 }

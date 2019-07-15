@@ -4,8 +4,8 @@
 #include <memory>
 
 #include "src/interfaces/levelInterface.h"
-
-class Board;
+#include "src/interfaces/unplacedBlock.h"
+#include "src/interfaces/board.h"
 
 class LevelFour : public LevelInterface {
 	std::unique_ptr<UnplacedBlock> getNextBlockImpl(

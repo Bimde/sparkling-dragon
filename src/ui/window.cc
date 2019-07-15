@@ -13,6 +13,7 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 	d = XOpenDisplay(NULL);
 	if (d == NULL) {
 		cerr << "Cannot open display" << endl;
+		// TODO dont exit bro, our thing is rekt
 		exit(1);
 	}
 	

@@ -10,8 +10,7 @@
 #include "src/interfaces/gameState.h"
 
 namespace {
-	const Point defaultSpawnPoint{0,14}; 
-	const Point centerSpawnPoint{5,14}; 
+	const Point defaultSpawnPoint{0,14};
 }  // namespace
 
 Game::Game(std::unique_ptr<LevelFactory> levelFactory, 
@@ -39,10 +38,12 @@ void Game::completeTurn() {
 		++numBlocksSpawned;
 	}
 
-	currentLevel = levelFactory_->getLevel(nextLevel);
-
-	board->setCurrent(std::move(nextBlock));
-	nextBlock = currentLevel->getNextBlock(defaultSpawnPoint);
+	int isValidCurrent = board->setCurrentIfNotOverlapping(std::move(nextBlock));
+	
+	if (isValidCurrent) {
+		currentLevel = levelFactory_->getLevel(nextLevel);
+		nextBlock = currentLevel->getNextBlock(defaultSpawnPoint);
+	}
 }
 
 int Game::getScore() {
@@ -68,9 +69,12 @@ bool Game::dropCurrentBlock() {
 	
 	int numFullRows = board->numberOfFullRows();
 
-	if (numFullRows != 0) {
+	if (numFullRows == 0) {
+		board->increaseNumDropsWithoutClears();
+	} else {
 		score += (numFullRows + 1)*(numFullRows + 1);	
 		score += board->destroyFullRowsAndGetPoints();
+		board->resetNumDropsWithoutClears();
 	}
 
 	completeTurn();

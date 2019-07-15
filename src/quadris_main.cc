@@ -67,12 +67,14 @@ int main(int argc, char *argv[]) {
 
 	quadris->attach(out);
 
-	auto ui = std::make_shared<XDisplay>(quadris);
-
-	quadris->attach(ui);
+	// TODO remove commented out UI
+	// auto ui = std::make_shared<XDisplay>(quadris);
+	// quadris->attach(ui);
 
 	quadris->runGame(std::cin);
 	quadris->detach(out);
+	// quadris->detach(ui);
+
 
 	return 0;
 }

@@ -8,22 +8,24 @@
 #include "src/interfaces/placedBlock.h"
 
 class Board {
-	std::unique_ptr<UnplacedBlock> currentBlock;
-	std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
+    int numDropsWithoutClears;
 
-    bool setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock>);
+	  std::unique_ptr<UnplacedBlock> currentBlock;
+	  std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
+
     bool rowIsFull(int y);
-	bool rowIsEmpty(int y);
-	void moveRow(int fromRow, int toRow);
+	  bool rowIsEmpty(int y);
+	  void moveRow(int fromRow, int toRow);
 
   	bool isOverlapping(const UnplacedBlock&);
 
   	std::vector<std::shared_ptr<PlacedBlock>> 
-  		destroyFullRowsAndGetDestroyedPlacedBlocks();
+  	destroyFullRowsAndGetDestroyedPlacedBlocks();
   public:
   	Board();
 
   	void setCurrent(std::unique_ptr<UnplacedBlock>);
+    bool setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock>);
 
   	bool moveCurrentDown();
   	bool moveCurrentLeft();
@@ -37,6 +39,10 @@ class Board {
 	  int destroyFullRowsAndGetPoints();
 
     bool isGameOver();
+
+    int getNumDropsWithoutClears() ;
+    void increaseNumDropsWithoutClears();
+    void resetNumDropsWithoutClears();
 
     std::vector<std::vector<char>> getState();
 };

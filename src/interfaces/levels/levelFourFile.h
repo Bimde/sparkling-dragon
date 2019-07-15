@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "src/interfaces/levels/levelFour.h"
+#include "src/interfaces/unplacedBlock.h"
 
 class LevelFourFile : public LevelFour {
 	std::shared_ptr<std::ifstream> in;

@@ -5,11 +5,16 @@
 #include "src/interfaces/levels/blockGenerator.h"
 #include "src/interfaces/levelInterface.h"
 #include "src/interfaces/point.h"
+#include "src/interfaces/blocks/starBlock.h"
 
 namespace {
 	const int kLevel = 4;
 	const int kPoints = 25;
 	const int totalProbability = 9;
+
+	const int numDropsWithoutClearsToSpawnStar = 5;
+
+	const Point centerSpawnPoint{5,14}; 
 }  // namespace
 
 LevelFour::LevelFour() : LevelInterface{kLevel} {}
@@ -42,7 +47,14 @@ std::unique_ptr<UnplacedBlock> LevelFour::getNextBlockImpl(
 }
 
 bool LevelFour::dropImpl(Board& board) {
-	// TODO drop block AND insert valid star block
+	bool couldDrop = board.dropCurrent();
+	if (couldDrop && 
+		board.getNumDropsWithoutClears() % numDropsWithoutClearsToSpawnStar == 0) {
+		board.setCurrent(std::make_unique<StarBlock>(centerSpawnPoint));
+		couldDrop = board.dropCurrent();
+	}
+
+	return couldDrop;
 }
 
 void LevelFour::actionAfterMoveImpl(Board& board) {
