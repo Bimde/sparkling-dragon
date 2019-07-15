@@ -24,7 +24,7 @@ void UnplacedBlock::moveLeft() {
 	--bottomLeft.x;
 }
 
-void UnplacedBlock::rotateLeft() {
+void UnplacedBlock::rotateRight() {
 	if (offsets.size() == 0) {
 		return;
 	}
@@ -55,10 +55,10 @@ void UnplacedBlock::rotateLeft() {
 	offsets.swap(newOffsets);
 }
 
-void UnplacedBlock::rotateRight() {
-	rotateLeft();
-	rotateLeft();
-	rotateLeft();
+void UnplacedBlock::rotateLeft() {
+	rotateRight();
+	rotateRight();
+	rotateRight();
 }
 
 int UnplacedBlock::getNumberOfBlocks() {
