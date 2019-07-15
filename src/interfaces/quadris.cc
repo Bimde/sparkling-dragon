@@ -35,50 +35,63 @@ string Quadris::parseCommand(string command) {
 }
 
 void Quadris::runCommand(CMD command) {
+    if (game == nullptr) {
+        return;
+    }
+
+    // Perform game related commands
+    if (!game->isGameOver()) {
+        switch(command) {
+            case Left:
+                game->moveCurrentBlockLeft();
+                break;
+            case Right:
+                game->moveCurrentBlockRight();
+                break;
+            case Down:
+                game->moveCurrentBlockDown();
+                break;
+            case RotateLeft:
+                game->rotateCurrentBlockLeft();
+                break;
+            case RotateRight:
+                game->rotateCurrentBlockRight();
+                break;
+            case Drop:
+                game->dropCurrentBlock();
+                break;
+            case LevelUp:
+                game->increaseLevel();
+                break;
+            case LevelDown:
+                game->decreaseLevel();
+                break;
+            case NoRandom:
+                game->useFileForLevel(gameCfg.getLevelConfig().filename());
+                break;
+            case Random:
+                game->randomizeLevels();
+                break;
+            case Hint: 
+                game->enableHint();
+                displayingHint = true;
+                break;
+            case RemoveHint:
+                game->disableHint();
+                displayingHint = false;
+                break;
+            case AfterMoveTurn:
+                game->doLevelActionAfterMove();
+                break;
+        }
+    }
+
     switch(command) {
-        case Left:
-            game->moveCurrentBlockLeft();
-            break;
-        case Right:
-            game->moveCurrentBlockRight();
-            break;
-        case Down:
-            game->moveCurrentBlockDown();
-            break;
-        case RotateLeft:
-            game->rotateCurrentBlockLeft();
-            break;
-        case RotateRight:
-            game->rotateCurrentBlockRight();
-            break;
-        case Drop:
-            game->dropCurrentBlock();
-            break;
-        case LevelUp:
-            game->increaseLevel();
-            break;
-        case LevelDown:
-            game->decreaseLevel();
-            break;
-        case NoRandom:
-            game->useFileForLevel(gameCfg.getLevelConfig().filename());
-            break;
         case Random:
             game->randomizeLevels();
             break;
         case Restart:
             game = Game::create(gameCfg);
-            break;
-        case Hint: 
-            game->enableHint();
-            displayingHint = true;
-            break;
-        case RemoveHint:
-            game->disableHint();
-            displayingHint = false;
-            break;
-        case AfterMoveTurn:
-            game->doLevelActionAfterMove();
             break;
         case InvalidCommand:
             // TODO add new thing to relay error msgs

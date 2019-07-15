@@ -34,9 +34,9 @@ class Board {
 
     int numberOfFullRows();
   	
-	int destroyFullRowsAndGetPoints();
+	  int destroyFullRowsAndGetPoints();
 
-    void reset();
+    bool isGameOver();
 
     std::vector<std::vector<char>> getState();
 };

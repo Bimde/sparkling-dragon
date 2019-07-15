@@ -11,6 +11,9 @@ namespace {
 	// 15 rows + 3 extra
 	const int boardHeight = 18;
 	const int boardWidth = 11;
+
+	const int gameBoardHeight = 15;
+	const int gameBoardWidth = 11;
 }
 
 Board::Board() : currentBlock{nullptr}, board{
@@ -46,9 +49,15 @@ void Board::moveRow(int fromRow, int toRow) {
 }
 
 bool Board::setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock> block) {
+	if (currentBlock == nullptr) {
+		currentBlock.swap(block);
+		return true;
+	}
+
 	if (isOverlapping(*block)) {
 		return false;
 	}
+
 	currentBlock.swap(block);
 	return true;
 }
@@ -141,7 +150,14 @@ bool Board::isOverlapping(const UnplacedBlock& block) {
 }
 
 bool Board::dropCurrent() {
-	if (isOverlapping(*currentBlock)) return false;
+	if (currentBlock == nullptr) {
+		return false;
+	}
+
+	if (isOverlapping(*currentBlock)) {
+		return false;
+	}
+
 	while (moveCurrentDown()) {}
 
 	auto pb = std::make_shared<PlacedBlock>(currentBlock->getScore(), 
@@ -202,15 +218,6 @@ int Board::destroyFullRowsAndGetPoints() {
 	return points;
 }
 
-void Board::reset() {
-	currentBlock.reset(nullptr);
-	for(auto boardRow : board) {
-		for(std::shared_ptr<PlacedBlock> block : boardRow) {
-			block = nullptr;
-		}
-	}
-}
-
 // TODO also add where the current block is on the board
 std::vector<std::vector<char>> Board::getState() {
 	std::cout << "getting board state" << std::endl;
@@ -233,4 +240,20 @@ std::vector<std::vector<char>> Board::getState() {
 	}
 
 	return charBoard;
+}
+
+bool Board::isGameOver() {
+	if (currentBlock != nullptr && isOverlapping(*currentBlock)) {
+		return true;
+	}
+
+	for (int y = gameBoardHeight - 1; y < boardHeight; ++y) {
+		for (int x = gameBoardWidth - 1; x < boardWidth; ++x) {
+			if (board.at(y).at(x) != nullptr) {
+				return true;
+			}
+		}
+	}
+
+	return false;
 }

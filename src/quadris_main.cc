@@ -32,6 +32,10 @@ void Out::notify() {
 	}
 	std::cout << std::endl;
 
+	if (gstate.isGameOver) {
+		std::cout << "Game Over!!!!! Please restart" << std::endl;
+	}
+
 	std::cout << "-------------------------" << std::endl;
 
 

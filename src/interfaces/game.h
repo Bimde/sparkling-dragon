@@ -69,6 +69,8 @@ class Game {
 
   	int getScore();
 
+    bool isGameOver();
+
     static std::unique_ptr<Game> create(GameConfig cfg);
 };
 

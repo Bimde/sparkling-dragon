@@ -123,7 +123,8 @@ GameState Game::getState() {
 	}
 
 	return GameState(currentLevel->getLevelNumber(), score, board->getState(), 
-					 nextLevel, std::make_shared<UnplacedBlock>(*nextBlock));
+					 nextLevel, std::make_shared<UnplacedBlock>(*nextBlock), 
+					 isGameOver());
 }
 
 std::unique_ptr<Game> Game::create(GameConfig cfg) {
@@ -138,4 +139,8 @@ std::unique_ptr<Game> Game::create(GameConfig cfg) {
 
 	return std::make_unique<Game>(std::move(levelFactory), std::move(hintGenerator), 
 								  cfg.startLevel());
+}
+
+bool Game::isGameOver() {
+	return board->isGameOver();
 }
