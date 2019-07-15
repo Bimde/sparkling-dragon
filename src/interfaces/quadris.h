@@ -32,10 +32,10 @@ class Quadris: public Subject {
 
   public:	
   	Quadris(GameConfig cfg);
-	// Quadris(int seed, std::string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter);
+  	virtual ~Quadris();
+
 	void runGame(std::istream &);
 	virtual QuadrisState getState();
-  	virtual ~Quadris();
 };
 
 #endif

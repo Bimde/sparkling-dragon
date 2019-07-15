@@ -136,6 +136,10 @@ void Quadris::runGame(istream & in) {
 }
 
 QuadrisState Quadris::getState() {
+    std::cout << "getting quadris state" << std::endl;
+    if (game == nullptr) {
+        std::cout << "ERROR: game is nullptr" << std::endl;
+    }
     return QuadrisState(highScore, curCommand, game->getState());
 }
 

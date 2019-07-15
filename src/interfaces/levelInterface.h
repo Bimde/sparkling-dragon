@@ -17,12 +17,12 @@ class LevelInterface {
 
   	virtual void actionAfterMoveImpl(Board&);
 
-    virtual void moveDownImpl(Board&);
-    virtual void moveLeftImpl(Board&);
-    virtual void moveRightImpl(Board&);
-    virtual void dropImpl(Board&);
-    virtual void rotateLeftImpl(Board&);
-    virtual void rotateRightImpl(Board&);
+    virtual bool moveDownImpl(Board&);
+    virtual bool moveLeftImpl(Board&);
+    virtual bool moveRightImpl(Board&);
+    virtual bool dropImpl(Board&);
+    virtual bool rotateLeftImpl(Board&);
+    virtual bool rotateRightImpl(Board&);
 
   public:
     LevelInterface(int level);
@@ -34,12 +34,12 @@ class LevelInterface {
     std::unique_ptr<UnplacedBlock> getNextBlock(Point bottomLeft);
 
     // Moves the current block on the board.
-    void moveDown(Board&);
-    void moveLeft(Board&);
-    void moveRight(Board&);
-    void drop(Board&);
-    void rotateLeft(Board&);
-    void rotateRight(Board&);
+    bool moveDown(Board&);
+    bool moveLeft(Board&);
+    bool moveRight(Board&);
+    bool drop(Board&);
+    bool rotateLeft(Board&);
+    bool rotateRight(Board&);
 
     void actionAfterMove(Board&);
 };

@@ -12,11 +12,15 @@ class Out : public Observer {
 Out::Out(std::shared_ptr<Quadris> q) : q_{q} {}
 
 void Out::notify() {
+	std::cout << "notify called" << std::endl;
 	if (q_ == nullptr) {
 		return;
 	}
 
+	std::cout << "running state retrieval" << std::endl;
+
 	auto qstate = q_->getState();
+	
 	auto& gstate = qstate.gameState;
 	std::cout << "high score: " << qstate.highScore << std::endl;
 	std::cout << "curr score: " << gstate.score << std::endl;

@@ -18,58 +18,60 @@ std::unique_ptr<UnplacedBlock> LevelInterface::getNextBlock(
 int LevelInterface::getLevelNumber() {
 	return level;
 }
+
 void LevelInterface::actionAfterMoveImpl(Board& board) {}
 
-void LevelInterface::moveDownImpl(Board& board) {
-	board.moveCurrentDown();
+bool LevelInterface::moveDownImpl(Board& board) {
+	return board.moveCurrentDown();
 }
 
-void LevelInterface::moveLeftImpl(Board& board) {
-	board.moveCurrentLeft();
+bool LevelInterface::moveLeftImpl(Board& board) {
+	return board.moveCurrentLeft();
 }
 
-void LevelInterface::moveRightImpl(Board& board) {
-	board.moveCurrentRight();
+bool LevelInterface::moveRightImpl(Board& board) {
+	return board.moveCurrentRight();
 }
 
-void LevelInterface::dropImpl(Board& board) {
-	board.dropCurrent();
+bool LevelInterface::dropImpl(Board& board) {
+	return board.dropCurrent();
 }
 
-void LevelInterface::rotateLeftImpl(Board& board) {
-	board.rotateCurrentLeft();
+bool LevelInterface::rotateLeftImpl(Board& board) {
+	return board.rotateCurrentLeft();
 }
 
-void LevelInterface::rotateRightImpl(Board& board) {
-	rotateRightImpl(board);
+bool LevelInterface::rotateRightImpl(Board& board) {
+	return board.rotateCurrentRight();
 }
 
 // public methods
 
-void LevelInterface::moveDown(Board& board) {
-	moveDownImpl(board);
-}
-
-void LevelInterface::moveLeft(Board& board) {
-	moveLeftImpl(board);
-}
-
-void LevelInterface::moveRight(Board& board) {
-	moveRightImpl(board);
-}
-
-void LevelInterface::drop(Board& board) {
-	dropImpl(board);
-}
-
-void LevelInterface::rotateLeft(Board& board) {
-	rotateLeftImpl(board);
-}
-
-void LevelInterface::rotateRight(Board& board) {
-	rotateRightImpl(board);
-}
-
 void LevelInterface::actionAfterMove(Board& board) {
 	actionAfterMoveImpl(board);
 }
+
+bool LevelInterface::moveDown(Board& board) {
+	return moveDownImpl(board);
+}
+
+bool LevelInterface::moveLeft(Board& board) {
+	return moveLeftImpl(board);
+}
+
+bool LevelInterface::moveRight(Board& board) {
+	return moveRightImpl(board);
+}
+
+bool LevelInterface::drop(Board& board) {
+	return dropImpl(board);
+}
+
+bool LevelInterface::rotateLeft(Board& board) {
+	return rotateLeftImpl(board);
+}
+
+bool LevelInterface::rotateRight(Board& board) {
+	return rotateRightImpl(board);
+}
+

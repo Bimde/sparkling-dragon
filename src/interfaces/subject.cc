@@ -8,13 +8,20 @@ Subject::Subject() {}
 Subject::~Subject() {}
 
 void Subject::attach(std::shared_ptr<Observer> o) {
+	for (auto it = observers.begin(); it != observers.end(); ++it) {
+        if ((*it).get() == o.get()) {
+            return;
+        }
+    }
+
     observers.emplace_back(o);
 }
 
 void Subject::detach(std::shared_ptr<Observer> o) {
-    for (auto it = observers.begin(); it < observers.end(); it++) {
+    for (auto it = observers.begin(); it != observers.end(); ++it) {
         if ((*it).get() == o.get()) {
             observers.erase(it);
+            return;
         }
     }
 }

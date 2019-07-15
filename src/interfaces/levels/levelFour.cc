@@ -41,7 +41,7 @@ std::unique_ptr<UnplacedBlock> LevelFour::getNextBlockImpl(
 	return nullptr;
 }
 
-void LevelFour::dropImpl(Board& board) {
+bool LevelFour::dropImpl(Board& board) {
 	// TODO drop block AND insert valid star block
 }
 

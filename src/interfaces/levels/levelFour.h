@@ -11,7 +11,7 @@ class LevelFour : public LevelInterface {
 	std::unique_ptr<UnplacedBlock> getNextBlockImpl(
 		Point bottomLeft) override;
 
-	void dropImpl(Board&) override;
+	bool dropImpl(Board&) override;
     void actionAfterMoveImpl(Board&) override;
     
   public:

@@ -31,14 +31,3 @@ enum CMD CommandInterpreter::processCommand(string cmd) {
 }
 
 CommandInterpreter::~CommandInterpreter() {}
-
-// int main() {
-//     CommandInterpreter ci;
-//     cout << ci.processCommand("left") << endl;
-//     cout << ci.processCommand("rand") << endl;
-//     cout << ci.processCommand("hint") << endl;
-//     cout << ci.processCommand("r") << endl;
-//     cout << ci.processCommand("lef") << endl;
-//     cout << ci.processCommand("l") << endl;
-//     return 0;
-// }

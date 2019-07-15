@@ -112,7 +112,9 @@ bool Board::rotateCurrentRight() {
 int Board::numberOfFullRows() {
 	int fullRows = 0;
 	for(int y = 0; y < boardHeight; ++y) {
-		if (rowIsFull(y)) fullRows++;
+		if (rowIsFull(y)) {
+			++fullRows;
+		}
 	}
 	return fullRows;
 }
@@ -120,28 +122,32 @@ int Board::numberOfFullRows() {
 bool Board::isOverlapping(const UnplacedBlock& block) {
 	const std::vector<Point> points = block.pointsOnBoard();
 	std::cout << "Check if block is overlapping" << std::endl;
-	for(Point p: points) {
-		
-		if(p.y < 0 || p.y >= boardHeight || p.x < 0 || p.x >= boardWidth) {
+
+	for (const Point& p : points) {
+		if (p.y < 0 || p.y >= boardHeight || p.x < 0 || p.x >= boardWidth) {
 			std::cout << p.y << ", " << p.x << " are out of bounds" << std::endl;
 			return true;
 		}
-		if(board.at(p.y).at(p.x) != nullptr) {
+
+		if (board.at(p.y).at(p.x) != nullptr) {
 			std::cout << board.at(p.y).at(p.x)->getType() << std::endl;
 			return true;
 		}
 	}
+
 	std::cout << "Block is not overlapping" << std::endl;
+
 	return false;
 }
 
 bool Board::dropCurrent() {
-	if(isOverlapping(*currentBlock)) return false;
-	while(moveCurrentDown()) {}
+	if (isOverlapping(*currentBlock)) return false;
+	while (moveCurrentDown()) {}
 
-	auto pb = std::make_shared<PlacedBlock>(currentBlock->getScore(), currentBlock->getType(), currentBlock->getNumberOfBlocks()); 
+	auto pb = std::make_shared<PlacedBlock>(currentBlock->getScore(), 
+		currentBlock->getType(), currentBlock->getNumberOfBlocks()); 
 
-	for(Point p: currentBlock->pointsOnBoard()) {
+	for (Point& p : currentBlock->pointsOnBoard()) {
 		std::cout << "Drop block at " << p.y << " and " << p.x << std::endl;
 		board.at(p.y).at(p.x) = pb;
 	}
@@ -198,7 +204,7 @@ int Board::destroyFullRowsAndGetPoints() {
 
 void Board::reset() {
 	currentBlock.reset(nullptr);
-	for(auto boardRow: board) {
+	for(auto boardRow : board) {
 		for(std::shared_ptr<PlacedBlock> block : boardRow) {
 			block = nullptr;
 		}
@@ -207,11 +213,14 @@ void Board::reset() {
 
 // TODO also add where the current block is on the board
 std::vector<std::vector<char>> Board::getState() {
-	std::vector<std::vector<char>> charBoard(boardHeight, std::vector<char>(boardWidth, ' '));
+	std::cout << "getting board state" << std::endl;
+
+	std::vector<std::vector<char>> charBoard(
+		boardHeight, std::vector<char>(boardWidth, ' '));
 	for(int y = 0; y < boardHeight; ++y) {
 		for(int x = 0; x < boardWidth; ++x) {
 			if(board.at(y).at(x) != nullptr) {
-				charBoard.at(y).at(x) = board.at(boardHeight - y - 1).at(x)->getType();
+				charBoard.at(boardHeight - y - 1).at(x) = board.at(y).at(x)->getType();
 			}
 		}
 	}

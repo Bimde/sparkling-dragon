@@ -41,25 +41,27 @@ void Game::completeTurn() {
 	nextBlock = currentLevel->getNextBlock(defaultSpawnPoint);
 }
 
-bool Game::moveCurrentBlockDown() {
-	return board->moveCurrentDown();
-}
-
-bool Game::moveCurrentBlockLeft() {
-	return board->moveCurrentLeft();
-}
-
-bool Game::moveCurrentBlockRight() {
-	return board->moveCurrentRight();
-}
-
 int Game::getScore() {
 	return score;
 }
 
+bool Game::moveCurrentBlockDown() {
+	return currentLevel->moveDown(*board);
+}
+
+bool Game::moveCurrentBlockLeft() {
+	return currentLevel->moveLeft(*board);
+}
+
+bool Game::moveCurrentBlockRight() {
+	return currentLevel->moveRight(*board);
+}
+
 bool Game::dropCurrentBlock() {
 	std::cout << "trying to drop" << std::endl;
-	if (!board->dropCurrent()) return false;
+	if (!currentLevel->drop(*board)) {
+		return false;
+	}
 	std::cout << "finished drop" << std::endl;
 
 	int numFullRows = board->numberOfFullRows();
@@ -72,11 +74,11 @@ bool Game::dropCurrentBlock() {
 }
 
 bool Game::rotateCurrentBlockLeft() {
-	return board->rotateCurrentLeft();
+	return currentLevel->rotateLeft(*board);
 }
 
 bool Game::rotateCurrentBlockRight() {
-	return board->rotateCurrentRight();
+	return currentLevel->rotateRight(*board);
 }
 
 void Game::increaseLevel() {
@@ -109,6 +111,16 @@ void Game::doLevelActionAfterMove() {
 
 GameState Game::getState() {
 	// TODO check hint (and return with hint if true)
+	std::cout << "getting game state" << std::endl;
+
+	if (currentLevel == nullptr) {
+		std::cout << "ERROR: current level is nullptr" << std::endl;
+	}
+
+	if (board == nullptr) {
+		std::cout << "ERROR: board is nullptr" << std::endl;
+	}
+
 	return GameState(currentLevel->getLevelNumber(), score, board->getState());
 }
 
