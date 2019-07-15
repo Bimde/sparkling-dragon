@@ -5,7 +5,7 @@ enum CMD{
 			Left, Right, Down, RotateLeft, RotateRight, Drop, 
 		  	LevelUp, LevelDown, NoRandom, Random, Restart, 
 		  	Hint, RemoveHint, InvalidCommand, AfterMoveTurn,
-		  	AutoDown
+		  	AutoDown, StopAutoDown
 		};
 
 #endif

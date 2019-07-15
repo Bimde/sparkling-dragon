@@ -17,6 +17,7 @@ void CommandInterpreter::addCommandsToTrie() {
     trie->insert("restart", CMD::Restart);
     trie->insert("hint", CMD::Hint);
     trie->insert("autodown", CMD::AutoDown);
+    trie->insert("stopautodown", CMD::StopAutoDown);
 
     // t.insert("removehint", CMD::RemoveHint);
     // t.insert("invalidcommand", CMD::InvalidCommand);

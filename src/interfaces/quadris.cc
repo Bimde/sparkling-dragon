@@ -128,6 +128,8 @@ void Quadris::runCommand(CMD command) {
         case AutoDown:
             shouldUseTimeDowns = true;
             autoDown = std::thread(Quadris::loopDown);
+        case StopAutoDown:
+            shouldUseTimeDowns = false;
         case InvalidCommand:
             // TODO add new thing to relay error msgs
             notifyObservers();
