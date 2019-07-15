@@ -161,8 +161,8 @@ void Quadris::runCommand(CMD command) {
 }
 
 // Public functions
-// Quadris::Quadris(int seed, string scriptfile, int startLevel, std::unique_ptr<CommandInterpreter> cmdInterpreter) {}
 
+// TODO: Fix input parsing for "down 4"
 void Quadris::runGame(istream & in) {
     string input;
     int multiplier;
