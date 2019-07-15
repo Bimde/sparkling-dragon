@@ -168,10 +168,10 @@ std::vector<std::shared_ptr<PlacedBlock>>
 		}
 	}
 
-	int emptyRow = 0, shiftRow = 0;
-
+	int emptyRow = 0, shiftRow = boardHeight-1;
+	
 	while (shiftRow < boardHeight && emptyRow < boardHeight && 
-		   shiftRow < emptyRow) {
+		   shiftRow > emptyRow) {
 		while (emptyRow < boardHeight && !rowIsEmpty(emptyRow)) {
 			++emptyRow;
 		}
