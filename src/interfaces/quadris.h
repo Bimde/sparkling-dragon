@@ -5,6 +5,7 @@
 #include <string>
 #include <istream>
 #include <queue>
+#include <thread>
 
 #include "src/interfaces/quadrisState.h"
 #include "src/interfaces/game.h"
@@ -18,6 +19,8 @@ class Quadris: public Subject {
 	std::string curCommand;
 	std::string levelFile;
 
+	bool shouldUseTimeDowns;
+
 	GameConfig gameCfg;
 
 	// TODO remove this comment
@@ -25,6 +28,10 @@ class Quadris: public Subject {
 	// (I removed Game::reset(), since its a pain to impl that).
 	std::unique_ptr<Game> game;
     std::unique_ptr<CommandInterpreter> commandInterpreter;
+
+    std::thread autoDown;
+
+    void loopDown();
 
 	int parseMultiplier(std::string);
 	std::string parseCommand(std::string);

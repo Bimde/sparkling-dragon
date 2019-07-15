@@ -17,7 +17,7 @@ namespace {
 Game::Game(std::unique_ptr<LevelFactory> levelFactory, 
            std::shared_ptr<HintGenerator> hinter, int startingLevel) :
 	levelFactory_{std::move(levelFactory)}, hinter_{std::move(hinter)},
-	score{0}, showHint{false}, nextLevel{-1},
+	score{0}, showHint{false}, nextLevel{-1}, numBlocksSpawned{0},
 	board{std::make_unique<Board>()} {
 
     std::cout << "game object ctor running" << std::endl;
@@ -35,6 +35,10 @@ Game::Game(std::unique_ptr<LevelFactory> levelFactory,
 
 // Sets next level and updates the next block
 void Game::completeTurn() {
+	if (nextBlock != nullptr) {
+		++numBlocksSpawned;
+	}
+
 	currentLevel = levelFactory_->getLevel(nextLevel);
 
 	board->setCurrent(std::move(nextBlock));
@@ -143,4 +147,8 @@ std::unique_ptr<Game> Game::create(GameConfig cfg) {
 
 bool Game::isGameOver() {
 	return board->isGameOver();
+}
+
+int Game::getNumBlocksSpawned() {
+	return numBlocksSpawned;
 }

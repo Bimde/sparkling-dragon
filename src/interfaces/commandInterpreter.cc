@@ -16,6 +16,7 @@ void CommandInterpreter::addCommandsToTrie() {
     trie->insert("random", CMD::Random);
     trie->insert("restart", CMD::Restart);
     trie->insert("hint", CMD::Hint);
+    trie->insert("autodown", CMD::AutoDown);
 
     // t.insert("removehint", CMD::RemoveHint);
     // t.insert("invalidcommand", CMD::InvalidCommand);

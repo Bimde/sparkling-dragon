@@ -35,6 +35,8 @@ class Game {
 
 	int nextLevel;
 
+  int numBlocksSpawned;
+
   std::shared_ptr<LevelInterface> currentLevel;
 
 	std::unique_ptr<Board> board;
@@ -70,6 +72,8 @@ class Game {
   	int getScore();
 
     bool isGameOver();
+
+    int getNumBlocksSpawned();
 
     static std::unique_ptr<Game> create(GameConfig cfg);
 };
