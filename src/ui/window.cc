@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <string>
 #include <unistd.h>
+#include <bits/stdc++.h> 
 #include "window.h"
 
 using namespace std;
@@ -80,6 +81,18 @@ void Xwindow::fillRectangle(int x, int y, int width, int height, int colour) {
 }
 
 void Xwindow::drawString(int x, int y, std::string msg) {
+	//XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
+	// char char_array[msg.length() + 1];
+	// std::strcpy(char_array, msg.c_str()); 
+
+  // XFontStruct* font = XLoadQueryFont(d, None);
+  // if (!font) {
+  //   cout << "font not found Times New Romans" << endl;
+  //   return;
+  // }
+
+	//XTextItem items [1] = {{char_array, msg.length(), 0, None}};
+	//XDrawText(d, w, DefaultGC(d, s), x, y, items, 1);
 	XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
 	XFlush(d);
 }

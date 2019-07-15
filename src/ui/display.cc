@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
+#include <mutex>
 
 #include "display.h"
 #include "src/interfaces/quadris.h"
@@ -13,6 +14,10 @@
 // }
 
 using namespace std;
+
+namespace {
+  std::mutex mtx;
+}
 
 XDisplay::XDisplay(std::weak_ptr<Quadris> game) : 
   window{512, 512 / 2 * 3},
@@ -29,6 +34,7 @@ XDisplay::XDisplay(std::weak_ptr<Quadris> game) :
   game{game},
   lastState{game.lock()->getState()}
   {
+    cout << "UI HISHISASHSIHSSASIH" << endl;
     updateDisplay(true);
   }
 
@@ -42,25 +48,26 @@ void XDisplay::notify() {
 void XDisplay::updateDisplay(bool redraw) {
   //window.drawString(15, y++, "Update");
   //window.fillRectangle(y, y, 50, 50, y % 5);
+  mtx.lock();
 
   if (game.expired()) {
-    cerr << "Quadris pointer expired" << endl;
+    cout << "Quadris pointer expired" << endl;
     return;
   }
 
   QuadrisState state = game.lock()->getState();
   drawFields(state, redraw);
   drawBoard(state.gameState, redraw);
-
-  // TODO why can't I do this
   lastState = state;
+
+  mtx.unlock();
 }
 
 void XDisplay::drawBoard(const GameState& state, bool redraw) {
   int noRows = state.board.size();
   int noCols = state.board[0].size();
   int width = window.getWidth() * 1.0 / noCols;
-  int start = NO_FIELDS * (PADDING + FIELD_HEIGHT) + PADDING;
+  int start = NO_FIELDS * (PADDING + FIELD_HEIGHT) + START;
   int height = (window.getHeight() * 1.0 - start) / noRows;
   for (int i = 0; i < noRows; i++) {
     for (int j = 0; j < noCols; j++) {
@@ -72,34 +79,41 @@ void XDisplay::drawBoard(const GameState& state, bool redraw) {
 }
 
 void XDisplay::drawFields(const QuadrisState& state, bool redraw) {
+  //if (redraw) {
   if (redraw || state.highScore != lastState.highScore) {
     drawHighScore(state.highScore);
   }
+  // if (redraw) {
   if (redraw || state.gameState.score != lastState.gameState.score) {
     drawScore(state.gameState.score);
   }
+  // if (redraw) {
   if (redraw || state.gameState.currentLevel != lastState.gameState.currentLevel) {
     drawCurrentLevel(state.gameState.currentLevel);
   }
 }
 
 void XDisplay::drawHighScore(int highScore) {
-  drawField("High Score: " + highScore, 0);
+  cout << "Drawing high score " + to_string(highScore) << endl;
+  drawField("High Score: " + to_string(highScore), 0);
 }
 
 void XDisplay::drawCurrentLevel(int currentLevel) {
-  drawField("Current Level: " + currentLevel, 1);
+  cout << "Drawing current level " + to_string(currentLevel) << endl;
+  drawField("Current Level: " + to_string(currentLevel), 1);
 }
 
 void XDisplay::drawScore(int score) {
-  drawField("Score: " + score, 2);
+  cout << "Drawing score " + to_string(score) << endl;
+  drawField("Score: " + to_string(score), 2);
 }
 
 void XDisplay::drawField(string text, int row) {
   // TODO: Remove before handing in
   if (row >= NO_FIELDS) {
-    cerr << "YOU FUCKED UP NO_FIELDS" << endl;
+    cout << "YOU FUCKED UP NO_FIELDS: " << row << endl;
   }
-  window.fillRectangle(PADDING, 0, window.getWidth() - 2 * PADDING, FIELD_HEIGHT, 0);
-  window.drawString(PADDING, PADDING + PADDING * row + FIELD_HEIGHT * row, text);
+  cout << "Drawing string " + text << endl;
+  window.fillRectangle(PADDING, START + (PADDING + FIELD_HEIGHT)* row, window.getWidth() - 2 * PADDING, FIELD_HEIGHT, 0);
+  window.drawString(PADDING, START + (PADDING + FIELD_HEIGHT) * row, text);
 }

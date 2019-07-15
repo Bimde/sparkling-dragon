@@ -56,9 +56,7 @@ std::vector<std::vector<char>> createBoard() {
 
 void simpleTest() {
   QuadrisState state = UIMocks::createQuadrisState(UIMocks::createGameState(createBoard()));
-  std::cout << "got state" << std::endl;
   shared_ptr<MockQuadris> quadris = make_shared<MockQuadris>(state);
-  std::cout << "made quadris" << std::endl;
   XDisplay display{quadris};
   while (1) {
     display.notify();

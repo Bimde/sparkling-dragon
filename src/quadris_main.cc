@@ -1,6 +1,7 @@
 #include "src/interfaces/game.h"
 #include "src/interfaces/quadris.h"
 #include "src/interfaces/observer.h"
+#include "src/ui/display.h"
 
 class Out : public Observer {
 	std::shared_ptr<Quadris> q_;
@@ -65,6 +66,11 @@ int main(int argc, char *argv[]) {
 	std::cout << "objects created" << std::endl;
 
 	quadris->attach(out);
+
+	auto ui = std::make_shared<XDisplay>(quadris);
+
+	quadris->attach(ui);
+
 	quadris->runGame(std::cin);
 	quadris->detach(out);
 

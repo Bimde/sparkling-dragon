@@ -218,7 +218,6 @@ int Board::destroyFullRowsAndGetPoints() {
 	return points;
 }
 
-// TODO also add where the current block is on the board
 std::vector<std::vector<char>> Board::getState() {
 	std::cout << "getting board state" << std::endl;
 

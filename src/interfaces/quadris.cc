@@ -15,12 +15,13 @@
 
 using namespace std;
 
-std::mutex mtx;
 
 namespace {
     const int kMaxTimeLoopMillis = 1500;
     const int kMinTimeLoopMillis = 500;
     const int kTimeDecreasePerBlock = 50;
+
+    std::mutex mtx;
 
     int shouldSleepForMillis(int numBlocksSpawned) {
         int shouldSleepFor = kMaxTimeLoopMillis - 
@@ -37,6 +38,11 @@ void loopDown(Quadris* q) {
             std::cout << "stopped auto because nullptrs" << std::endl;
             return;
         }
+        if (q->game->isGameOver()) {
+            std::cout << "stopped auto because game over" << std::endl;
+            return;
+        }
+
         q->runCommand(CMD::Down);
         std::cout << "down auto" << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(
