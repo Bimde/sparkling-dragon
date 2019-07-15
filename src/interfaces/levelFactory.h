@@ -62,9 +62,11 @@ class LevelFactory {
 
   	// Sets the input as a file for certain levels
   	void useFileForOther(std::string filename);
+
   	// Makes certain levels random.
   	void random();
 
+  	// returns: the closest valid level to the one passed in
   	int getClosestLevel(int level);
   	int increaseLevel(int level);
   	int decreaseLevel(int level);

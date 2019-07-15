@@ -12,7 +12,6 @@
 #include "src/interfaces/commandInterpreter.h"
 #include "src/interfaces/subject.h"
 
-// TODO: need to create ctor with `game` 
 class Quadris: public Subject {
 	int highScore;
 	bool displayingHint;
@@ -23,9 +22,6 @@ class Quadris: public Subject {
 
 	GameConfig gameCfg;
 
-	// TODO remove this comment
-	// NOTE: to reset the game, we can just create a new one 
-	// (I removed Game::reset(), since its a pain to impl that).
 	std::unique_ptr<Game> game;
     std::unique_ptr<CommandInterpreter> commandInterpreter;
 

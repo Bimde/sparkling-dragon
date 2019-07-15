@@ -18,7 +18,6 @@ LevelZero::LevelZero(std::string filename) : LevelInterface{kLevel} {
 	}
 }
 
-// TODO implement file read looping if EOF is hit (and empty file check)
 std::unique_ptr<UnplacedBlock> LevelZero::getNextBlockImpl(
 	Point bottomLeft) {
 	if (in == nullptr) {
