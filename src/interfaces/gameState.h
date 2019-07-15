@@ -5,6 +5,8 @@
 #include <utility>
 #include <memory>
 
+#include "src/interfaces/unplacedBlock.h"
+
 struct GameState {
 	int currentLevel;
 	int score;

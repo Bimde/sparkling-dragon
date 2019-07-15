@@ -31,11 +31,11 @@ class Quadris: public Subject {
 
     std::thread autoDown;
 
-    void loopDown();
-
 	int parseMultiplier(std::string);
 	std::string parseCommand(std::string);
 	void runCommand(CMD);
+
+	friend void loopDown(Quadris* q);
 
   public:	
   	Quadris(GameConfig cfg);
@@ -43,6 +43,7 @@ class Quadris: public Subject {
 
 	void runGame(std::istream &);
 	virtual QuadrisState getState();
+
 };
 
 #endif

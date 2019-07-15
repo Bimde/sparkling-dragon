@@ -1,7 +1,7 @@
 MAIN_EXEC = quadris_main
 TEST_EXEC = test_main
-TO_TEST_EXEC = g++ -o ${TEST_EXEC} bin/*.o -lX11
-TO_MAIN_EXEC = g++ -o ${MAIN_EXEC} bin/*.o -lX11
+TO_TEST_EXEC = g++ -o ${TEST_EXEC} bin/*.o -lX11 -pthread && chmod 777 ${TEST_EXEC}
+TO_MAIN_EXEC = g++ -o ${MAIN_EXEC} bin/*.o -lX11 -pthread && chmod 777 ${MAIN_EXEC}
 
 all: mkdir_bin clean_bin
 	+$(MAKE) -C src/interfaces/blocks

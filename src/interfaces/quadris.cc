@@ -28,6 +28,21 @@ namespace {
     }
 }
 
+void loopDown(Quadris* q) {
+    std::cout << "running auto" << std::endl;
+    while (q->shouldUseTimeDowns) {
+        if (q == nullptr || q->game == nullptr) {
+            std::cout << "stopped auto because nullptrs" << std::endl;
+            return;
+        }
+        q->runCommand(CMD::Down);
+        std::cout << "down auto" << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(
+            shouldSleepForMillis(q->game->getNumBlocksSpawned())));
+    }
+    std::cout << "stopped auto by cmd" << std::endl;
+}
+
 Quadris::Quadris(GameConfig cfg) : highScore{0}, displayingHint{false}, 
     curCommand{""}, shouldUseTimeDowns{false}, gameCfg{cfg}, 
     game{Game::create(gameCfg)},
@@ -37,22 +52,17 @@ Quadris::Quadris(GameConfig cfg) : highScore{0}, displayingHint{false},
 
 // Private helper functions
 
-void Quadris::loopDown() {
-    while (shouldUseTimeDowns) {
-        if (game == nullptr) {
-            return;
-        }
-        runCommand(CMD::Down);
-        std::this_thread::sleep_for(std::chrono::milliseconds(
-            shouldSleepForMillis(game->getNumBlocksSpawned())));
-    }
-}
-
 // Todo: throw exception for multipliers which are too large
 int Quadris::parseMultiplier(string command) {
     int idx = 0;
-    while(command.at(idx) >= '0' && command.at(idx) <= '9') ++idx;
-    if (idx == 0) return 1;
+    while(command.at(idx) >= '0' && command.at(idx) <= '9') {
+        ++idx;
+    }
+
+    if (idx == 0) {
+        return 1;
+    }
+
     return stoi(command.substr(0, idx));
 }
 
@@ -66,6 +76,8 @@ void Quadris::runCommand(CMD command) {
     if (game == nullptr) {
         return;
     }
+
+    std::cout << "autodown flag: " << shouldUseTimeDowns << std::endl;
 
     // Perform game related commands
     if (!game->isGameOver()) {
@@ -127,12 +139,16 @@ void Quadris::runCommand(CMD command) {
             break;
         case AutoDown:
             shouldUseTimeDowns = true;
-            autoDown = std::thread(Quadris::loopDown);
+            autoDown = std::thread(loopDown, this);
+            autoDown.detach();
+            break;
         case StopAutoDown:
             shouldUseTimeDowns = false;
+            break;
         case InvalidCommand:
             // TODO add new thing to relay error msgs
-            notifyObservers();
+            // TODO add disabling hint 
+            // notifyObservers();
             break;
         default:
             break;
