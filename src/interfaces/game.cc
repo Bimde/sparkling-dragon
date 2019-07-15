@@ -121,7 +121,8 @@ GameState Game::getState() {
 		std::cout << "ERROR: board is nullptr" << std::endl;
 	}
 
-	return GameState(currentLevel->getLevelNumber(), score, board->getState());
+	return GameState(currentLevel->getLevelNumber(), score, board->getState(), 
+					 nextLevel, std::make_shared<UnplacedBlock>(*nextBlock));
 }
 
 std::unique_ptr<Game> Game::create(GameConfig cfg) {

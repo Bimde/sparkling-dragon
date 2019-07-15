@@ -3,15 +3,20 @@
 
 #include <vector>
 #include <utility>
+#include <memory>
 
 struct GameState {
 	int currentLevel;
 	int score;
 	std::vector<std::vector<char>> board;
 
-	GameState(int currentLevel, int score, 
-			  std::vector<std::vector<char>> board) : 
-		currentLevel{currentLevel}, score{score}, board{std::move(board)} {}
+	int nextLevel;
+	std::shared_ptr<UnplacedBlock> nextBlock;
+
+	GameState(int currentLevel, int score, std::vector<std::vector<char>> board,
+			  int nextLevel, std::shared_ptr<UnplacedBlock> nextBlock) : 
+		currentLevel{currentLevel}, score{score}, board{std::move(board)}, 
+		nextLevel{nextLevel}, nextBlock{nextBlock} {}
 };
 
 #endif

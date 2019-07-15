@@ -20,11 +20,18 @@ void Out::notify() {
 	std::cout << "running state retrieval" << std::endl;
 
 	auto qstate = q_->getState();
-	
 	auto& gstate = qstate.gameState;
 	std::cout << "high score: " << qstate.highScore << std::endl;
 	std::cout << "curr score: " << gstate.score << std::endl;
 	std::cout << "curr level: " << gstate.currentLevel << std::endl;
+	std::cout << "next level: " << gstate.nextLevel << std::endl;
+
+	std::cout << "next block: ";
+	if (gstate.nextBlock != nullptr) {
+		std::cout << gstate.nextBlock->getType();
+	}
+	std::cout << std::endl;
+
 	std::cout << "-------------------------" << std::endl;
 
 
