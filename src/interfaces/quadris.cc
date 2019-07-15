@@ -18,11 +18,13 @@ using namespace std;
 std::mutex mtx;
 
 namespace {
-    const int kMaxTimeLoopMillis = 2000;
+    const int kMaxTimeLoopMillis = 1500;
     const int kMinTimeLoopMillis = 500;
+    const int kTimeDecreasePerBlock = 50;
 
     int shouldSleepForMillis(int numBlocksSpawned) {
-        int shouldSleepFor = kMaxTimeLoopMillis - numBlocksSpawned*10;
+        int shouldSleepFor = kMaxTimeLoopMillis - 
+            numBlocksSpawned*kTimeDecreasePerBlock;
         return kMinTimeLoopMillis > shouldSleepFor ? 
             kMinTimeLoopMillis : shouldSleepFor;
     }
