@@ -58,15 +58,16 @@ bool Game::moveCurrentBlockRight() {
 }
 
 bool Game::dropCurrentBlock() {
-	std::cout << "trying to drop" << std::endl;
 	if (!currentLevel->drop(*board)) {
 		return false;
 	}
-	std::cout << "finished drop" << std::endl;
-
+	
 	int numFullRows = board->numberOfFullRows();
-	score += (numFullRows + 1)*(numFullRows + 1);
-	score += board->destroyFullRowsAndGetPoints();
+
+	if (numFullRows != 0) {
+		score += (numFullRows + 1)*(numFullRows + 1);	
+		score += board->destroyFullRowsAndGetPoints();
+	}
 
 	completeTurn();
 
