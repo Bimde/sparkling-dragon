@@ -91,9 +91,9 @@ void Xwindow::drawString(int x, int y, std::string msg) {
   //   return;
   // }
 
-	//XTextItem items [1] = {{char_array, msg.length(), 0, None}};
-	//XDrawText(d, w, DefaultGC(d, s), x, y, items, 1);
-	XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
+	XTextItem items [1] = {{const_cast<char *>(msg.c_str()), msg.length(), 0, None}};
+	XDrawText(d, w, DefaultGC(d, s), x, y, items, 1);
+	// XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
 	XFlush(d);
 }
 
