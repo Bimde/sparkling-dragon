@@ -9,6 +9,7 @@
 #include "src/interfaces/levelFactory.h"
 #include "src/interfaces/gameState.h"
 #include "src/interfaces/hintGenerator.h"
+#include "src/interfaces/commands.h"
 
 const int defaultStartLevel = 0;
 
@@ -74,6 +75,9 @@ class Game {
     bool isGameOver();
 
     int getNumBlocksSpawned();
+
+    // For testing
+    void changeBlockType(CMD);
 
     static std::unique_ptr<Game> create(GameConfig cfg);
 };

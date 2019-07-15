@@ -60,10 +60,9 @@ Quadris::Quadris(GameConfig cfg) : highScore{0}, displayingHint{false},
 
 // Private helper functions
 
-// Todo: throw exception for multipliers which are too large
 int Quadris::parseMultiplier(string command) {
     int idx = 0;
-    while(command.at(idx) >= '0' && command.at(idx) <= '9') {
+    while(idx < command.length() && command.at(idx) >= '0' && command.at(idx) <= '9') {
         ++idx;
     }
 
@@ -76,7 +75,10 @@ int Quadris::parseMultiplier(string command) {
 
 string Quadris::parseCommand(string command) {
     int idx = 0;
-    while(command.at(idx) >= '0' && command.at(idx) <= '9') ++idx;
+    while (idx < command.length() && command.at(idx) >= '0' && command.at(idx) <= '9') ++idx;
+    if (idx >= command.length()) {
+        return "invalidCommand";
+    }
     return command.substr(idx, command.length()-idx);
 }
 
@@ -133,6 +135,33 @@ void Quadris::runCommand(CMD command) {
             case AfterMoveTurn:
                 game->doLevelActionAfterMove();
                 break;
+            case SpawnIBlock:
+                game->changeBlockType(SpawnIBlock);
+                break;
+            case SpawnJBlock:
+                game->changeBlockType(SpawnJBlock);
+                break;
+            case SpawnLBlock:
+                game->changeBlockType(SpawnLBlock);
+                break;
+            case SpawnOBlock:
+                game->changeBlockType(SpawnOBlock);
+                break;
+            case SpawnSBlock:
+                game->changeBlockType(SpawnSBlock);
+                break;
+            case SpawnZBlock:
+                game->changeBlockType(SpawnZBlock);
+                break;
+            case SpawnTBlock:
+                game->changeBlockType(SpawnTBlock);
+                break;
+            case SpawnStarBlock:
+                game->changeBlockType(SpawnStarBlock);
+                break;
+            case UseSequenceFile:
+                // TODO: Remove this if we can handle everything in Quadris
+                break;        
             default:
                 break;
         }
@@ -168,13 +197,13 @@ void Quadris::runCommand(CMD command) {
 
 // Public functions
 
-// TODO: Fix input parsing for "down 4"
 void Quadris::runGame(istream & in) {
     string input;
     int multiplier;
     enum CMD command;
     while (!in.eof()) {
         in >> input;
+        // Convert to lowercase
         curCommand = input;
 
         multiplier = parseMultiplier(input);
@@ -198,6 +227,14 @@ void Quadris::runGame(istream & in) {
             in >> filename;
             gameCfg.setFilename(filename);
             runCommand(CMD::NoRandom);
+        } else if (CMD::SpawnIBlock == command || CMD::SpawnJBlock == command || CMD::SpawnLBlock == command || 
+                   CMD::SpawnOBlock == command || CMD::SpawnSBlock == command || CMD::SpawnZBlock == command || 
+                   CMD::SpawnTBlock == command || CMD::SpawnStarBlock == command) {
+            runCommand(command);
+        } else if (CMD::UseSequenceFile == command) {
+            string filename;
+            in >> filename;
+            // TODO: Add all contents of file with `filename` to in stream
         } else {
             for( ;multiplier > 0; --multiplier) {
                 runCommand(command);

@@ -14,8 +14,8 @@ void TrieNode::swap(TrieNode &other) {
     swap(children, other.children);
 }
 
-TrieNode::TrieNode(string str, bool isCommand, enum CMD command): curStr{str}, isCommand{isCommand}, command{command} {}
-TrieNode::TrieNode(const TrieNode & o): curStr{o.curStr}, isCommand{o.isCommand}, command{o.command}, children{o.children} {}
+TrieNode::TrieNode(string str, bool isCommand, bool isFullCommand, enum CMD command): curStr{str}, isCommand{isCommand}, isFullCommand{isFullCommand}, command{command} {}
+TrieNode::TrieNode(const TrieNode & o): curStr{o.curStr}, isCommand{o.isCommand}, isFullCommand{o.isFullCommand}, command{o.command}, children{o.children} {}
 TrieNode::TrieNode(TrieNode && o): curStr{std::move(o.curStr)}, isCommand{std::move(o.isCommand)}, command{std::move(o.command)}, children{std::move(o.children)} {}
 
 TrieNode& TrieNode::operator=(const TrieNode & o) {

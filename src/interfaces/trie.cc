@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Trie::Trie() : root{make_shared<TrieNode>("", false)} {}
+Trie::Trie() : root{make_shared<TrieNode>("", false, false)} {}
 
 CMD Trie::search(string s) {
     shared_ptr<TrieNode> tempNode = root;
@@ -24,23 +24,36 @@ CMD Trie::search(string s) {
     return CMD::InvalidCommand;
 }
 
-// Insert unable to insert a new function for the same string :-).
+// Precondition: string s is not already in Trie
 void Trie::insert(string s, CMD c) {
 
     shared_ptr<TrieNode> tempNode = root;
 
     for(int i = 0; i < s.length(); i++) {
-        if(tempNode->children.find(s.at(i)) == tempNode->children.end()) {
+        // If next character is not in children
+        if (tempNode->children.find(s.at(i)) == tempNode->children.end()) {
             for (int j = i; j < s.length(); j++) {
-                tempNode->children.insert(pair<char,TrieNode *>(s.at(j), new TrieNode(s.substr(0,j+1), true, c)));
+                tempNode->children.emplace(s.at(j), make_shared<TrieNode>(s.substr(0,j+1), true, false, c));
                 tempNode = tempNode->children.at(s.at(j));
+                if (j == s.length()-1) {
+                    tempNode->isFullCommand = true;
+                }
             }
             return;
+        // If character is in children
         } else {
-            tempNode->children.at(s.at(i))->isCommand = false;
-            tempNode->children.at(s.at(i))->command = CMD::InvalidCommand;
+            tempNode = tempNode->children.at(s.at(i));
+            if (!tempNode->isFullCommand) {
+                tempNode->isCommand = false;
+                tempNode->command = CMD::InvalidCommand;
+            }
+
+            if (i == s.length()-1) {
+                tempNode->isCommand = true;
+                tempNode->isFullCommand = true;
+                tempNode->command = c;
+            }
         }
-        tempNode = tempNode->children.at(s.at(i));
     }   
 }
 

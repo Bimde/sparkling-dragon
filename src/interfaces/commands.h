@@ -7,7 +7,10 @@ enum CMD{
 			Left, Right, Down, RotateLeft, RotateRight, Drop, 
 		  	LevelUp, LevelDown, NoRandom, Random, Restart, 
 		  	Hint, RemoveHint, InvalidCommand, AfterMoveTurn,
-		  	AutoDown, StopAutoDown
+		  	AutoDown, StopAutoDown,
+			SpawnIBlock, SpawnJBlock, SpawnLBlock, SpawnOBlock,
+			SpawnSBlock, SpawnZBlock, SpawnTBlock, SpawnStarBlock,
+			UseSequenceFile
 		};
 
 #endif

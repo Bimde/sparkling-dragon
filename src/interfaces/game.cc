@@ -8,6 +8,8 @@
 #include "src/interfaces/hintGenerator.h"
 #include "src/interfaces/levelFactory.h"
 #include "src/interfaces/gameState.h"
+#include "src/interfaces/commands.h"
+#include "src/interfaces/levels/blockGenerator.h"
 
 namespace {
 	const Point defaultSpawnPoint{0,14}; 
@@ -151,4 +153,29 @@ bool Game::isGameOver() {
 
 int Game::getNumBlocksSpawned() {
 	return numBlocksSpawned;
+}
+
+// TODO: Create and set block to transform into
+void Game::changeBlockType(CMD command) {
+	switch (command) {
+		case SpawnIBlock:
+			// board->setCurrent(...);
+			break;
+		case SpawnJBlock:
+			break;
+		case SpawnLBlock:
+			break;
+		case SpawnOBlock:
+			break;
+		case SpawnSBlock:
+			break;
+		case SpawnZBlock:
+			break;
+		case SpawnTBlock:
+			break;
+		case SpawnStarBlock:
+			break;
+		default:
+			break;
+	}
 }

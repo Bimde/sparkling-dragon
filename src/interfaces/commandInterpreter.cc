@@ -1,5 +1,6 @@
 #include "src/interfaces/commandInterpreter.h"
 #include "src/interfaces/commands.h"
+#include <iostream>
 
 using namespace std;
 
@@ -18,7 +19,15 @@ void CommandInterpreter::addCommandsToTrie() {
     trie->insert("hint", CMD::Hint);
     trie->insert("autodown", CMD::AutoDown);
     trie->insert("stopautodown", CMD::StopAutoDown);
-
+    trie->insert("i", CMD::SpawnIBlock);
+    trie->insert("j", CMD::SpawnJBlock);
+    trie->insert("l", CMD::SpawnLBlock);
+    trie->insert("o", CMD::SpawnOBlock);
+    trie->insert("s", CMD::SpawnSBlock);
+    trie->insert("z", CMD::SpawnZBlock);
+    trie->insert("t", CMD::SpawnTBlock);
+    trie->insert("star", CMD::SpawnStarBlock);
+    trie->insert("sequence", CMD::UseSequenceFile);
     // t.insert("removehint", CMD::RemoveHint);
     // t.insert("invalidcommand", CMD::InvalidCommand);
     // t.insert("aftermoveturn", CMD::AfterMoveTurn);
