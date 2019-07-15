@@ -10,13 +10,13 @@
 #include "window.h"
 #include "src/interfaces/observer.h"
 
-class XDisplay : Observer {
+class XDisplay : public Observer {
   public:
     XDisplay(std::weak_ptr<Quadris> game);
-    //XDisplay();
     virtual ~XDisplay();
     virtual void notify();
   private:
+    const int START = 50;
     const int PADDING = 10;
     const int FIELD_HEIGHT = 50;
     const int NO_FIELDS = 3;
