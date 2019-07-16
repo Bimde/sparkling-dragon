@@ -28,14 +28,28 @@ void Board::setCurrent(std::unique_ptr<UnplacedBlock> next) {
 	currentBlock.swap(next);
 }
 
-bool Board::rowIsFull(int y) {
+bool Board::rowIsFull(int y) const {
 	for(int i = 0; i < boardWidth; ++i) {
 		if (board.at(y).at(i) == nullptr) return false;
 	}
 	return true;
 }
 
-bool Board::rowIsEmpty(int y) {
+bool Board::rowIsFullWithUnplacedBlock(int y, const UnplacedBlock& block) const {
+	for(int i = 0; i < boardWidth; ++i) {
+		bool blockAtPosition = false;
+		for(Point p: block.pointsOnBoard()) {
+			if (y == p.y && i == p.x) {
+				std::cout << "Block is in checked pos: " << y << "," << i << std::endl;
+				blockAtPosition = true;
+			}
+		}
+		if (board.at(y).at(i) == nullptr && !blockAtPosition) return false;
+	}
+	return true;
+}
+
+bool Board::rowIsEmpty(int y) const {
 	for(int i = 0; i < boardWidth; i++) {
 		if (board.at(y).at(i) != nullptr) return false;
 	}
@@ -129,9 +143,36 @@ int Board::numberOfFullRows() {
 	return fullRows;
 }
 
-bool Board::isOverlapping(const UnplacedBlock& block) {
+int Board::numberOfFullRowsWithUnplacedBlock(const UnplacedBlock& hintBlock) const {
+	int fullRows = 0;
+	for(int y = 0; y < boardHeight; ++y) {
+		if (rowIsFullWithUnplacedBlock(y, hintBlock)) {
+			std::cout << "Block has filled a row: " << y << std::endl;
+			++fullRows;
+		}
+	}
+	return fullRows;
+}
+
+int Board::numberOfEmptyRowsWithUnplacedBlock(const UnplacedBlock& hintBlock) const {
+	std::vector<bool> rowEmpty = std::vector<bool>(boardHeight, false);
+	for(int y = 0; y < boardHeight; ++y) {
+		if (rowIsEmpty(y)) rowEmpty.at(y) = true;
+	}
+
+	for(Point p: hintBlock.pointsOnBoard()) {
+		if (p.y >= 0 && p.y < boardHeight) rowEmpty.at(p.y) = false;
+	}
+
+	int cnt = 0;
+	for(bool e: rowEmpty) {
+		if (e == true) cnt++;
+	}
+	return cnt;
+}
+
+bool Board::isOverlapping(const UnplacedBlock& block) const {
 	const std::vector<Point> points = block.pointsOnBoard();
-	std::cout << "Check if block is overlapping" << std::endl;
 
 	for (const Point& p : points) {
 		if (p.y < 0 || p.y >= boardHeight || p.x < 0 || p.x >= boardWidth) {
@@ -144,8 +185,6 @@ bool Board::isOverlapping(const UnplacedBlock& block) {
 			return true;
 		}
 	}
-
-	std::cout << "Block is not overlapping" << std::endl;
 
 	return false;
 }

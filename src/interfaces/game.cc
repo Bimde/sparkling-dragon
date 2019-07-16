@@ -195,7 +195,6 @@ void Game::changeCurrentBlock(char ch) {
 	std::cout << "We did set: " << didSet << std::endl;
 }
 
-// TODO: Create and set block to transform into
 void Game::changeBlockType(CMD command) {
 	switch (command) {
 		case SpawnIBlock:

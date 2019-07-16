@@ -13,11 +13,10 @@ class Board {
 	std::unique_ptr<UnplacedBlock> currentBlock;
 	std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
 
-    bool rowIsFull(int y);
-	bool rowIsEmpty(int y);
+    bool rowIsFull(int y) const;
+	bool rowIsFullWithUnplacedBlock(int y, const UnplacedBlock&) const;
+	bool rowIsEmpty(int y) const;
 	void moveRow(int fromRow, int toRow);
-
-  	bool isOverlapping(const UnplacedBlock&);
 
   	std::vector<std::shared_ptr<PlacedBlock>> 
   	destroyFullRowsAndGetDestroyedPlacedBlocks();
@@ -34,8 +33,13 @@ class Board {
     bool rotateCurrentLeft();
     bool rotateCurrentRight();
 
+	bool isOverlapping(const UnplacedBlock&) const;
+
     int numberOfFullRows();
-  	int currentBlockScore();
+	int numberOfFullRowsWithUnplacedBlock(const UnplacedBlock&) const;
+  	int numberOfEmptyRowsWithUnplacedBlock(const UnplacedBlock&) const;
+
+	int currentBlockScore();
 	Point currentBlockBottomLeft();
 
 	int destroyFullRowsAndGetPoints();

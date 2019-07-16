@@ -1,7 +1,6 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
-// TODO add command for replacing the current block (e.g. I,J,T...)
 
 enum CMD{ 
 			Left, Right, Down, RotateLeft, RotateRight, Drop, 
