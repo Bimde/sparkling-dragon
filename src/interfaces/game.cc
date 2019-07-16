@@ -184,38 +184,40 @@ int Game::getNumBlocksSpawned() {
 }
 
 void Game::changeCurrentBlock(char ch) {
-	board->setCurrentIfNotOverlapping(
+	std::cout << "Current char: " << ch << std::endl;
+	bool didSet = board->setCurrentIfNotOverlapping(
 		createLetterBlock(
 			ch, 
 			board->currentBlockScore(), 
 			board->currentBlockBottomLeft()
 		)
 	);
+	std::cout << "We did set: " << didSet << std::endl;
 }
 
 // TODO: Create and set block to transform into
 void Game::changeBlockType(CMD command) {
 	switch (command) {
 		case SpawnIBlock:
-			changeCurrentBlock('i');
+			changeCurrentBlock('I');
 			break;
 		case SpawnJBlock:
-			changeCurrentBlock('j');
+			changeCurrentBlock('J');
 			break;
 		case SpawnLBlock:
-			changeCurrentBlock('l');
+			changeCurrentBlock('L');
 			break;
 		case SpawnOBlock:
-			changeCurrentBlock('o');
+			changeCurrentBlock('O');
 			break;
 		case SpawnSBlock:
-			changeCurrentBlock('s');
+			changeCurrentBlock('S');
 			break;
 		case SpawnZBlock:
-			changeCurrentBlock('z');
+			changeCurrentBlock('Z');
 			break;
 		case SpawnTBlock:
-			changeCurrentBlock('t');
+			changeCurrentBlock('T');
 			break;
 		default:
 			break;

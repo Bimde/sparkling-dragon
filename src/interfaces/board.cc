@@ -14,6 +14,7 @@ namespace {
 
 	const int gameBoardHeight = 15;
 	const int gameBoardWidth = 11;
+	const char emptySpot = ' ';
 }
 
 Board::Board() : currentBlock{nullptr}, board{
@@ -224,7 +225,7 @@ std::vector<std::vector<char>> Board::getState() {
 	std::cout << "getting board state" << std::endl;
 
 	std::vector<std::vector<char>> charBoard(
-		boardHeight, std::vector<char>(boardWidth, ' '));
+		boardHeight, std::vector<char>(boardWidth, emptySpot));
 	for(int y = 0; y < boardHeight; ++y) {
 		for(int x = 0; x < boardWidth; ++x) {
 			if(board.at(y).at(x) != nullptr) {

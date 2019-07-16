@@ -88,7 +88,7 @@ void Quadris::runCommand(CMD command) {
         return;
     }
 
-    // std::cout << "autodown flag: " << shouldUseTimeDowns << std::endl;
+    std::cout << "autodown flag: " << shouldUseTimeDowns << std::endl;
 
     // Perform game related commands
     if (!game->isGameOver()) {
@@ -156,10 +156,7 @@ void Quadris::runCommand(CMD command) {
                 break;
             case SpawnTBlock:
                 game->changeBlockType(SpawnTBlock);
-                break;
-            case UseSequenceFile:
-                // TODO: Remove this if we can handle everything in Quadris
-                break;        
+                break;      
             default:
                 break;
         }
