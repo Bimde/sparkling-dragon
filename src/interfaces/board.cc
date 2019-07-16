@@ -38,7 +38,6 @@ bool Board::rowIsFullWithUnplacedBlock(int y, const UnplacedBlock& block) const 
 		bool blockAtPosition = false;
 		for(Point p: block.pointsOnBoard()) {
 			if (y == p.y && i == p.x) {
-				std::cout << "Block is in checked pos: " << y << "," << i << std::endl;
 				blockAtPosition = true;
 			}
 		}
@@ -144,7 +143,6 @@ int Board::numberOfFullRowsWithUnplacedBlock(const UnplacedBlock& hintBlock) con
 	int fullRows = 0;
 	for(int y = 0; y < boardHeight; ++y) {
 		if (rowIsFullWithUnplacedBlock(y, hintBlock)) {
-			std::cout << "Block has filled a row: " << y << std::endl;
 			++fullRows;
 		}
 	}

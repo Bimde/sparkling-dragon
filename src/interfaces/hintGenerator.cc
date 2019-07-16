@@ -16,6 +16,8 @@ class HintGeneratorImpl : public HintGenerator {
 		const UnplacedBlock& 
 		currentBlock, int rights, 
 		int rotations);
+
+	int highestYPos(UnplacedBlock&);
 };
 
 UnplacedBlock HintGeneratorImpl::blockMovedToPosition(const Board& board, const UnplacedBlock& currentBlock, int rights, int rotations) {
@@ -37,7 +39,7 @@ UnplacedBlock HintGeneratorImpl::blockMovedToPosition(const Board& board, const 
 UnplacedBlock HintGeneratorImpl::generateHintImpl(
 	const Board& board, const UnplacedBlock& currentBlock) {
 	
-	int maxEmptyRows = 0;
+	int track = 0;
 	int rights = 0;
 	int rotations = 0;
 
@@ -60,18 +62,69 @@ UnplacedBlock HintGeneratorImpl::generateHintImpl(
 			while(!board.isOverlapping(rrtb)) {
 				rightAndRotatedTempBlock = rrtb;
 				
-				int curEmptyRows = board.numberOfEmptyRowsWithUnplacedBlock(rightAndRotatedTempBlock);
-				if (maxEmptyRows < curEmptyRows) {
-					maxEmptyRows = curEmptyRows;
+				int fullRows = board.numberOfFullRowsWithUnplacedBlock(rightAndRotatedTempBlock);
+				if (track < fullRows) {
+					track = fullRows;
 					rights = rightCnt;
 					rotations = i;
 				}
-
+				
 				rrtb.moveDown();
 			}
 
 			rtb.moveRight();
 			rightCnt++;
+		}
+	}
+
+	if (track != 0) {
+		return blockMovedToPosition(board, currentBlock, rights, rotations);
+	} else {
+		// Fill the lowest possible spot
+		track = 0;
+		// track = 18; // if using highestY
+		int rights = 0;
+		int rotations = 0;
+
+		for (int i = 0; i < 4; ++i) {
+			UnplacedBlock tempBlock = currentBlock;
+			// Loop through all positions to drop from
+			for (int ii = 0; ii < i; ++ii) {
+				tempBlock.rotateRight();
+			}
+
+			// Use tRTB to check for out of bounds while we're moving the rotatedTempBlock right
+			UnplacedBlock rotatedTempBlock = tempBlock;
+			UnplacedBlock rtb = tempBlock;
+			int rightCnt = 0;
+			while(!board.isOverlapping(rtb)) {
+				rotatedTempBlock = rtb;
+				
+				UnplacedBlock rightAndRotatedTempBlock = rotatedTempBlock;
+				UnplacedBlock rrtb = rotatedTempBlock;
+				while(!board.isOverlapping(rrtb)) {
+					rightAndRotatedTempBlock = rrtb;
+					
+					int curEmptyRows = board.numberOfEmptyRowsWithUnplacedBlock(rightAndRotatedTempBlock);
+					if (track < curEmptyRows) {
+						track = curEmptyRows;
+						rights = rightCnt;
+						rotations = i;
+					}
+
+					// int highestY = highestYPos(rightAndRotatedTempBlock);
+					// if (track > highestY) {
+					// 	track = highestY;
+					// 	rights = rightCnt;
+					// 	rotations = i;
+					// }
+
+					rrtb.moveDown();
+				}
+
+				rtb.moveRight();
+				rightCnt++;
+			}
 		}
 		return blockMovedToPosition(board, currentBlock, rights, rotations);
 	}
