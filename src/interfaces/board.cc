@@ -24,7 +24,7 @@ Board::Board() : currentBlock{nullptr}, board{
 }
 
 void Board::setCurrent(std::unique_ptr<UnplacedBlock> next) {
-	currentBlock = std::move(next);
+	currentBlock.swap(next);
 }
 
 bool Board::rowIsFull(int y) {

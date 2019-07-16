@@ -40,9 +40,15 @@ void Game::completeTurn() {
 		++numBlocksSpawned;
 	}
 
-	int isValidCurrent = board->setCurrentIfNotOverlapping(std::move(nextBlock));
+	std::unique_ptr<UnplacedBlock> temp;
+
+	if (nextBlock != nullptr) {
+		temp = std::make_unique<UnplacedBlock>(*nextBlock);
+	}
+
+	int isValidCurrent = board->setCurrentIfNotOverlapping(std::move(temp));
 	
-	if (isValidCurrent) {
+	if (isValidCurrent && nextBlock != nullptr) {
 		currentLevel = levelFactory_->getLevel(nextLevel);
 		nextBlock = currentLevel->getNextBlock(defaultSpawnPoint);
 	}
@@ -130,6 +136,11 @@ GameState Game::getState() {
 
 	if (board == nullptr) {
 		std::cout << "ERROR: board is nullptr" << std::endl;
+	}
+
+	if (nextBlock == nullptr) {
+		return GameState(currentLevel->getLevelNumber(), score, board->getState(), 
+					 	 nextLevel, nullptr, isGameOver());
 	}
 
 	return GameState(currentLevel->getLevelNumber(), score, board->getState(), 

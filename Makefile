@@ -1,16 +1,15 @@
-MAIN_EXEC = quadris_main
-TEST_EXEC = test_main
+MAIN_EXEC = quadris
+TEST_EXEC = test
 TO_TEST_EXEC = g++ -o ${TEST_EXEC} bin/*.o -lX11 -pthread && chmod 777 ${TEST_EXEC}
 TO_MAIN_EXEC = g++ -o ${MAIN_EXEC} bin/*.o -lX11 -pthread && chmod 777 ${MAIN_EXEC}
 
-all: mkdir_bin clean_bin
+all: mkdir_bin clean_bin inter_all main_only
+
+inter_all:
 	+$(MAKE) -C src/interfaces/blocks
 	+$(MAKE) -C src/interfaces/levels
 	+$(MAKE) -C src/interfaces
 	+$(MAKE) -C src/ui
-
-inter_only:
-	+$(MAKE) -C src/interfaces
 
 mkdir_bin:
 	mkdir -p bin
@@ -18,7 +17,7 @@ mkdir_bin:
 clean_bin:
 	rm bin/*.o
 
-test: all
+test: inter_all
 	+$(MAKE) -C src/interfaces/levels/test
 	+$(MAKE) -C src/testing
 	${TO_TEST_EXEC}
@@ -28,10 +27,6 @@ test_only:
 	+$(MAKE) -C src/ui/test
 	+$(MAKE) -C src/testing
 	${TO_TEST_EXEC}
-
-main: all
-	+$(MAKE) -C src
-	${TO_MAIN_EXEC}
 
 main_only:
 	+$(MAKE) -C src
