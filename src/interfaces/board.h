@@ -44,6 +44,8 @@ class Board {
     void increaseNumDropsWithoutClears();
     void resetNumDropsWithoutClears();
 
+    UnplacedBlock* getCurrentBlock();
+
     std::vector<std::vector<char>> getState();
 };
 

@@ -270,3 +270,7 @@ void Board::increaseNumDropsWithoutClears() {
 void Board::resetNumDropsWithoutClears() {
 	numDropsWithoutClears = 0;
 }
+
+UnplacedBlock* Board::getCurrentBlock() {
+	return currentBlock.get();
+}
