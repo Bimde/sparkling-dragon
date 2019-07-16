@@ -9,9 +9,9 @@
 
 class TextDisplay : public Observer {
 	std::ostream& out;
-	std::shared_ptr<Quadris> quadris;
+	Quadris* quadris;
   public:
-  	TextDisplay(std::ostream& out, std::shared_ptr<Quadris> quadris);
+  	TextDisplay(std::ostream& out, Quadris* quadris);
   	void notify() override;
 };
 

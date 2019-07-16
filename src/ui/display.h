@@ -12,7 +12,7 @@
 
 class XDisplay : public Observer {
   public:
-    XDisplay(std::weak_ptr<Quadris> game);
+    XDisplay(Quadris* game);
     virtual ~XDisplay();
     virtual void notify();
   private:
@@ -30,7 +30,7 @@ class XDisplay : public Observer {
 
     Xwindow window;
     std::unordered_map<char, int> tileToColour;
-    std::weak_ptr<Quadris> game;
+    Quadris* game;
     QuadrisState lastState;
 
     int xStart;

@@ -48,25 +48,33 @@ int main(int argc, char *argv[]) {
 	MainCfg cfg;
 	parseFlags(cfg, argc, argv);
 
-	auto quadris = std::make_shared<Quadris>(cfg.gameCfg);
+	auto quadris = std::make_unique<Quadris>(cfg.gameCfg);
+
+	if (quadris == nullptr) {
+		std::cout << "Failed to create quadris object. "
+			"Terminating program" << std::endl;
+		return -1;
+	}
 
 	// Create text only output
-	auto textUi = std::make_shared<TextDisplay>(std::cout, quadris);
-	quadris->attach(textUi);
-	textUi->notify();
+	auto textUi = std::make_unique<TextDisplay>(std::cout, quadris.get());
+	quadris->attach(textUi.get());
+	if (textUi != nullptr) {
+		textUi->notify();
+	}
 
 	// UI display output
 	std::shared_ptr<XDisplay> graphicUi;
 
 	if (!cfg.textOnly) {
-		graphicUi = std::make_shared<XDisplay>(quadris);
-		quadris->attach(graphicUi);
+		graphicUi = std::make_unique<XDisplay>(quadris.get());
+		quadris->attach(graphicUi.get());
 	}
 
 	quadris->runGame(std::cin);
 
-	quadris->detach(textUi);
-	quadris->detach(graphicUi);
+	quadris->detach(textUi.get());
+	quadris->detach(graphicUi.get());
 
 	return 0;
 }

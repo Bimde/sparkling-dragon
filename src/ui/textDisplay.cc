@@ -5,7 +5,7 @@
 #include "src/interfaces/gameState.h"
 #include "src/interfaces/quadris.h"
 
-TextDisplay::TextDisplay(std::ostream& out, std::shared_ptr<Quadris> quadris) : 
+TextDisplay::TextDisplay(std::ostream& out, Quadris* quadris) : 
 	out{out}, quadris{quadris} {}
 
 void TextDisplay::notify() {

@@ -7,9 +7,13 @@ Subject::Subject() {}
 
 Subject::~Subject() {}
 
-void Subject::attach(std::shared_ptr<Observer> o) {
-	for (auto it = observers.begin(); it != observers.end(); ++it) {
-        if ((*it).get() == o.get()) {
+void Subject::attach(Observer* o) {
+    if (o == nullptr) {
+        return;
+    }
+
+	  for (auto it = observers.begin(); it != observers.end(); ++it) {
+        if (*it == o) {
             return;
         }
     }
@@ -17,9 +21,13 @@ void Subject::attach(std::shared_ptr<Observer> o) {
     observers.emplace_back(o);
 }
 
-void Subject::detach(std::shared_ptr<Observer> o) {
+void Subject::detach(Observer* o) {
+    if (o == nullptr) {
+        return;
+    }
+
     for (auto it = observers.begin(); it != observers.end(); ++it) {
-        if ((*it).get() == o.get()) {
+        if (*it == o) {
             observers.erase(it);
             return;
         }

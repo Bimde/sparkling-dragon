@@ -9,10 +9,6 @@
 #include "src/interfaces/quadrisState.h"
 #include "window.h"
 
-// XDisplay::XDisplay(std::weak_ptr<Game> game): game{game} {
-//   Xwindow window{512, 512 / 2 * 3};
-// }
-
 using namespace std;
 
 namespace {
@@ -21,7 +17,7 @@ namespace {
   int nextBlockGridHeight = 2;
 }
 
-XDisplay::XDisplay(std::weak_ptr<Quadris> game) : 
+XDisplay::XDisplay(Quadris* game) : 
   window{WINDOW_WIDTH, WINDOW_HEIGHT},
   tileToColour{
     {'I', Xwindow::Gray},
@@ -36,7 +32,7 @@ XDisplay::XDisplay(std::weak_ptr<Quadris> game) :
     {'*', Xwindow::Brown}
   }, 
   game{game},
-  lastState{game.lock()->getState()}
+  lastState{game->getState()}
   {
     calculateDimensions(lastState.gameState);
     updateDisplay(true);
@@ -72,12 +68,11 @@ void XDisplay::updateDisplay(bool redraw) {
   //window.fillRectangle(y, y, 50, 50, y % 5);
   mtx.lock();
 
-  if (game.expired()) {
-    cout << "Quadris pointer expired" << endl;
+  if (game == nullptr) {
     return;
   }
 
-  QuadrisState state = game.lock()->getState();
+  QuadrisState state = game->getState();
   if (state.gameState.isGameOver) {
     drawGameOver(state.gameState, redraw);
   } else {
