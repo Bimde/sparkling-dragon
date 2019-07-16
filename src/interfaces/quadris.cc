@@ -33,31 +33,25 @@ namespace {
 }
 
 void loopDown(Quadris* q) {
-    std::cout << "running auto" << std::endl;
     while (q->shouldUseTimeDowns) {
         if (q == nullptr || q->game == nullptr) {
-            std::cout << "stopped auto because nullptrs" << std::endl;
             return;
         }
         if (q->game->isGameOver()) {
-            std::cout << "stopped auto because game over" << std::endl;
             return;
         }
 
         q->runCommand(CMD::Down);
-        std::cout << "down auto" << std::endl;
+
         std::this_thread::sleep_for(std::chrono::milliseconds(
             shouldSleepForMillis(q->game->getNumBlocksSpawned())));
     }
-    std::cout << "stopped auto by cmd" << std::endl;
 }
 
 Quadris::Quadris(GameConfig cfg) : highScore{0}, displayingHint{false}, 
     curCommand{""}, shouldUseTimeDowns{false}, gameCfg{cfg}, 
     game{Game::create(gameCfg)},
-    commandInterpreter{make_unique<CommandInterpreter>()} {
-    std::cout << "quadris object created" << std::endl;
-}
+    commandInterpreter{make_unique<CommandInterpreter>()} {}
 
 // Private helper functions
 
@@ -88,7 +82,7 @@ void Quadris::runCommand(CMD command) {
         return;
     }
 
-    std::cout << "autodown flag: " << shouldUseTimeDowns << std::endl;
+    highScore = highScore > game->getScore() ? highScore : game->getScore();
 
     // Perform game related commands
     if (!game->isGameOver()) {
@@ -178,15 +172,15 @@ void Quadris::runCommand(CMD command) {
             shouldUseTimeDowns = false;
             break;
         case InvalidCommand:
-            // TODO add new thing to relay error msgs
-            // TODO add disabling hint 
-            // notifyObservers();
             break;
         default:
             break;
     }
 
-    cout << "Command: " << command << endl;
+    if (game != nullptr) {
+        highScore = highScore > game->getScore() ? highScore : game->getScore();
+    }
+
     notifyObservers();
 }
 
@@ -249,10 +243,6 @@ void Quadris::runGame(istream & in) {
 }
 
 QuadrisState Quadris::getState() {
-    std::cout << "getting quadris state" << std::endl;
-    if (game == nullptr) {
-        std::cout << "ERROR: game is nullptr" << std::endl;
-    }
     return QuadrisState(highScore, curCommand, game->getState());
 }
 

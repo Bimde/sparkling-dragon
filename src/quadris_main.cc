@@ -1,80 +1,72 @@
+#include <cstdlib>
+#include <string>
+
 #include "src/interfaces/game.h"
 #include "src/interfaces/quadris.h"
 #include "src/interfaces/observer.h"
 #include "src/ui/display.h"
+#include "src/ui/textDisplay.h"
 
-class Out : public Observer {
-	std::shared_ptr<Quadris> q_;
-  public:
-  	Out(std::shared_ptr<Quadris> q);
-  	void notify() override;
+struct MainCfg {
+	GameConfig gameCfg;
+	bool textOnly;
+
+	MainCfg() : textOnly{false} {}
 };
 
-Out::Out(std::shared_ptr<Quadris> q) : q_{q} {}
+void parseFlags(MainCfg& cfg, int argc, char *argv[]) {
+	for (int i = 0; i < argc; ++i) {
+		std::string flg(argv[i]);
 
-void Out::notify() {
-	std::cout << "notify called" << std::endl;
-	if (q_ == nullptr) {
-		return;
-	}
-
-	std::cout << "running state retrieval" << std::endl;
-
-	auto qstate = q_->getState();
-	auto& gstate = qstate.gameState;
-	std::cout << "high score: " << qstate.highScore << std::endl;
-	std::cout << "curr score: " << gstate.score << std::endl;
-	std::cout << "curr level: " << gstate.currentLevel << std::endl;
-	std::cout << "next level: " << gstate.nextLevel << std::endl;
-
-	std::cout << "next block: ";
-	if (gstate.nextBlock != nullptr) {
-		std::cout << gstate.nextBlock->getType();
-	}
-	std::cout << std::endl;
-
-	if (gstate.isGameOver) {
-		std::cout << "Game Over!!!!! Please restart" << std::endl;
-	}
-
-	std::cout << "-------------------------" << std::endl;
-
-
-	int cntr = gstate.board.size();
-
-	for (auto& row : gstate.board) {
-		for (char& col : row) {
-			std::cout << col;
+		if (flg == "-text") {
+			cfg.textOnly = true; 
 		}
-		std::cout << " :: " << cntr << std::endl;
-		--cntr;
+
+		if (i >= argc-1) {
+			continue;
+		}
+
+		if (flg == "-scriptfile") {
+			cfg.gameCfg.setFilename(std::string(argv[i+1]));
+		} else if (flg == "-seed") {
+			int seed;
+			seed = static_cast<int>(strtol(argv[i+1], /*endptr=*/nullptr,
+				/*radix=*/10));
+
+			cfg.gameCfg.setSeed(seed);
+		} else if (flg == "-startlevel") {
+			int level;
+			level = static_cast<int>(strtol(argv[i+1], /*endptr=*/nullptr, 
+				/*radix=*/10));
+
+			cfg.gameCfg.setStartLevel(level);
+		}
 	}
 }
 
-
 int main(int argc, char *argv[]) {
-	// TODO parse flags
+	MainCfg cfg;
+	parseFlags(cfg, argc, argv);
 
-	GameConfig cfg;
-	cfg.setStartLevel(0);
-	cfg.setSeed(0);
-	cfg.setSeed(0);
+	auto quadris = std::make_shared<Quadris>(cfg.gameCfg);
 
-	std::cout << "objects not yet created" << std::endl;
-	auto quadris = std::make_shared<Quadris>(cfg);
-	auto out = std::make_shared<Out>(quadris);
-	std::cout << "objects created" << std::endl;
+	// Create text only output
+	auto textUi = std::make_shared<TextDisplay>(std::cout, quadris);
+	quadris->attach(textUi);
+	textUi->notify();
 
-	quadris->attach(out);
+	// UI display output
+	std::shared_ptr<XDisplay> graphicUi;
 
-	// TODO remove commented out UI
-	// auto ui = std::make_shared<XDisplay>(quadris);
-	// quadris->attach(ui);
+	if (!cfg.textOnly) {
+		graphicUi = std::make_shared<XDisplay>(quadris);
+		quadris->attach(graphicUi);
+	}
 
 	quadris->runGame(std::cin);
-	quadris->detach(out);
-	// quadris->detach(ui);
 
+	quadris->detach(textUi);
+	quadris->detach(graphicUi);
 
 	return 0;
 }
