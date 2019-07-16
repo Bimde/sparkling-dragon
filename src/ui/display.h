@@ -20,24 +20,31 @@ class XDisplay : public Observer {
     const int WINDOW_WIDTH = 600;
     const int PADDING = 10;
     const int FIELD_HEIGHT = 10;
-    const int NO_FIELDS = 3;
+    const int NO_FIELDS = 5;
     const int BORDER_WIDTH = 1;
+    const int NEXT_BLOCK_START = 80;
 
     Xwindow window;
     std::unordered_map<char, int> tileToColour;
     std::weak_ptr<Quadris> game;
     QuadrisState lastState;
+
+    int xStart;
+    int yStart;
+    int sideLength;
+
+    void calculateDimensions(const GameState&);
     
     void updateDisplay(bool);
     void drawBoard(const GameState&, bool);
-    void drawNextBlock(const GameState&);
+    void drawNextBlock(const GameState&, bool);
 
     void drawFields(const QuadrisState&, bool);
     void drawHighScore(int);
     void drawScore(int);
     void drawCurrentLevel(int);
 
-    void drawField(std::string, int);
+    void drawField(std::string, int, int);
 };
 
 #endif
