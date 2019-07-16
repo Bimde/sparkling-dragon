@@ -14,7 +14,8 @@
 namespace {
 	const char hintType = '?';
 	const Point defaultSpawnPoint{0,14};
-	const int gameBoardDisplayHeight = 15;
+	const int gameBoardDisplayStartingOffset = 3;
+	const int boardHeight = 18;
 }  // namespace
 
 Game::Game(std::unique_ptr<LevelFactory> levelFactory, 
@@ -146,7 +147,7 @@ GameState Game::getState() {
 	std::vector<std::vector<char>> displayBoardState;
 	displayBoardState.reserve(gameBoardDisplayHeight);
 
-	for (int i = 0; i < gameBoardDisplayHeight; ++i) {
+	for (int i = gameBoardDisplayStartingOffset; i < boardHeight; ++i) {
 		displayBoardState.emplace_back(boardState.at(i));
 	}
 
