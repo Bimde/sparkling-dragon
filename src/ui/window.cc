@@ -9,21 +9,20 @@
 
 using namespace std;
 
-Xwindow::Xwindow(int width, int height): width{width}, height{height} {
+XWindow::XWindow(int width, int height): width{width}, height{height} {
+	// This setup is mostly taken from a2's maze solver
 	d = XOpenDisplay(NULL);
 	if (d == NULL) {
+		initialized = false;
 		cerr << "Cannot open display" << endl;
 		return;
 	}
 	
 	s = DefaultScreen(d);
-	// display, parent window, x, y, width, height, border-width, border-colour, background-colour
 	w = XCreateSimpleWindow(
 		d, RootWindow(d, s), 10, 10, width, height, 
 		1, BlackPixel(d, s), WhitePixel(d, s)
 	);
-
-	XSelectInput(d, w, ExposureMask | KeyPressMask);
 
 	Pixmap pix = XCreatePixmap(
 		d, w, width, height, 
@@ -32,14 +31,12 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 
 	gc = XCreateGC(d, pix, 0, 0);
 
-	// Set up colours.
+	// Setting up colours
 	XColor xcolour;
 	Colormap cmap;
 
-	const size_t numColours = 12;
-
 	// Colours from https://en.wikipedia.org/wiki/X11_color_names
-	char color_vals[numColours][10] = 
+	char color_vals[NUM_COLOURS][10] = 
 	{
 		"white", 
 		"black", 
@@ -57,54 +54,60 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 
 	cmap = DefaultColormap(d, DefaultScreen(d));
 	
-	for (unsigned int i = 0; i < numColours; ++i) {
+	for (unsigned int i = 0; i < NUM_COLOURS; ++i) {
 		XParseColor(d, cmap, color_vals[i], &xcolour);
 		XAllocColor(d, cmap, &xcolour);
 		colours[i] = xcolour.pixel;
 	}
 
-	XSetForeground(d, gc, colours[Black]);
-
-	 // Make window non-resizeable.
+	 // Make window non-resizeable
 	XSizeHints hints;
 	hints.flags = (USPosition | PSize | PMinSize | PMaxSize );
 	hints.height = hints.base_height = hints.min_height = hints.max_height = height;
 	hints.width = hints.base_width = hints.min_width = hints.max_width = width;
 	XSetNormalHints(d, w, &hints);
 
+	// Open window and bring it to the front
 	XMapRaised(d, w);
 	XFlush(d);
 	
+	// Give some time for the window to initialize
 	sleep(1);
 }
 
-Xwindow::~Xwindow() {
+XWindow::~XWindow() {
 	XFreeGC(d, gc);
 	XCloseDisplay(d);
 }
 
-void Xwindow::fillRectangleWithBorder(int x, int y, int width, int height, int colour, int borderWidth) {
+// Draw a rectangle with a black border of thickness borderWidth
+void XWindow::fillRectangleWithBorder(int x, int y, int width, int height, int colour, int borderWidth) {
 	fillRectangle(x, y, width + borderWidth, height + borderWidth, Black);
 	fillRectangle(x + borderWidth, y + borderWidth, width - borderWidth, height - borderWidth, colour);
 }
 
-void Xwindow::fillRectangle(int x, int y, int width, int height, int colour) {
+// Colours should be specified using the colour enums (i.e. XWindow::Purple)
+void XWindow::fillRectangle(int x, int y, int width, int height, int colour) {
 	XSetForeground(d, gc, colours[colour]);
 	XFillRectangle(d, w, gc, x, y, width, height);
 	XFlush(d);
 }
 
-void Xwindow::drawString(int x, int y, std::string msg) {
+// Draw the specified string using the default font
+void XWindow::drawString(int x, int y, std::string msg) {
 	XTextItem items [1] = {{const_cast<char *>(msg.c_str()), msg.length(), 0, None}};
 	XDrawText(d, w, DefaultGC(d, s), x, y, items, 1);
-	// XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
 	XFlush(d);
 }
 
-int Xwindow::getWidth() {
+int XWindow::getWidth() {
 	return width;
 }
 
-int Xwindow::getHeight() {
+int XWindow::getHeight() {
 	return height;
+}
+
+bool XWindow::isInitialized() {
+	return initialized;
 }
