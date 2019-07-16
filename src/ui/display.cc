@@ -36,6 +36,11 @@ XDisplay::XDisplay(Quadris* game) :
   {
     calculateDimensions(lastState.gameState);
 
+    if (!window.isInitialized()) {
+      game->detach(this);
+      return;
+    }
+
     // Forcefully draw all fields and the board 
     // (without minimizing redrawing, since nothing is drawn yet)
     updateDisplay(true);
