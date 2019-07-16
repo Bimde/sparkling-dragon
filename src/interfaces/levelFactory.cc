@@ -24,10 +24,12 @@ LevelFactory::LevelFactory(const LevelConfig& cfg) :
 	levelThree{std::make_shared<LevelThree>()}, 
 	levelFour{std::make_shared<LevelFour>()} {
 
+	// Set the random number generator seed
 	if (cfg.hasSeed()) {
 		srand(cfg.seed());
 	}
 
+	// Set the basic levels input file
 	if (cfg.hasFilename()) {
 		levelZero = std::make_shared<LevelZero>(cfg.filename());
 	} else {
@@ -51,15 +53,18 @@ std::shared_ptr<LevelInterface> LevelFactory::getLevel(int level) {
 void LevelFactory::useFileForOther(std::string filename) {
 	auto filestream = std::make_shared<std::ifstream>(filename);
 
+	// Switch the levels to read from the file stream
 	levelThree = std::make_shared<LevelThreeFile>(filestream);
 	levelFour = std::make_shared<LevelFourFile>(filestream);
 }
 
 void LevelFactory::random() {
+	// Switch the levels to use randomness
 	levelThree = std::make_shared<LevelThree>();
 	levelFour = std::make_shared<LevelFour>();
 }
 
+// returns: the closest valid level to the argument
 int LevelFactory::getClosestLevel(int level) {
 	if (level < minLevel) {
 		return minLevel;

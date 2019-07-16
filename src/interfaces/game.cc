@@ -128,9 +128,10 @@ GameState Game::getState() {
 	std::vector<std::vector<char>> boardState = board->getState();
 
 	// Draw the hint onto the board if needed
-	if (showHint && board->getCurrentBlock() != nullptr && hinter_ != nullptr) {
-		UnplacedBlock hint = hinter_->generateHint(*board, 
-												   *(board->getCurrentBlock()));
+	if (showHint && board->getCurrentBlock() != nullptr 
+		&& hinter_ != nullptr) {
+		UnplacedBlock hint = hinter_->generateHint(
+			*board, *(board->getCurrentBlock()));
 
 		std::vector<Point> points = hint.pointsOnBoard();
 		int boardHeight = boardState.size();
@@ -139,6 +140,7 @@ GameState Game::getState() {
 		}
 	}
 
+	// Create the board state with the top non-visible rows removed
 	std::vector<std::vector<char>> displayBoardState;
 	displayBoardState.reserve(boardHeight-gameBoardDisplayStartingOffset);
 
@@ -147,8 +149,8 @@ GameState Game::getState() {
 	}
 
 	if (nextBlock == nullptr) {
-		return GameState(currentLevel->getLevelNumber(), score, displayBoardState, 
-					 	 nextLevel, nullptr, isGameOver());
+		return GameState(currentLevel->getLevelNumber(), score, 
+						 displayBoardState, nextLevel, nullptr, isGameOver());
 	}
 
 	return GameState(currentLevel->getLevelNumber(), score, displayBoardState, 
@@ -164,8 +166,8 @@ std::unique_ptr<Game> Game::create(GameConfig cfg) {
 		return nullptr;
 	}
 
-	return std::make_unique<Game>(std::move(levelFactory), std::move(hintGenerator), 
-								  cfg.startLevel());
+	return std::make_unique<Game>(std::move(levelFactory), 
+								  std::move(hintGenerator), cfg.startLevel());
 }
 
 bool Game::isGameOver() {

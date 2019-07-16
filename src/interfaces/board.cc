@@ -28,12 +28,15 @@ void Board::setCurrent(std::unique_ptr<UnplacedBlock> next) {
 
 bool Board::rowIsFull(int y) const {
 	for(int i = 0; i < boardWidth; ++i) {
-		if (board.at(y).at(i) == nullptr) return false;
+		if (board.at(y).at(i) == nullptr) {
+			return false;
+		}
 	}
 	return true;
 }
 
-bool Board::rowIsFullWithUnplacedBlock(int y, const UnplacedBlock& block) const {
+bool Board::rowIsFullWithUnplacedBlock(int y, const UnplacedBlock& block)
+	const {
 	for(int i = 0; i < boardWidth; ++i) {
 		bool blockAtPosition = false;
 		for(Point p: block.pointsOnBoard()) {
@@ -41,7 +44,9 @@ bool Board::rowIsFullWithUnplacedBlock(int y, const UnplacedBlock& block) const 
 				blockAtPosition = true;
 			}
 		}
-		if (board.at(y).at(i) == nullptr && !blockAtPosition) return false;
+		if (board.at(y).at(i) == nullptr && !blockAtPosition) {
+			return false;
+		}
 	}
 	return true;
 }
@@ -139,7 +144,8 @@ int Board::numberOfFullRows() {
 	return fullRows;
 }
 
-int Board::numberOfFullRowsWithUnplacedBlock(const UnplacedBlock& hintBlock) const {
+int Board::numberOfFullRowsWithUnplacedBlock(
+	const UnplacedBlock& hintBlock) const {
 	int fullRows = 0;
 	for(int y = 0; y < boardHeight; ++y) {
 		if (rowIsFullWithUnplacedBlock(y, hintBlock)) {
@@ -149,7 +155,8 @@ int Board::numberOfFullRowsWithUnplacedBlock(const UnplacedBlock& hintBlock) con
 	return fullRows;
 }
 
-int Board::numberOfEmptyRowsWithUnplacedBlock(const UnplacedBlock& hintBlock) const {
+int Board::numberOfEmptyRowsWithUnplacedBlock(
+	const UnplacedBlock& hintBlock) const {
 	std::vector<bool> rowEmpty = std::vector<bool>(boardHeight, false);
 	for(int y = 0; y < boardHeight; ++y) {
 		if (rowIsEmpty(y)) rowEmpty.at(y) = true;
@@ -170,7 +177,8 @@ bool Board::isOverlapping(const UnplacedBlock& block) const {
 	const std::vector<Point> points = block.pointsOnBoard();
 
 	for (const Point& p : points) {
-		if (p.y < 0 || p.y >= boardHeight || p.x < 0 || p.x >= boardWidth) {
+		if (p.y < 0 || p.y >= boardHeight || p.x < 0 || 
+			p.x >= boardWidth) {
 			return true;
 		}
 
@@ -196,6 +204,7 @@ bool Board::dropCurrent() {
 	auto pb = std::make_shared<PlacedBlock>(currentBlock->getScore(), 
 		currentBlock->getType(), currentBlock->getNumberOfBlocks()); 
 
+	// Place the current block onto the board
 	for (Point& p : currentBlock->pointsOnBoard()) {
 		board.at(p.y).at(p.x) = pb;
 	}
@@ -252,22 +261,27 @@ int Board::destroyFullRowsAndGetPoints() {
 	return points;
 }
 
+// returns: the board state represented by its characters 
 std::vector<std::vector<char>> Board::getState() {
 	std::vector<std::vector<char>> charBoard(
 		boardHeight, std::vector<char>(boardWidth, emptySpot));
 	
+	// Adds all blocks currently placed on the board
 	for(int y = 0; y < boardHeight; ++y) {
 		for(int x = 0; x < boardWidth; ++x) {
 			if(board.at(y).at(x) != nullptr) {
-				charBoard.at(boardHeight - y - 1).at(x) = board.at(y).at(x)->getType();
+				charBoard.at(boardHeight - y - 1).at(x) = 
+					board.at(y).at(x)->getType();
 			}
 		}
 	}
 
 	if (currentBlock != nullptr) {
+		// Adds the current (unplaced) block to the board state
 		std::vector<Point> points = currentBlock->pointsOnBoard();
 		for (auto p : points) {
-			charBoard.at(boardHeight - p.y - 1).at(p.x) = currentBlock->getType();
+			charBoard.at(boardHeight - p.y - 1).at(p.x) = 
+				currentBlock->getType();
 		}
 	}
 
@@ -279,6 +293,8 @@ bool Board::isGameOver() {
 		return true;
 	}
 
+	// Checks if any of the blocks on the board is outside of the
+	// allocated regions
 	for (int y = gameBoardHeight - 1; y < boardHeight; ++y) {
 		for (int x = 0; x < gameBoardWidth; ++x) {
 			if (board.at(y).at(x) != nullptr) {
