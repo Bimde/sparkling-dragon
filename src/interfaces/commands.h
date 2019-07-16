@@ -9,7 +9,7 @@ enum CMD{
 		  	Hint, RemoveHint, InvalidCommand, AfterMoveTurn,
 		  	AutoDown, StopAutoDown,
 			SpawnIBlock, SpawnJBlock, SpawnLBlock, SpawnOBlock,
-			SpawnSBlock, SpawnZBlock, SpawnTBlock, SpawnStarBlock,
+			SpawnSBlock, SpawnZBlock, SpawnTBlock,
 			UseSequenceFile
 		};
 

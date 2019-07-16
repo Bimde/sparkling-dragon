@@ -170,25 +170,39 @@ int Game::getNumBlocksSpawned() {
 	return numBlocksSpawned;
 }
 
+void Game::changeCurrentBlock(char ch) {
+	board->setCurrentIfNotOverlapping(
+		createLetterBlock(
+			ch, 
+			board->currentBlockScore(), 
+			board->currentBlockBottomLeft()
+		)
+	);
+}
+
 // TODO: Create and set block to transform into
 void Game::changeBlockType(CMD command) {
 	switch (command) {
 		case SpawnIBlock:
-			// board->setCurrent(...);
+			changeCurrentBlock('i');
 			break;
 		case SpawnJBlock:
+			changeCurrentBlock('j');
 			break;
 		case SpawnLBlock:
+			changeCurrentBlock('l');
 			break;
 		case SpawnOBlock:
+			changeCurrentBlock('o');
 			break;
 		case SpawnSBlock:
+			changeCurrentBlock('s');
 			break;
 		case SpawnZBlock:
+			changeCurrentBlock('z');
 			break;
 		case SpawnTBlock:
-			break;
-		case SpawnStarBlock:
+			changeCurrentBlock('t');
 			break;
 		default:
 			break;

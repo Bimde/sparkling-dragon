@@ -270,3 +270,11 @@ void Board::increaseNumDropsWithoutClears() {
 void Board::resetNumDropsWithoutClears() {
 	numDropsWithoutClears = 0;
 }
+
+int Board::currentBlockScore() {
+	return currentBlock->getScore();
+}
+
+Point Board::currentBlockBottomLeft() {
+	return currentBlock->getBottomLeft();
+}

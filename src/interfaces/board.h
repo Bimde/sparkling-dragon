@@ -10,12 +10,12 @@
 class Board {
     int numDropsWithoutClears;
 
-	  std::unique_ptr<UnplacedBlock> currentBlock;
-	  std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
+	std::unique_ptr<UnplacedBlock> currentBlock;
+	std::vector<std::vector<std::shared_ptr<PlacedBlock>>> board;
 
     bool rowIsFull(int y);
-	  bool rowIsEmpty(int y);
-	  void moveRow(int fromRow, int toRow);
+	bool rowIsEmpty(int y);
+	void moveRow(int fromRow, int toRow);
 
   	bool isOverlapping(const UnplacedBlock&);
 
@@ -35,8 +35,10 @@ class Board {
     bool rotateCurrentRight();
 
     int numberOfFullRows();
-  	
-	  int destroyFullRowsAndGetPoints();
+  	int currentBlockScore();
+	Point currentBlockBottomLeft();
+
+	int destroyFullRowsAndGetPoints();
 
     bool isGameOver();
 

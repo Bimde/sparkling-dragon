@@ -6,6 +6,7 @@
 #include <thread>
 #include <mutex>
 #include <chrono>
+#include <fstream>
 
 #include "src/interfaces/game.h"
 #include "src/interfaces/quadris.h"
@@ -87,7 +88,7 @@ void Quadris::runCommand(CMD command) {
         return;
     }
 
-    std::cout << "autodown flag: " << shouldUseTimeDowns << std::endl;
+    // std::cout << "autodown flag: " << shouldUseTimeDowns << std::endl;
 
     // Perform game related commands
     if (!game->isGameOver()) {
@@ -155,9 +156,6 @@ void Quadris::runCommand(CMD command) {
                 break;
             case SpawnTBlock:
                 game->changeBlockType(SpawnTBlock);
-                break;
-            case SpawnStarBlock:
-                game->changeBlockType(SpawnStarBlock);
                 break;
             case UseSequenceFile:
                 // TODO: Remove this if we can handle everything in Quadris
@@ -229,12 +227,16 @@ void Quadris::runGame(istream & in) {
             runCommand(CMD::NoRandom);
         } else if (CMD::SpawnIBlock == command || CMD::SpawnJBlock == command || CMD::SpawnLBlock == command || 
                    CMD::SpawnOBlock == command || CMD::SpawnSBlock == command || CMD::SpawnZBlock == command || 
-                   CMD::SpawnTBlock == command || CMD::SpawnStarBlock == command) {
+                   CMD::SpawnTBlock == command) {
             runCommand(command);
         } else if (CMD::UseSequenceFile == command) {
-            string filename;
-            in >> filename;
-            // TODO: Add all contents of file with `filename` to in stream
+            string file;
+            in >> file;
+            std::ifstream fin = ifstream(file);
+            if(!file.empty() && fin.good()) {
+                runGame(fin);
+                fin.close();
+            }
         } else {
             for( ;multiplier > 0; --multiplier) {
                 runCommand(command);

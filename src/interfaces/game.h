@@ -78,6 +78,7 @@ class Game {
 
     // For testing
     void changeBlockType(CMD);
+    void changeCurrentBlock(char);
 
     static std::unique_ptr<Game> create(GameConfig cfg);
 };

@@ -26,7 +26,6 @@ void CommandInterpreter::addCommandsToTrie() {
     trie->insert("s", CMD::SpawnSBlock);
     trie->insert("z", CMD::SpawnZBlock);
     trie->insert("t", CMD::SpawnTBlock);
-    trie->insert("star", CMD::SpawnStarBlock);
     trie->insert("sequence", CMD::UseSequenceFile);
     // t.insert("removehint", CMD::RemoveHint);
     // t.insert("invalidcommand", CMD::InvalidCommand);
