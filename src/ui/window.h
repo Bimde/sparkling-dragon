@@ -7,11 +7,15 @@
 
 class XWindow {
 		static const int NUM_COLOURS = 12;
+		static const int START_X = 0;
+		static const int START_Y = 0;
+		static const int DISPLAY_BORDER_WIDTH = 1;
 
-		Display *d;
-		Window w;
-		int s;
+		Display* display;
+		Window window;
+		int defaultScreenNum;
 		GC gc;
+
 		int width;
 		int height;
 		unsigned long colours[NUM_COLOURS];
@@ -25,7 +29,7 @@ class XWindow {
 		~XWindow();
 		XWindow(const XWindow&) = delete;
 		XWindow &operator=(const XWindow&) = delete;
-		
+
 		void fillRectangle(int, int, int, int, int);
 		void fillRectangleWithBorder(int, int, int, int, int, int);
 		void drawString(int, int, std::string);
