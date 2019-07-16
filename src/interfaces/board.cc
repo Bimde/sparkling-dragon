@@ -249,7 +249,7 @@ bool Board::isGameOver() {
 	}
 
 	for (int y = gameBoardHeight - 1; y < boardHeight; ++y) {
-		for (int x = gameBoardWidth - 1; x < boardWidth; ++x) {
+		for (int x = 0; x < gameBoardWidth; ++x) {
 			if (board.at(y).at(x) != nullptr) {
 				return true;
 			}
