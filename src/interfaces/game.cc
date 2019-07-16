@@ -12,7 +12,10 @@
 #include "src/interfaces/levels/blockGenerator.h"
 
 namespace {
+	const char hintType = '?';
 	const Point defaultSpawnPoint{0,14};
+	const int gameBoardDisplayStartingOffset = 3;
+	const int boardHeight = 18;
 }  // namespace
 
 Game::Game(std::unique_ptr<LevelFactory> levelFactory, 
@@ -127,23 +130,33 @@ void Game::doLevelActionAfterMove() {
 }
 
 GameState Game::getState() {
-	// TODO check hint (and return with hint if true)
-	std::cout << "getting game state" << std::endl;
+	std::vector<std::vector<char>> boardState = board->getState();
 
-	if (currentLevel == nullptr) {
-		std::cout << "ERROR: current level is nullptr" << std::endl;
+	// Draw the hint onto the board if needed
+	if (showHint && board->getCurrentBlock() != nullptr && hinter_ != nullptr) {
+		UnplacedBlock hint = hinter_->generateHint(*board, 
+												   *(board->getCurrentBlock()));
+
+		std::vector<Point> points = hint.pointsOnBoard();
+		int boardHeight = boardState.size();
+		for (auto p : points) {
+			boardState.at(boardHeight - p.y - 1).at(p.x) = hintType;
+		}
 	}
 
-	if (board == nullptr) {
-		std::cout << "ERROR: board is nullptr" << std::endl;
+	std::vector<std::vector<char>> displayBoardState;
+	displayBoardState.reserve(gameBoardDisplayHeight);
+
+	for (int i = gameBoardDisplayStartingOffset; i < boardHeight; ++i) {
+		displayBoardState.emplace_back(boardState.at(i));
 	}
 
 	if (nextBlock == nullptr) {
-		return GameState(currentLevel->getLevelNumber(), score, board->getState(), 
+		return GameState(currentLevel->getLevelNumber(), score, displayBoardState, 
 					 	 nextLevel, nullptr, isGameOver());
 	}
 
-	return GameState(currentLevel->getLevelNumber(), score, board->getState(), 
+	return GameState(currentLevel->getLevelNumber(), score, displayBoardState, 
 					 nextLevel, std::make_shared<UnplacedBlock>(*nextBlock), 
 					 isGameOver());
 }
