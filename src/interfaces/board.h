@@ -37,7 +37,6 @@ class Board {
 
     int numberOfFullRows();
 	int numberOfFullRowsWithUnplacedBlock(const UnplacedBlock&) const;
-  	int numberOfEmptyRowsWithUnplacedBlock(const UnplacedBlock&) const;
 
 	int currentBlockScore();
 	Point currentBlockBottomLeft();

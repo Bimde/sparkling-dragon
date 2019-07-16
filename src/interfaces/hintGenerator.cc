@@ -36,6 +36,14 @@ UnplacedBlock HintGeneratorImpl::blockMovedToPosition(const Board& board, const 
 	return b;
 }
 
+int HintGeneratorImpl::highestYPos(UnplacedBlock& block) {
+	int maxY = 0;
+	for (Point p: block.pointsOnBoard()) {
+		if(p.y > maxY) maxY = p.y;
+	}
+	return maxY;
+}
+
 UnplacedBlock HintGeneratorImpl::generateHintImpl(
 	const Board& board, const UnplacedBlock& currentBlock) {
 	
@@ -61,15 +69,13 @@ UnplacedBlock HintGeneratorImpl::generateHintImpl(
 			UnplacedBlock rrtb = rotatedTempBlock;
 			while(!board.isOverlapping(rrtb)) {
 				rightAndRotatedTempBlock = rrtb;
-				
-				int fullRows = board.numberOfFullRowsWithUnplacedBlock(rightAndRotatedTempBlock);
-				if (track < fullRows) {
-					track = fullRows;
-					rights = rightCnt;
-					rotations = i;
-				}
-				
 				rrtb.moveDown();
+			}
+			int fullRows = board.numberOfFullRowsWithUnplacedBlock(rightAndRotatedTempBlock);
+			if (track < fullRows) {
+				track = fullRows;
+				rights = rightCnt;
+				rotations = i;
 			}
 
 			rtb.moveRight();
@@ -81,8 +87,7 @@ UnplacedBlock HintGeneratorImpl::generateHintImpl(
 		return blockMovedToPosition(board, currentBlock, rights, rotations);
 	} else {
 		// Fill the lowest possible spot
-		track = 0;
-		// track = 18; // if using highestY
+		track = 18;
 		int rights = 0;
 		int rotations = 0;
 
@@ -104,24 +109,15 @@ UnplacedBlock HintGeneratorImpl::generateHintImpl(
 				UnplacedBlock rrtb = rotatedTempBlock;
 				while(!board.isOverlapping(rrtb)) {
 					rightAndRotatedTempBlock = rrtb;
-					
-					int curEmptyRows = board.numberOfEmptyRowsWithUnplacedBlock(rightAndRotatedTempBlock);
-					if (track < curEmptyRows) {
-						track = curEmptyRows;
-						rights = rightCnt;
-						rotations = i;
-					}
-
-					// int highestY = highestYPos(rightAndRotatedTempBlock);
-					// if (track > highestY) {
-					// 	track = highestY;
-					// 	rights = rightCnt;
-					// 	rotations = i;
-					// }
-
 					rrtb.moveDown();
 				}
 
+				int highestY = highestYPos(rightAndRotatedTempBlock);
+				if (track > highestY) {
+					track = highestY;
+					rights = rightCnt;
+					rotations = i;
+				}
 				rtb.moveRight();
 				rightCnt++;
 			}

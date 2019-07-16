@@ -148,24 +148,6 @@ int Board::numberOfFullRowsWithUnplacedBlock(const UnplacedBlock& hintBlock) con
 	}
 	return fullRows;
 }
-
-int Board::numberOfEmptyRowsWithUnplacedBlock(const UnplacedBlock& hintBlock) const {
-	std::vector<bool> rowEmpty = std::vector<bool>(boardHeight, false);
-	for(int y = 0; y < boardHeight; ++y) {
-		if (rowIsEmpty(y)) rowEmpty.at(y) = true;
-	}
-
-	for(Point p: hintBlock.pointsOnBoard()) {
-		if (p.y >= 0 && p.y < boardHeight) rowEmpty.at(p.y) = false;
-	}
-
-	int cnt = 0;
-	for(bool e: rowEmpty) {
-		if (e == true) cnt++;
-	}
-	return cnt;
-}
-
 bool Board::isOverlapping(const UnplacedBlock& block) const {
 	const std::vector<Point> points = block.pointsOnBoard();
 
