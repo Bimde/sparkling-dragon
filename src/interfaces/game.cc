@@ -147,7 +147,7 @@ GameState Game::getState() {
 	displayBoardState.reserve(gameBoardDisplayHeight);
 
 	for (int i = 0; i < gameBoardDisplayHeight; ++i) {
-		displayBoardState.at(i) = boardState.at(i);
+		displayBoardState.emplace_back(boardState.at(i));
 	}
 
 	if (nextBlock == nullptr) {
