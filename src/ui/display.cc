@@ -17,6 +17,8 @@ using namespace std;
 
 namespace {
   std::mutex mtx;
+  int nextBlockGridWidth = 4;
+  int nextBlockGridHeight = 2;
 }
 
 XDisplay::XDisplay(std::weak_ptr<Quadris> game) : 
@@ -77,7 +79,6 @@ void XDisplay::updateDisplay(bool redraw) {
 
   QuadrisState state = game.lock()->getState();
   if (state.gameState.isGameOver) {
-    cout << "-----------GAME OVER-------------" << endl;
     drawGameOver(state.gameState, redraw);
   } else {
     drawFields(state, redraw);
@@ -101,26 +102,26 @@ void XDisplay::drawGameOver(const GameState& state, bool redraw) {
   for (int i = 0; i < noRows; ++i) {
     for (int j = 0; j < noCols; ++j) {
       window.fillRectangleWithBorder(xStart + j * sideLength, yStart + i * sideLength, 
-        sideLength, sideLength, state.board[i][j] == ' ' ? GAME_OVER_COLOUR : tileToColour[state.board[i][j]], BORDER_WIDTH);
+        sideLength, sideLength, state.board[i][j] == EMPTY ? 
+          GAME_OVER_COLOUR : tileToColour[state.board[i][j]], BORDER_WIDTH);
     }
   }
 }
 
-int cartesianPlaneToArray(int x) {
-  return 1 - x;
+int cartesianPointToArray(int size, int x) {
+  return (size - 1) - x;
 }
 
 void XDisplay::drawNextBlock(const GameState& state, bool redraw) {
 
   if (redraw || state.nextBlock == nullptr ||
     lastState.gameState.nextBlock->getType() != state.nextBlock->getType()) {
-    cout << "Drawing next block:" << endl;
 
     int xMid = window.getWidth() / 2;
     drawField("Next Block: ", 2, xMid + NEXT_BLOCK_TEXT_START);
 
-    for (int row = 0; row < 2; ++row) {
-      for (int col = 0; col < 4; ++col) {
+    for (int row = 0; row < nextBlockGridHeight; ++row) {
+      for (int col = 0; col < nextBlockGridWidth; ++col) {
         window.fillRectangleWithBorder(xMid + NEXT_BLOCK_START + col * sideLength, 
           PADDING + FIELD_HEIGHT + row * sideLength, sideLength, 
           sideLength, Xwindow::White, BORDER_WIDTH);
@@ -133,7 +134,7 @@ void XDisplay::drawNextBlock(const GameState& state, bool redraw) {
 
     Point bottomLeft = state.nextBlock->getBottomLeft();
     for (Point p : state.nextBlock->pointsOnBoard()) {
-      int row = cartesianPlaneToArray(p.y - bottomLeft.y);
+      int row = cartesianPointToArray(nextBlockGridHeight, p.y - bottomLeft.y);
       int col = p.x - bottomLeft.x;
       window.fillRectangleWithBorder(xMid + NEXT_BLOCK_START + col * sideLength, 
           PADDING + FIELD_HEIGHT + row * sideLength, sideLength, 
@@ -167,32 +168,20 @@ void XDisplay::drawFields(const QuadrisState& state, bool redraw) {
     drawCurrentLevel(state.gameState.currentLevel);
   }
 }
-
 void XDisplay::drawHighScore(int highScore) {
-  cout << "Drawing high score " + to_string(highScore) << endl;
   drawField("High Score: " + to_string(highScore), 1, xStart);
 }
-
 void XDisplay::drawCurrentLevel(int currentLevel) {
-  cout << "Drawing current level " + to_string(currentLevel) << endl;
   drawField("Current Level: " + to_string(currentLevel), 2, xStart);
 }
-
 void XDisplay::drawScore(int score) {
-  cout << "Drawing score " + to_string(score) << endl;
   drawField("Score: " + to_string(score), 3, xStart);
 }
 
 void XDisplay::drawField(string text, int row, int xOffset) {
-  // TODO: Remove before handing in
-  if (row >= NO_FIELDS) {
-    cout << "YOU FUCKED UP NO_FIELDS: " << row << endl;
-  }
-  cout << "Drawing string " + text << endl;
-
   // Covering up old text
   window.fillRectangle(xOffset, PADDING + (PADDING + FIELD_HEIGHT) * row, 
-    window.getWidth() - 2 * PADDING, FIELD_HEIGHT, Xwindow::White);
+    text.length() * CHAR_WIDTH, FIELD_HEIGHT, Xwindow::White);
   
   // Draw the new text
   window.drawString(xOffset, (PADDING + FIELD_HEIGHT) * (row + 1), text);

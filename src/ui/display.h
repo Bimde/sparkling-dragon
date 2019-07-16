@@ -20,11 +20,13 @@ class XDisplay : public Observer {
     const int WINDOW_WIDTH = 600;
     const int PADDING = 10;
     const int FIELD_HEIGHT = 10;
+    const int CHAR_WIDTH = 10;
     const int NO_FIELDS = 5;
     const int BORDER_WIDTH = 1;
-    const int NEXT_BLOCK_TEXT_START = -80;
+    const int NEXT_BLOCK_TEXT_START = 0;
     const int NEXT_BLOCK_START = 80;
     const int GAME_OVER_COLOUR = Xwindow::Pink;
+    const char EMPTY = ' ';
 
     Xwindow window;
     std::unordered_map<char, int> tileToColour;

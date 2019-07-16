@@ -20,7 +20,9 @@ class HintGeneratorImpl : public HintGenerator {
 	int highestYPos(UnplacedBlock&);
 };
 
-UnplacedBlock HintGeneratorImpl::blockMovedToPosition(const Board& board, const UnplacedBlock& currentBlock, int rights, int rotations) {
+UnplacedBlock HintGeneratorImpl::blockMovedToPosition(
+	const Board& board, const UnplacedBlock& currentBlock, int rights, 
+	int rotations) {
 	UnplacedBlock b = currentBlock;
 	for(int i = 0; i < rights; ++i) {
 		b.moveRight();
@@ -58,7 +60,8 @@ UnplacedBlock HintGeneratorImpl::generateHintImpl(
 			tempBlock.rotateRight();
 		}
 
-		// Use tRTB to check for out of bounds while we're moving the rotatedTempBlock right
+		// Use tRTB to check for out of bounds while we're moving the 
+		// rotatedTempBlock right
 		UnplacedBlock rotatedTempBlock = tempBlock;
 		UnplacedBlock rtb = tempBlock;
 		int rightCnt = 0;
@@ -71,7 +74,9 @@ UnplacedBlock HintGeneratorImpl::generateHintImpl(
 				rightAndRotatedTempBlock = rrtb;
 				rrtb.moveDown();
 			}
-			int fullRows = board.numberOfFullRowsWithUnplacedBlock(rightAndRotatedTempBlock);
+			
+			int fullRows = board.numberOfFullRowsWithUnplacedBlock(
+				rightAndRotatedTempBlock);
 			if (track < fullRows) {
 				track = fullRows;
 				rights = rightCnt;
@@ -98,7 +103,8 @@ UnplacedBlock HintGeneratorImpl::generateHintImpl(
 				tempBlock.rotateRight();
 			}
 
-			// Use tRTB to check for out of bounds while we're moving the rotatedTempBlock right
+			// Use tRTB to check for out of bounds while we're moving the 
+			// rotatedTempBlock right
 			UnplacedBlock rotatedTempBlock = tempBlock;
 			UnplacedBlock rtb = tempBlock;
 			int rightCnt = 0;
