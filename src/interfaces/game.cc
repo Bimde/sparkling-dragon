@@ -69,6 +69,7 @@ bool Game::moveCurrentBlockRight() {
 }
 
 bool Game::dropCurrentBlock() {
+	std::cout << "Starting score: " << score << std::endl;
 	if (!currentLevel->drop(*board)) {
 		return false;
 	}
@@ -78,9 +79,13 @@ bool Game::dropCurrentBlock() {
 	if (numFullRows == 0) {
 		board->increaseNumDropsWithoutClears();
 	} else {
-		score += (numFullRows + 1)*(numFullRows + 1);	
+		std::cout << "Cur score: " << score << std::endl;
+		int rowScore = numFullRows + currentLevel->getLevelNumber();
+		std::cout << "[Num full rows = " << numFullRows << "][Current level = " << currentLevel->getLevelNumber() << "] Row score: " << rowScore * rowScore << std::endl;
+		score += rowScore * rowScore;
 		score += board->destroyFullRowsAndGetPoints();
 		board->resetNumDropsWithoutClears();
+		std::cout << "Final score: " << score << std::endl;
 	}
 
 	completeTurn();

@@ -246,9 +246,11 @@ int Board::destroyFullRowsAndGetPoints() {
 	for(auto dBlock : destroyedBlocks) {
 		dBlock->decrementCount();
 		if (dBlock->isDestroyed()) {
+			std::cout << "Block score: " << dBlock->getScore() << std::endl;
 			points += dBlock->getScore();
 		}
 	}
+	std::cout << "Total blocks score: " << points << std::endl;
 	return points;
 }
 
