@@ -12,10 +12,10 @@ class Xwindow {
 		GC gc;
 		int width;
 		int height;
-		unsigned long colours[10];
+		unsigned long colours[12];
 
 	public:
-		enum {White=0, Black, Red, Green, Blue, Cyan, Purple, Teal, Yellow, Gray, Brown};
+		enum {White=0, Black, Red, Green, Blue, Cyan, Purple, Teal, Yellow, Gray, Brown, Pink};
 		Xwindow(int, int);
 		~Xwindow();
 		Xwindow(const Xwindow&) = delete;

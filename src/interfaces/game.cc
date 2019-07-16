@@ -145,7 +145,7 @@ GameState Game::getState() {
 	}
 
 	std::vector<std::vector<char>> displayBoardState;
-	displayBoardState.reserve(gameBoardDisplayHeight);
+	displayBoardState.reserve(boardHeight-gameBoardDisplayStartingOffset);
 
 	for (int i = gameBoardDisplayStartingOffset; i < boardHeight; ++i) {
 		displayBoardState.emplace_back(boardState.at(i));

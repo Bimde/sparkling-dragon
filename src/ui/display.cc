@@ -76,12 +76,38 @@ void XDisplay::updateDisplay(bool redraw) {
   }
 
   QuadrisState state = game.lock()->getState();
-  drawFields(state, redraw);
-  drawBoard(state.gameState, redraw);
-  drawNextBlock(state.gameState, redraw);
+  if (state.gameState.isGameOver) {
+    cout << "-----------GAME OVER-------------" << endl;
+    drawGameOver(state.gameState, redraw);
+  } else {
+    drawFields(state, redraw);
+    drawBoard(state.gameState, redraw);
+    drawNextBlock(state.gameState, redraw);
+  }
+
   lastState = state;
 
   mtx.unlock();
+}
+
+void XDisplay::drawGameOver(const GameState& state, bool redraw) {
+  if (!redraw && lastState.gameState.isGameOver) {
+    return;
+  }
+  
+  int noRows = state.board.size();
+  int noCols = state.board[0].size();
+
+  for (int i = 0; i < noRows; ++i) {
+    for (int j = 0; j < noCols; ++j) {
+      window.fillRectangleWithBorder(xStart + j * sideLength, yStart + i * sideLength, 
+        sideLength, sideLength, state.board[i][j] == ' ' ? GAME_OVER_COLOUR : tileToColour[state.board[i][j]], BORDER_WIDTH);
+    }
+  }
+}
+
+int cartesianPlaneToArray(int x) {
+  return 1 - x;
 }
 
 void XDisplay::drawNextBlock(const GameState& state, bool redraw) {
@@ -91,10 +117,10 @@ void XDisplay::drawNextBlock(const GameState& state, bool redraw) {
     cout << "Drawing next block:" << endl;
 
     int xMid = window.getWidth() / 2;
-    drawField("Next Block: ", 2, xMid);
+    drawField("Next Block: ", 2, xMid + NEXT_BLOCK_TEXT_START);
 
     for (int row = 0; row < 2; ++row) {
-      for (int col = 0; col < 3; ++col) {
+      for (int col = 0; col < 4; ++col) {
         window.fillRectangleWithBorder(xMid + NEXT_BLOCK_START + col * sideLength, 
           PADDING + FIELD_HEIGHT + row * sideLength, sideLength, 
           sideLength, Xwindow::White, BORDER_WIDTH);
@@ -107,7 +133,7 @@ void XDisplay::drawNextBlock(const GameState& state, bool redraw) {
 
     Point bottomLeft = state.nextBlock->getBottomLeft();
     for (Point p : state.nextBlock->pointsOnBoard()) {
-      int row = 1 - (p.y - bottomLeft.y);
+      int row = cartesianPlaneToArray(p.y - bottomLeft.y);
       int col = p.x - bottomLeft.x;
       window.fillRectangleWithBorder(xMid + NEXT_BLOCK_START + col * sideLength, 
           PADDING + FIELD_HEIGHT + row * sideLength, sideLength, 
@@ -124,22 +150,19 @@ void XDisplay::drawBoard(const GameState& state, bool redraw) {
     for (int j = 0; j < noCols; ++j) {
       if (redraw || state.board[i][j] != lastState.gameState.board[i][j]) {
         window.fillRectangleWithBorder(xStart + j * sideLength, yStart + i * sideLength, 
-        sideLength, sideLength, tileToColour[state.board[i][j]], BORDER_WIDTH);
+          sideLength, sideLength, tileToColour[state.board[i][j]], BORDER_WIDTH);
       }
     }
   }
 }
 
 void XDisplay::drawFields(const QuadrisState& state, bool redraw) {
-  //if (redraw) {
   if (redraw || state.highScore != lastState.highScore) {
     drawHighScore(state.highScore);
   }
-  // if (redraw) {
   if (redraw || state.gameState.score != lastState.gameState.score) {
     drawScore(state.gameState.score);
   }
-  // if (redraw) {
   if (redraw || state.gameState.currentLevel != lastState.gameState.currentLevel) {
     drawCurrentLevel(state.gameState.currentLevel);
   }
@@ -168,8 +191,9 @@ void XDisplay::drawField(string text, int row, int xOffset) {
   cout << "Drawing string " + text << endl;
 
   // Covering up old text
-  window.fillRectangle(xOffset, PADDING + (PADDING + FIELD_HEIGHT) * row, window.getWidth() - 2 * PADDING, FIELD_HEIGHT, Xwindow::White);
+  window.fillRectangle(xOffset, PADDING + (PADDING + FIELD_HEIGHT) * row, 
+    window.getWidth() - 2 * PADDING, FIELD_HEIGHT, Xwindow::White);
   
-  // Rer
+  // Draw the new text
   window.drawString(xOffset, (PADDING + FIELD_HEIGHT) * (row + 1), text);
 }

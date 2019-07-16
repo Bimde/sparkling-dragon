@@ -22,7 +22,9 @@ class XDisplay : public Observer {
     const int FIELD_HEIGHT = 10;
     const int NO_FIELDS = 5;
     const int BORDER_WIDTH = 1;
+    const int NEXT_BLOCK_TEXT_START = -80;
     const int NEXT_BLOCK_START = 80;
+    const int GAME_OVER_COLOUR = Xwindow::Pink;
 
     Xwindow window;
     std::unordered_map<char, int> tileToColour;
@@ -36,6 +38,7 @@ class XDisplay : public Observer {
     void calculateDimensions(const GameState&);
     
     void updateDisplay(bool);
+    void drawGameOver(const GameState&, bool);
     void drawBoard(const GameState&, bool);
     void drawNextBlock(const GameState&, bool);
 

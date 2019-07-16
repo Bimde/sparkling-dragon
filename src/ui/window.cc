@@ -36,7 +36,7 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 	XColor xcolour;
 	Colormap cmap;
 
-	const size_t numColours = 11;
+	const size_t numColours = 12;
 
 	// Colours from https://en.wikipedia.org/wiki/X11_color_names
 	char color_vals[numColours][10] = 
@@ -51,7 +51,8 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 		"teal", 
 		"yellow",
 		"gray",
-		"brown"
+		"brown",
+		"pink"
 	};
 
 	cmap = DefaultColormap(d, DefaultScreen(d));
@@ -71,11 +72,9 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 	hints.width = hints.base_width = hints.min_width = hints.max_width = width;
 	XSetNormalHints(d, w, &hints);
 
-	// map window and flush
 	XMapRaised(d, w);
 	XFlush(d);
 	
-	// wait 1 second for setup
 	sleep(1);
 }
 
@@ -96,16 +95,6 @@ void Xwindow::fillRectangle(int x, int y, int width, int height, int colour) {
 }
 
 void Xwindow::drawString(int x, int y, std::string msg) {
-	//XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
-	// char char_array[msg.length() + 1];
-	// std::strcpy(char_array, msg.c_str()); 
-
-  // XFontStruct* font = XLoadQueryFont(d, None);
-  // if (!font) {
-  //   cout << "font not found Times New Romans" << endl;
-  //   return;
-  // }
-
 	XTextItem items [1] = {{const_cast<char *>(msg.c_str()), msg.length(), 0, None}};
 	XDrawText(d, w, DefaultGC(d, s), x, y, items, 1);
 	// XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
