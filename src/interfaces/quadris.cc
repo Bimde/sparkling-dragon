@@ -33,31 +33,25 @@ namespace {
 }
 
 void loopDown(Quadris* q) {
-    std::cout << "running auto" << std::endl;
     while (q->shouldUseTimeDowns) {
         if (q == nullptr || q->game == nullptr) {
-            std::cout << "stopped auto because nullptrs" << std::endl;
             return;
         }
         if (q->game->isGameOver()) {
-            std::cout << "stopped auto because game over" << std::endl;
             return;
         }
 
         q->runCommand(CMD::Down);
-        std::cout << "down auto" << std::endl;
+
         std::this_thread::sleep_for(std::chrono::milliseconds(
             shouldSleepForMillis(q->game->getNumBlocksSpawned())));
     }
-    std::cout << "stopped auto by cmd" << std::endl;
 }
 
 Quadris::Quadris(GameConfig cfg) : highScore{0}, displayingHint{false}, 
     curCommand{""}, shouldUseTimeDowns{false}, gameCfg{cfg}, 
     game{Game::create(gameCfg)},
-    commandInterpreter{make_unique<CommandInterpreter>()} {
-    std::cout << "quadris object created" << std::endl;
-}
+    commandInterpreter{make_unique<CommandInterpreter>()} {}
 
 // Private helper functions
 

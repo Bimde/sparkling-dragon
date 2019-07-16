@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD -I../../ -lX11
 
-OBJECTS = window.o display.o
+OBJECTS = textDisplay.o window.o display.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = ui_s
 

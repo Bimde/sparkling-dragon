@@ -20,9 +20,7 @@ namespace {
 Board::Board() : currentBlock{nullptr}, board{
 	std::vector<std::vector<std::shared_ptr<PlacedBlock>>>(
 		boardHeight, std::vector<std::shared_ptr<PlacedBlock>>(
-			boardWidth, nullptr))} {
-	std::cout << "ran board ctor" << std::endl;
-}
+			boardWidth, nullptr))} {}
 
 void Board::setCurrent(std::unique_ptr<UnplacedBlock> next) {
 	currentBlock.swap(next);
@@ -65,13 +63,12 @@ bool Board::setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock> block) {
 
 bool Board::moveCurrentDown() {
 	if (currentBlock == nullptr) {
-		std::cout << "Current block does not exist" << std::endl;
 		return false;
 	}
 
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
 	tempBlock->moveDown();
-	std::cout << "Move current down called on tempBlock" << std::endl;
+
 	return setCurrentIfNotOverlapping(std::move(tempBlock));
 }
 
@@ -131,21 +128,16 @@ int Board::numberOfFullRows() {
 
 bool Board::isOverlapping(const UnplacedBlock& block) {
 	const std::vector<Point> points = block.pointsOnBoard();
-	std::cout << "Check if block is overlapping" << std::endl;
 
 	for (const Point& p : points) {
 		if (p.y < 0 || p.y >= boardHeight || p.x < 0 || p.x >= boardWidth) {
-			std::cout << p.y << ", " << p.x << " are out of bounds" << std::endl;
 			return true;
 		}
 
 		if (board.at(p.y).at(p.x) != nullptr) {
-			std::cout << board.at(p.y).at(p.x)->getType() << std::endl;
 			return true;
 		}
 	}
-
-	std::cout << "Block is not overlapping" << std::endl;
 
 	return false;
 }
@@ -165,7 +157,6 @@ bool Board::dropCurrent() {
 		currentBlock->getType(), currentBlock->getNumberOfBlocks()); 
 
 	for (Point& p : currentBlock->pointsOnBoard()) {
-		std::cout << "Drop block at " << p.y << " and " << p.x << std::endl;
 		board.at(p.y).at(p.x) = pb;
 	}
 
@@ -222,10 +213,9 @@ int Board::destroyFullRowsAndGetPoints() {
 }
 
 std::vector<std::vector<char>> Board::getState() {
-	std::cout << "getting board state" << std::endl;
-
 	std::vector<std::vector<char>> charBoard(
 		boardHeight, std::vector<char>(boardWidth, emptySpot));
+	
 	for(int y = 0; y < boardHeight; ++y) {
 		for(int x = 0; x < boardWidth; ++x) {
 			if(board.at(y).at(x) != nullptr) {
