@@ -7,7 +7,7 @@
 
 namespace {
 	const char zBlockType = 'Z';
-	const std::vector<Point> zBlockOffsets = {{0,0}, {1,0}, {1,1}, {2,1}};
+	const std::vector<Point> zBlockOffsets = {{1,0}, {2,0}, {0,1}, {1,1}};
 }
 
 ZBlock::ZBlock(int score, Point bottomLeft) : 
