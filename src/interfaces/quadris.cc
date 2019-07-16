@@ -88,7 +88,7 @@ void Quadris::runCommand(CMD command) {
         return;
     }
 
-    std::cout << "autodown flag: " << shouldUseTimeDowns << std::endl;
+    highScore = highScore > game->getScore() ? highScore : game->getScore();
 
     // Perform game related commands
     if (!game->isGameOver()) {
@@ -186,7 +186,10 @@ void Quadris::runCommand(CMD command) {
             break;
     }
 
-    cout << "Command: " << command << endl;
+    if (game != nullptr) {
+        highScore = highScore > game->getScore() ? highScore : game->getScore();
+    }
+
     notifyObservers();
 }
 
@@ -249,10 +252,6 @@ void Quadris::runGame(istream & in) {
 }
 
 QuadrisState Quadris::getState() {
-    std::cout << "getting quadris state" << std::endl;
-    if (game == nullptr) {
-        std::cout << "ERROR: game is nullptr" << std::endl;
-    }
     return QuadrisState(highScore, curCommand, game->getState());
 }
 

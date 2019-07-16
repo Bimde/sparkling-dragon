@@ -24,17 +24,12 @@ Game::Game(std::unique_ptr<LevelFactory> levelFactory,
 	score{0}, showHint{false}, nextLevel{-1}, numBlocksSpawned{0},
 	board{std::make_unique<Board>()} {
 
-    std::cout << "game object ctor running" << std::endl;
-
+	// Initialize other member fields
 	nextLevel = levelFactory_->getClosestLevel(startingLevel);
 	currentLevel = levelFactory_->getLevel(nextLevel);
 	nextBlock = currentLevel->getNextBlock(defaultSpawnPoint); 
 
-    std::cout << "game args init" << std::endl;
-
 	completeTurn();
-
-	std::cout << "game object ctor completed" << std::endl;
 }
 
 // Sets next level and updates the next block
@@ -162,12 +157,10 @@ GameState Game::getState() {
 }
 
 std::unique_ptr<Game> Game::create(GameConfig cfg) {
-	std::cout << "running game::create factory fn" << std::endl;
 	auto levelFactory = std::make_unique<LevelFactory>(cfg.getLevelConfig());
 	auto hintGenerator = HintGenerator::create();
 
 	if (levelFactory == nullptr || hintGenerator == nullptr) {
-		std::cout << "ERROR: levelfactory ptr or hintgen ptr null" << std::endl;
 		return nullptr;
 	}
 
@@ -184,15 +177,8 @@ int Game::getNumBlocksSpawned() {
 }
 
 void Game::changeCurrentBlock(char ch) {
-	std::cout << "Current char: " << ch << std::endl;
-	bool didSet = board->setCurrentIfNotOverlapping(
-		createLetterBlock(
-			ch, 
-			board->currentBlockScore(), 
-			board->currentBlockBottomLeft()
-		)
-	);
-	std::cout << "We did set: " << didSet << std::endl;
+	board->setCurrentIfNotOverlapping(createLetterBlock(
+		ch, board->currentBlockScore(), board->currentBlockBottomLeft()));
 }
 
 // TODO: Create and set block to transform into
