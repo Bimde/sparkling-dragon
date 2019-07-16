@@ -13,8 +13,7 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 	d = XOpenDisplay(NULL);
 	if (d == NULL) {
 		cerr << "Cannot open display" << endl;
-		// TODO dont exit bro, our thing is rekt
-		exit(1);
+		return;
 	}
 	
 	s = DefaultScreen(d);
@@ -37,12 +36,21 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 	XColor xcolour;
 	Colormap cmap;
 
-	const size_t numColours = 5;
+	const size_t numColours = 10;
 
-	// Add colours from https://en.wikipedia.org/wiki/X11_color_names
-	char color_vals[numColours][10] = {
-		"white", "black", "red", 
-		"green", "blue"
+	// Colours from https://en.wikipedia.org/wiki/X11_color_names
+	char color_vals[numColours][10] = 
+	{
+		"white", 
+		"black", 
+		"red", 
+		"green", 
+		"blue", 
+		"cyan", 
+		"purple", 
+		"teal", 
+		"yellow",
+		"gray"
 	};
 
 	cmap = DefaultColormap(d, DefaultScreen(d));
@@ -73,6 +81,11 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
 Xwindow::~Xwindow() {
 	XFreeGC(d, gc);
 	XCloseDisplay(d);
+}
+
+void Xwindow::fillRectangleWithBorder(int x, int y, int width, int height, int colour, int borderWidth) {
+	fillRectangle(x, y, width + borderWidth, height + borderWidth, Black);
+	fillRectangle(x + borderWidth, y + borderWidth, width - borderWidth, height - borderWidth, colour);
 }
 
 void Xwindow::fillRectangle(int x, int y, int width, int height, int colour) {

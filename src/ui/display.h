@@ -16,10 +16,13 @@ class XDisplay : public Observer {
     virtual ~XDisplay();
     virtual void notify();
   private:
-    const int START = 50;
+    const int WINDOW_HEIGHT = 800;
+    const int WINDOW_WIDTH = 600;
     const int PADDING = 10;
-    const int FIELD_HEIGHT = 50;
+    const int FIELD_HEIGHT = 10;
     const int NO_FIELDS = 3;
+    const int BORDER_WIDTH = 1;
+
     Xwindow window;
     std::unordered_map<char, int> tileToColour;
     std::weak_ptr<Quadris> game;
@@ -27,6 +30,7 @@ class XDisplay : public Observer {
     
     void updateDisplay(bool);
     void drawBoard(const GameState&, bool);
+    void drawNextBlock(const GameState&);
 
     void drawFields(const QuadrisState&, bool);
     void drawHighScore(int);

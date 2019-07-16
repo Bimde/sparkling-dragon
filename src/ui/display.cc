@@ -20,21 +20,21 @@ namespace {
 }
 
 XDisplay::XDisplay(std::weak_ptr<Quadris> game) : 
-  window{512, 512 / 2 * 3},
+  window{WINDOW_WIDTH, WINDOW_HEIGHT},
   tileToColour{
-    {'I', Xwindow::Black},
+    {'I', Xwindow::Gray},
     {'J', Xwindow::Red},
     {'L', Xwindow::Green},
     {'O', Xwindow::Blue},
-    {'S', Xwindow::Black},
-    {'Z', Xwindow::Red},
-    {'T', Xwindow::Green},
-    {' ', Xwindow::White}
+    {'S', Xwindow::Cyan},
+    {'Z', Xwindow::Purple},
+    {'T', Xwindow::Teal},
+    {' ', Xwindow::White},
+    {'?', Xwindow::Yellow}
   }, 
   game{game},
   lastState{game.lock()->getState()}
   {
-    cout << "UI HISHISASHSIHSSASIH" << endl;
     updateDisplay(true);
   }
 
@@ -58,21 +58,48 @@ void XDisplay::updateDisplay(bool redraw) {
   QuadrisState state = game.lock()->getState();
   drawFields(state, redraw);
   drawBoard(state.gameState, redraw);
+  drawNextBlock(state.gameState);
   lastState = state;
 
   mtx.unlock();
 }
 
+void XDisplay::drawNextBlock(const GameState& state) {
+
+}
+
 void XDisplay::drawBoard(const GameState& state, bool redraw) {
+  // int noRows = state.board.size();
+  // int noCols = state.board[0].size();
+  // int width = window.getWidth() * 1.0 / noCols;
+  // int yStart = NO_FIELDS * (PADDING + FIELD_HEIGHT) + Y_START;
+  // int height = (window.getHeight() * 1.0 - yStart) / noRows;
+
+  // if (height > width) { 
+  //   height = width;
+  // } else {
+  //   width = height;
+  // }
+
   int noRows = state.board.size();
   int noCols = state.board[0].size();
-  int width = window.getWidth() * 1.0 / noCols;
-  int start = NO_FIELDS * (PADDING + FIELD_HEIGHT) + START;
-  int height = (window.getHeight() * 1.0 - start) / noRows;
+  int availableWidth = window.getWidth() - 2 * PADDING;
+  int availableHeight = window.getHeight() - (NO_FIELDS + 1) * (PADDING + FIELD_HEIGHT) - PADDING;
+  int yStart = (NO_FIELDS + 1) * (PADDING + FIELD_HEIGHT), xStart = PADDING;
+  int height = availableHeight / noRows, width = availableWidth / noCols;
+
+  if (height > width) { 
+    height = width;
+    yStart += ((availableHeight - noRows * height) / 2);
+  } else {
+    width = height;
+    xStart += ((availableWidth - width * noCols) / 2);
+  }
+
   for (int i = 0; i < noRows; i++) {
     for (int j = 0; j < noCols; j++) {
       if (redraw || state.board[i][j] != lastState.gameState.board[i][j]) {
-        window.fillRectangle(j * width, start + i * height, width, height, tileToColour[state.board[i][j]]);
+        window.fillRectangleWithBorder(xStart + j * width, yStart + i * height, width, height, tileToColour[state.board[i][j]], BORDER_WIDTH);
       }
     }
   }
@@ -114,6 +141,10 @@ void XDisplay::drawField(string text, int row) {
     cout << "YOU FUCKED UP NO_FIELDS: " << row << endl;
   }
   cout << "Drawing string " + text << endl;
-  window.fillRectangle(PADDING, START + (PADDING + FIELD_HEIGHT)* row, window.getWidth() - 2 * PADDING, FIELD_HEIGHT, 0);
-  window.drawString(PADDING, START + (PADDING + FIELD_HEIGHT) * row, text);
+
+  // Covering up old text
+  window.fillRectangle(PADDING, PADDING + (PADDING + FIELD_HEIGHT) * row, window.getWidth() - 2 * PADDING, FIELD_HEIGHT, Xwindow::White);
+  
+  // Rer
+  window.drawString(PADDING, (PADDING + FIELD_HEIGHT) * (row + 1), text);
 }
