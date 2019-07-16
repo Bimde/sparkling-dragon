@@ -164,6 +164,9 @@ void Quadris::runCommand(CMD command) {
             game = Game::create(gameCfg);
             break;
         case AutoDown:
+            if (shouldUseTimeDowns) {
+                break;
+            }
             shouldUseTimeDowns = true;
             autoDown = std::thread(loopDown, this);
             autoDown.detach();
