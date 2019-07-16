@@ -151,11 +151,11 @@ GameState Game::getState() {
 	}
 
 	if (nextBlock == nullptr) {
-		return GameState(currentLevel->getLevelNumber(), score, boardState, 
+		return GameState(currentLevel->getLevelNumber(), score, displayBoardState, 
 					 	 nextLevel, nullptr, isGameOver());
 	}
 
-	return GameState(currentLevel->getLevelNumber(), score, boardState, 
+	return GameState(currentLevel->getLevelNumber(), score, displayBoardState, 
 					 nextLevel, std::make_shared<UnplacedBlock>(*nextBlock), 
 					 isGameOver());
 }
