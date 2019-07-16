@@ -172,9 +172,6 @@ void Quadris::runCommand(CMD command) {
             shouldUseTimeDowns = false;
             break;
         case InvalidCommand:
-            // TODO add new thing to relay error msgs
-            // TODO add disabling hint 
-            // notifyObservers();
             break;
         default:
             break;
