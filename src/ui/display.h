@@ -15,20 +15,21 @@ class XDisplay : public Observer {
     XDisplay(Quadris* game);
     virtual ~XDisplay();
     virtual void notify();
+    
   private:
-    const int WINDOW_HEIGHT = 800;
-    const int WINDOW_WIDTH = 600;
-    const int PADDING = 10;
-    const int FIELD_HEIGHT = 10;
-    const int CHAR_WIDTH = 10;
-    const int NO_FIELDS = 5;
-    const int BORDER_WIDTH = 1;
-    const int NEXT_BLOCK_TEXT_START = 0;
-    const int NEXT_BLOCK_START = 80;
-    const int GAME_OVER_COLOUR = Xwindow::Pink;
-    const char EMPTY = ' ';
+    static const int WINDOW_HEIGHT = 800;
+    static const int WINDOW_WIDTH = 600;
+    static const int PADDING = 10;
+    static const int FIELD_HEIGHT = 10;
+    static const int CHAR_WIDTH = 10;
+    static const int NO_FIELDS = 5;
+    static const int BORDER_WIDTH = 1;
+    static const int NEXT_BLOCK_TEXT_START = 0;
+    static const int NEXT_BLOCK_START = 80;
+    static const int GAME_OVER_COLOUR = XWindow::Pink;
+    static const char EMPTY = ' ';
 
-    Xwindow window;
+    XWindow window;
     std::unordered_map<char, int> tileToColour;
     Quadris* game;
     QuadrisState lastState;
