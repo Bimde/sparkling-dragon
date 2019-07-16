@@ -15,6 +15,8 @@ class XDisplay : public Observer {
     XDisplay(Quadris* game);
     virtual ~XDisplay();
     virtual void notify();
+
+    bool isInitialized();
     
   private:
     static const int WINDOW_HEIGHT = 800;

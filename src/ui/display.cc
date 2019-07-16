@@ -37,7 +37,6 @@ XDisplay::XDisplay(Quadris* game) :
     calculateDimensions(lastState.gameState);
 
     if (!window.isInitialized()) {
-      game->detach(this);
       return;
     }
 
@@ -47,6 +46,10 @@ XDisplay::XDisplay(Quadris* game) :
   }
 
 XDisplay::~XDisplay() {}
+
+bool XDisplay::isInitialized() {
+  return window.isInitialized();
+}
 
 void XDisplay::notify() {
   updateDisplay(false);

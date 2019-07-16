@@ -1,4 +1,5 @@
 #include <memory>
+#include <iostream>
 
 #include "src/interfaces/subject.h"
 #include "src/interfaces/observer.h"
@@ -12,7 +13,7 @@ void Subject::attach(Observer* o) {
         return;
     }
 
-	  for (auto it = observers.begin(); it != observers.end(); ++it) {
+	for (auto it = observers.begin(); it != observers.end(); ++it) {
         if (*it == o) {
             return;
         }

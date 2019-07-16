@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
 	auto quadris = std::make_unique<Quadris>(cfg.gameCfg);
 
 	if (quadris == nullptr) {
-		std::cout << "Failed to create quadris object. "
+		std::cout << "ERROR: Failed to create quadris object. "
 			"Terminating program" << std::endl;
 		return -1;
 	}
@@ -68,7 +68,11 @@ int main(int argc, char *argv[]) {
 
 	if (!cfg.textOnly) {
 		graphicUi = std::make_unique<XDisplay>(quadris.get());
-		quadris->attach(graphicUi.get());
+		if (graphicUi != nullptr && graphicUi->isInitialized()) {
+			quadris->attach(graphicUi.get());
+		} else {
+			std::cout << "ERROR: Could not initialize Graphic UI" << std::endl;
+		}
 	}
 
 	quadris->runGame(std::cin);
