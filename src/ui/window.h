@@ -15,7 +15,7 @@ class Xwindow {
 		unsigned long colours[10];
 
 	public:
-		enum {White=0, Black, Red, Green, Blue, Cyan, Purple, Teal, Yellow, Gray};
+		enum {White=0, Black, Red, Green, Blue, Cyan, Purple, Teal, Yellow, Gray, Brown};
 		Xwindow(int, int);
 		~Xwindow();
 		Xwindow(const Xwindow&) = delete;
