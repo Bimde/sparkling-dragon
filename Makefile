@@ -15,7 +15,7 @@ mkdir_bin:
 	mkdir -p bin
 
 clean_bin:
-	rm bin/*.o
+	rm -f bin/*.o
 
 test: inter_all
 	+$(MAKE) -C src/interfaces/levels/test
