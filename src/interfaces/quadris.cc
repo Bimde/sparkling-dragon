@@ -168,8 +168,8 @@ void Quadris::runCommand(CMD command) {
                 break;
             }
             shouldUseTimeDowns = true;
-            autoDown = std::thread(loopDown, this);
-            autoDown.detach();
+            autoDown = make_unique<std::thread>(loopDown, this);
+            autoDown->detach();
             break;
         case StopAutoDown:
             shouldUseTimeDowns = false;

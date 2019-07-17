@@ -25,7 +25,7 @@ class Quadris: public Subject {
 	std::unique_ptr<Game> game;
     std::unique_ptr<CommandInterpreter> commandInterpreter;
 
-    std::thread autoDown;
+    std::unique_ptr<std::thread> autoDown;
 
 	int parseMultiplier(std::string);
 	std::string parseCommand(std::string);
