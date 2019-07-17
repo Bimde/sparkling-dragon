@@ -169,10 +169,12 @@ void Quadris::runCommand(CMD command) {
             }
             shouldUseTimeDowns = true;
             autoDown = make_unique<std::thread>(loopDown, this);
-            autoDown->detach();
             break;
         case StopAutoDown:
             shouldUseTimeDowns = false;
+            if (autoDown != nullptr) {
+                autoDown->join();
+            }
             break;
         case InvalidCommand:
             break;
@@ -249,4 +251,8 @@ QuadrisState Quadris::getState() {
     return QuadrisState(highScore, curCommand, game->getState());
 }
 
-Quadris::~Quadris() {}
+Quadris::~Quadris() {
+    if (shouldUseTimeDowns && autoDown != nullptr) {
+        autoDown->join();
+    }
+}
