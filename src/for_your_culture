@@ -31,4 +31,4 @@ To compile x.cc, if my current directory is rootsroot/root/x:
 $ g++ -I$../ -c root/src/x/x.cc
 should work
 
-you get the idea
+you get the idea.
