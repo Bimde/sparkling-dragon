@@ -19,7 +19,7 @@ using namespace std;
 
 namespace {
     const int kMaxTimeLoopMillis = 1500;
-    const int kMinTimeLoopMillis = 500;
+    const int kMinTimeLoopMillis = 300;
     const int kTimeDecreasePerBlock = 50;
 
     std::mutex mtx;
