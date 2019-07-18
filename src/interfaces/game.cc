@@ -202,7 +202,7 @@ void Game::changeBlockType(CMD command) {
 }
 
 std::unique_ptr<Game> Game::create(GameConfig cfg) {
-	auto levelFactory = LevelFactory::create();
+	auto levelFactory = LevelFactory::create(cfg.getLevelConfig());
 	auto hintGenerator = HintGenerator::create();
 
 	if (levelFactory == nullptr || hintGenerator == nullptr) {
