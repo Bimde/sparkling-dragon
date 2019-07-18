@@ -160,18 +160,6 @@ GameState Game::getState() {
 					 isGameOver());
 }
 
-std::unique_ptr<Game> Game::create(GameConfig cfg) {
-	auto levelFactory = std::make_unique<LevelFactory>(cfg.getLevelConfig());
-	auto hintGenerator = HintGenerator::create();
-
-	if (levelFactory == nullptr || hintGenerator == nullptr) {
-		return nullptr;
-	}
-
-	return std::make_unique<Game>(std::move(levelFactory), 
-								  std::move(hintGenerator), cfg.startLevel());
-}
-
 bool Game::isGameOver() {
 	return board->isGameOver();
 }
@@ -211,4 +199,16 @@ void Game::changeBlockType(CMD command) {
 		default:
 			break;
 	}
+}
+
+std::unique_ptr<Game> Game::create(GameConfig cfg) {
+	auto levelFactory = LevelFactory::create();
+	auto hintGenerator = HintGenerator::create();
+
+	if (levelFactory == nullptr || hintGenerator == nullptr) {
+		return nullptr;
+	}
+
+	return std::make_unique<Game>(std::move(levelFactory), 
+								  std::move(hintGenerator), cfg.startLevel());
 }
