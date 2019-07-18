@@ -49,14 +49,17 @@ class LevelConfig {
 };
 
 class LevelFactory {
-	std::shared_ptr<LevelInterface> levelZero;
-	std::shared_ptr<LevelInterface> levelOne;
-	std::shared_ptr<LevelInterface> levelTwo;
-	std::shared_ptr<LevelInterface> levelThree;
-	std::shared_ptr<LevelInterface> levelFour;
+	virtual std::shared_ptr<LevelInterface> getLevelImpl(int level) = 0;
+  	virtual void useFileForOtherImpl(std::string filename) = 0;
+	virtual void randomImpl() = 0;
+
+  	virtual int getClosestLevelImpl(int level) = 0;
+  	virtual int increaseLevelImpl(int level) = 0;
+  	virtual int decreaseLevelImpl(int level) = 0;
 
   public:
-  	LevelFactory(const LevelConfig& cfg);
+  	LevelFactory();
+  	virtual ~LevelFactory();
 
   	std::shared_ptr<LevelInterface> getLevel(int level);
 
@@ -70,6 +73,8 @@ class LevelFactory {
   	int getClosestLevel(int level);
   	int increaseLevel(int level);
   	int decreaseLevel(int level);
+
+  	static std::unique_ptr<LevelFactory> create(const LevelConfig& cfg);
 };
 
 #endif

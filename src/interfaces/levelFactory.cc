@@ -13,11 +13,29 @@
 #include "src/interfaces/levels/levelFourFile.h"
 
 namespace {
-	const int minLevel = 0;
-	const int maxLevel = 4;
-}
+const int minLevel = 0;
+const int maxLevel = 4;
 
-LevelFactory::LevelFactory(const LevelConfig& cfg) : 
+class LevelFactoryImpl : public LevelFactory {
+	std::shared_ptr<LevelInterface> levelZero;
+	std::shared_ptr<LevelInterface> levelOne;
+	std::shared_ptr<LevelInterface> levelTwo;
+	std::shared_ptr<LevelInterface> levelThree;
+	std::shared_ptr<LevelInterface> levelFour;
+
+	std::shared_ptr<LevelInterface> getLevelImpl(int level) override;
+  	void useFileForOtherImpl(std::string filename) override;
+	void randomImpl() override;
+
+  	int getClosestLevelImpl(int level) override;
+  	int increaseLevelImpl(int level) override;
+  	int decreaseLevelImpl(int level) override;
+
+  public:
+  	LevelFactoryImpl(const LevelConfig& cfg);
+};
+
+LevelFactoryImpl::LevelFactoryImpl(const LevelConfig& cfg) : 
 	levelZero{nullptr}, 
 	levelOne{std::make_shared<LevelOne>()}, 
 	levelTwo{std::make_shared<LevelTwo>()}, 
@@ -37,8 +55,7 @@ LevelFactory::LevelFactory(const LevelConfig& cfg) :
 	}
 }
 
-
-std::shared_ptr<LevelInterface> LevelFactory::getLevel(int level) {
+std::shared_ptr<LevelInterface> LevelFactoryImpl::getLevelImpl(int level) {
 	switch (level) {
 		case 0 : return levelZero;
 		case 1 : return levelOne;
@@ -50,7 +67,7 @@ std::shared_ptr<LevelInterface> LevelFactory::getLevel(int level) {
 	return nullptr;
 }
 
-void LevelFactory::useFileForOther(std::string filename) {
+void LevelFactoryImpl::useFileForOtherImpl(std::string filename) {
 	auto filestream = std::make_shared<std::ifstream>(filename);
 
 	// Switch the levels to read from the file stream
@@ -58,14 +75,14 @@ void LevelFactory::useFileForOther(std::string filename) {
 	levelFour = std::make_shared<LevelFourFile>(filestream);
 }
 
-void LevelFactory::random() {
+void LevelFactoryImpl::randomImpl() {
 	// Switch the levels to use randomness
 	levelThree = std::make_shared<LevelThree>();
 	levelFour = std::make_shared<LevelFour>();
 }
 
 // returns: the closest valid level to the argument
-int LevelFactory::getClosestLevel(int level) {
+int LevelFactoryImpl::getClosestLevelImpl(int level) {
 	if (level < minLevel) {
 		return minLevel;
 	}
@@ -75,16 +92,50 @@ int LevelFactory::getClosestLevel(int level) {
 	return level;
 }
 
-int LevelFactory::increaseLevel(int level) {
+int LevelFactoryImpl::increaseLevelImpl(int level) {
 	if (level < maxLevel) {
 		return level+1;
 	}
 	return level;
 }
 
-int LevelFactory::decreaseLevel(int level) {
+int LevelFactoryImpl::decreaseLevelImpl(int level) {
 	if (level > minLevel) {
 		return level-1;
 	}
 	return level;
+}
+}  // namespace
+
+LevelFactory::LevelFactory() {}
+
+LevelFactory::~LevelFactory() {}
+
+std::shared_ptr<LevelInterface> LevelFactory::getLevel(int level) {
+	return getLevelImpl(level);
+}
+
+void LevelFactory::useFileForOther(std::string filename) {
+	return useFileForOtherImpl(filename);
+}
+
+void LevelFactory::random() {
+	randomImpl();
+}
+
+int LevelFactory::getClosestLevel(int level) {
+	return getClosestLevelImpl(level);
+}
+
+int LevelFactory::increaseLevel(int level) {
+	return increaseLevelImpl(level);
+}
+
+int LevelFactory::decreaseLevel(int level) {
+	return decreaseLevelImpl(level);
+}
+
+std::unique_ptr<LevelFactory> LevelFactory::create(
+	const LevelConfig& cfg) {
+	return std::make_unique<LevelFactoryImpl>(cfg);
 }
