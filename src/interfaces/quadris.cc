@@ -220,8 +220,9 @@ void Quadris::runGame(istream & in) {
             in >> filename;
             gameCfg.setFilename(filename);
             runCommand(CMD::NoRandom);
-        } else if (CMD::SpawnIBlock == command || CMD::SpawnJBlock == command || CMD::SpawnLBlock == command || 
-                   CMD::SpawnOBlock == command || CMD::SpawnSBlock == command || CMD::SpawnZBlock == command || 
+        } else if (CMD::SpawnIBlock == command || CMD::SpawnJBlock == command || 
+                   CMD::SpawnLBlock == command || CMD::SpawnOBlock == command || 
+                   CMD::SpawnSBlock == command || CMD::SpawnZBlock == command || 
                    CMD::SpawnTBlock == command) {
             runCommand(command);
         } else if (CMD::UseSequenceFile == command) {
