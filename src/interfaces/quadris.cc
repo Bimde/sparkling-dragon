@@ -195,8 +195,7 @@ void Quadris::runGame(istream & in) {
     string input;
     int multiplier;
     enum CMD command;
-    while (!in.eof()) {
-        in >> input;
+    while (in >> input) {
         // Convert to lowercase
         curCommand = input;
 
