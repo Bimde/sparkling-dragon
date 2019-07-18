@@ -15,6 +15,8 @@ namespace {
 	const int gameBoardHeight = 15;
 	const int gameBoardWidth = 11;
 	const char emptySpot = ' ';
+
+	const Point defaultBottomLeft{0,14};
 }
 
 Board::Board() : currentBlock{nullptr}, board{
@@ -67,13 +69,17 @@ void Board::moveRow(int fromRow, int toRow) {
 
 bool Board::setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock> block) {
 	if (block == nullptr) {
+		std::cout << "block is nullptr " << std::endl;
 		currentBlock.swap(block);
 		return true;
 	}
 
-	if (isOverlapping(*block)) {
+	if (currentBlock != nullptr && isOverlapping(*block)) {
+			std::cout << "block false " << std::endl;
 		return false;
 	}
+
+		std::cout << "block is ok " << std::endl;
 
 	currentBlock.swap(block);
 	return true;
@@ -81,7 +87,7 @@ bool Board::setCurrentIfNotOverlapping(std::unique_ptr<UnplacedBlock> block) {
 
 bool Board::moveCurrentDown() {
 	if (currentBlock == nullptr) {
-		return false;
+		return true;
 	}
 
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
@@ -92,7 +98,7 @@ bool Board::moveCurrentDown() {
 
 bool Board::moveCurrentLeft() {
 	if (currentBlock == nullptr) {
-		return false;
+		return true;
 	}
 
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
@@ -103,7 +109,7 @@ bool Board::moveCurrentLeft() {
 
 bool Board::moveCurrentRight() {
 	if (currentBlock == nullptr) {
-		return false;
+		return true;
 	}
 
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
@@ -114,7 +120,7 @@ bool Board::moveCurrentRight() {
 
 bool Board::rotateCurrentLeft() {
 	if (currentBlock == nullptr) {
-		return false;
+		return true;
 	}
 
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
@@ -125,7 +131,7 @@ bool Board::rotateCurrentLeft() {
 
 bool Board::rotateCurrentRight() {
 	if (currentBlock == nullptr) {
-		return false;
+		return true;
 	}
 
 	auto tempBlock = std::make_unique<UnplacedBlock>(*currentBlock);
@@ -174,7 +180,7 @@ bool Board::isOverlapping(const UnplacedBlock& block) const {
 
 bool Board::dropCurrent() {
 	if (currentBlock == nullptr) {
-		return false;
+		return true;
 	}
 
 	if (isOverlapping(*currentBlock)) {
@@ -301,10 +307,16 @@ void Board::resetNumDropsWithoutClears() {
 }
 
 int Board::currentBlockScore() {
+	if (currentBlock == nullptr) {
+		return 0;
+	}
 	return currentBlock->getScore();
 }
 
 Point Board::currentBlockBottomLeft() {
+	if (currentBlock == nullptr) {
+		return defaultBottomLeft;
+	}
 	return currentBlock->getBottomLeft();
 }
 

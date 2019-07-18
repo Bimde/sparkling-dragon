@@ -46,7 +46,7 @@ void Game::completeTurn() {
 
 	int isValidCurrent = board->setCurrentIfNotOverlapping(std::move(temp));
 	
-	if (isValidCurrent && nextBlock != nullptr) {
+	if (isValidCurrent) {
 		currentLevel = levelFactory_->getLevel(nextLevel);
 		nextBlock = currentLevel->getNextBlock(defaultSpawnPoint);
 	}

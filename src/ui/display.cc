@@ -142,7 +142,7 @@ int cartesianPointToArray(int size, int x) {
 
 void XDisplay::drawNextBlock(const GameState& state, bool redraw) {
   // If the next block is null, we want to erase the old block that was drawn
-  if (redraw || state.nextBlock == nullptr ||
+  if (redraw || state.nextBlock == nullptr || lastState.gameState.nextBlock == nullptr ||
     lastState.gameState.nextBlock->getType() != state.nextBlock->getType()) {
 
     // Using xMid to allign the next block to the right side of the center
