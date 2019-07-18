@@ -1,5 +1,6 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <X11/Xatom.h>
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -18,12 +19,17 @@ XWindow::XWindow(int width, int height): width{width}, height{height} {
 	
 	defaultScreenNum = DefaultScreen(display);
 
+	// Create base window
 	auto borderColour = BlackPixel(display, defaultScreenNum);
 	auto backgroundColour = WhitePixel(display, defaultScreenNum);
 	window = XCreateSimpleWindow(
 		display, RootWindow(display, defaultScreenNum), START_X, START_Y, width, height, 
 		DISPLAY_BORDER_WIDTH, borderColour, backgroundColour
 	);
+
+	// Catch close window events (prevent closing window from ui)
+	Atom wmDeleteMessage = XInternAtom(display, "WM_DELETE_WINDOW", False);
+	XSetWMProtocols(display, window, &wmDeleteMessage, 1);
 
 	Pixmap pix = XCreatePixmap(
 		display, window, width, height, 

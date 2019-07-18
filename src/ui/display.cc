@@ -87,21 +87,28 @@ void XDisplay::updateDisplay(bool redraw) {
   // Prevent multiple threads from updating the display at the same time
   mtx.lock();
 
-  if (game == nullptr) {
-    return;
-  }
+  try {
+    if (game == nullptr) {
+      return;
+    }
 
-  QuadrisState state = game->getState();
-  if (state.gameState.isGameOver) {
-    drawGameOver(state.gameState, redraw);
-  } else {
-    drawFields(state, redraw);
-    drawBoard(state.gameState, redraw);
-    drawNextBlock(state.gameState, redraw);
-  }
+    QuadrisState state = game->getState();
 
-  // Saving a copy of the last state for comparison to mnimize redrawing
-  lastState = state;
+    if (state.gameState.isGameOver) {
+      drawGameOver(state.gameState, redraw);
+    } else {
+      drawFields(state, redraw);
+      drawBoard(state.gameState, redraw);
+      drawNextBlock(state.gameState, redraw);
+    }
+
+    // Saving a copy of the last state for comparison to mnimize redrawing
+    lastState = state;
+
+  } catch (...) {
+    std::cerr << "XWindow not reachable" << std::endl;
+  }
+  
   mtx.unlock();
 }
 
