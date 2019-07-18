@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// Used in the constructor to intialize commands in the Trie data structure
 void CommandInterpreter::addCommandsToTrie() {
     trie->insert("left", CMD::Left);
     trie->insert("right", CMD::Right);
@@ -27,9 +28,6 @@ void CommandInterpreter::addCommandsToTrie() {
     trie->insert("z", CMD::SpawnZBlock);
     trie->insert("t", CMD::SpawnTBlock);
     trie->insert("sequence", CMD::UseSequenceFile);
-    // t.insert("removehint", CMD::RemoveHint);
-    // t.insert("invalidcommand", CMD::InvalidCommand);
-    // t.insert("aftermoveturn", CMD::AfterMoveTurn);
 }
 
 CommandInterpreter::CommandInterpreter(): trie{make_unique<Trie>()} {

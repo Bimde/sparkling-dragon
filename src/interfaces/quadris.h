@@ -37,6 +37,8 @@ class Quadris: public Subject {
   	Quadris(GameConfig cfg);
   	virtual ~Quadris();
 
+	// runGame takes in a stream so we can read in from command line, files, etc.
+	// runGame also runs the main game loop so all commands go through it.
 	void runGame(std::istream &);
 	virtual QuadrisState getState();
 

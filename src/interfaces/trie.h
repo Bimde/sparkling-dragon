@@ -13,8 +13,6 @@ class Trie {
     Trie();
     CMD search(std::string);
     void insert(std::string, CMD);
-    // void update(std::string, std::string);
-    // void remove(std::string);
 
     ~Trie();
 };

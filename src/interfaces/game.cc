@@ -169,6 +169,12 @@ int Game::getNumBlocksSpawned() {
 }
 
 void Game::changeCurrentBlock(char ch) {
+	if (board->getCurrentBlock() == nullptr) {
+		board->setCurrentIfNotOverlapping(
+			createLetterBlock(ch, 0, defaultSpawnPoint)
+		);
+		return;
+	}
 	board->setCurrentIfNotOverlapping(createLetterBlock(
 		ch, board->currentBlockScore(), board->currentBlockBottomLeft()));
 }
